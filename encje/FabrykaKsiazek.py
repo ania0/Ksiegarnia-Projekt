@@ -7,6 +7,7 @@
 
 from encje.KsiazkaPapierowa import KsiazkaPapierowa
 from encje.Ebook import Ebook
+from encje.IKsiazka import IKsiazka
 
 class FabrykaKsiazek:
     def utworzEbook(self, tytul, autor, ISBN, gatunek, cena, sciezkaDoPliku, opis) -> Ebook:

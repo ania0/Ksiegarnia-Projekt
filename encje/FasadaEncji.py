@@ -53,63 +53,77 @@
 # 		pass
 #
 
+from encje.Uzytkownik import Uzytkownik
+from encje.Zamowienie import Zamowienie
+from encje.Klient import Klient
+from encje.IKsiazka import IKsiazka
+from typing import List
 
 from encje.IRepozytoriumKsiazek import IRepozytoriumKsiazek
 from encje.IRepozytoriumUzytkownika import IRepozytoriumUzytkownika
 from encje.IRepozytoriumZamowien import IRepozytoriumZamowien
 from encje.IEncjeFasada import IEncjeFasada
+from encje.FabrykaKsiazek import FabrykaKsiazek
+from encje.DekoratorRabatuLojalnosciowego import DekoratorRabatuLojalnosciowego
+from encje.ICena import ICena
+
 class FasadaEncji:
     def __init__(self, repoKsiazek: IRepozytoriumKsiazek,
                  repoUzytkownika: IRepozytoriumUzytkownika,
-                 repoZamowien: IRepozytoriumZamowien):
+                 repoZamowien: IRepozytoriumZamowien,
+                 fabrykaKsiazek: FabrykaKsiazek):
         self.repoKsiazek = repoKsiazek
         self.repoUzytkownika = repoUzytkownika
         self.repoZamowien = repoZamowien
+        self.fabrykaKsiazek = fabrykaKsiazek
 
     # Uzytkownicy
     def rejestrujUzytkownika(self, uzytkownik):
-        pass
+        self.repoUzytkownika.rejestrujUzytkownika(uzytkownik)
 
-    def znajdzUzytkownikaPoEmail(self, email: str):
-        pass
+    def znajdzUzytkownikaPoEmail(self, email: str) -> Uzytkownik:
+        return self.repoUzytkownika.znajdzUzytkownikaPoEmail(email)
 
     def czyIstnieje(self, email: str) -> bool:
-        pass
+        return self.repoUzytkownika.czyIstnieje(email)
 
     def usun(self, idUzytkownika: int):
-        pass
+        self.repoUzytkownika.usun(idUzytkownika)
 
-    def pobierzDaneUzytkownika(self, idUzytkownika: int):
-        pass
+    def pobierzDaneUzytkownika(self, idUzytkownika: int) -> Uzytkownik:
+        return self.repoUzytkownika.pobierzDaneUzytkownika(idUzytkownika)
 
     # Ksiazki
-    def dodajKsiazke(self, ksiazka):
-        pass
+    def dodajKsiazke(self, ksiazka: IKsiazka):
+        self.repoKsiazek.dodajKsiazke(ksiazka)
 
     def usunKsiazke(self, idKsiazki: int):
-        pass
+        self.repoKsiazek.usunKsiazke(idKsiazki)
 
-    def pobierzWszystkie(self):
-        pass
+    def pobierzWszystkie(self) -> List[IKsiazka]:
+        return self.repoKsiazek.pobierzWszystkie()
 
-    def AktualizujDane(self, ksiazka):
-        pass
+    def AktualizujDane(self, ksiazka: IKsiazka):
+        self.repoKsiazek.AktualizujDane(ksiazka)
 
-    def pobierzPoId(self, id: int):
-        pass
+    def pobierzPoId(self, id: int) -> IKsiazka:
+        return self.repoKsiazek.pobierzPoId(id)
 
     def aktualizujStan(self, idKsiazki: int, nowyStan: int):
-        pass
+        self.repoKsiazek.aktualizuj(idKsiazki, nowyStan)
 
     # Zamowienia
-    def zapiszZamowienie(self, zamowienie):
-        pass
+    def zapiszZamowienie(self, zamowienie: Zamowienie):
+        self.repoZamowien.zapiszZamowienie(zamowienie)
 
-    def pobierzHistorieDlaKlienta(self, idKlienta: int):
-        pass
+    def pobierzHistorieDlaKlienta(self, idKlienta: int) -> List[Zamowienie]:
+        return self.repoZamowien.pobierzHistorieDlaKlienta(idKlienta)
 
-    def pobierzWszystkieZamowienia(self):
-        pass
+    def pobierzWszystkieZamowienia(self) -> List[Zamowienie]:
+        return self.repoZamowien.pobierzWszystkieZamowienia()
 
-    def obliczCeneOstateczna(self, zamowienie, klient):
-        pass
+    def obliczCeneOstateczna(self, zamowienie: Zamowienie, klient: Klient) -> float:
+        komponent_ceny: ICena = zamowienie
+        if klient.klientLojalny:
+            komponent_ceny = DekoratorRabatuLojalnosciowego(komponent_ceny)
+        return komponent_ceny.obliczCene()

@@ -8,13 +8,12 @@
 # 	def __init__(self):
 # 		self._unnamed_ICena_ : ICena = None
 
-from encje.Zamowienie import Zamowienie
 from encje.ICena import ICena
 from abc import ABC, abstractmethod
 
 class DekoratorCenyZamowienia(ICena, ABC):
-    def __init__(self, zamowienie: Zamowienie):
-        self._zamowienie = zamowienie
+    def __init__(self, komponent: ICena):
+        self._komponent: ICena = komponent
 
     @abstractmethod
     def obliczCene(self) -> float:

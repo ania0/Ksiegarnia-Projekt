@@ -28,19 +28,21 @@ from encje.Klient import Klient
 from encje.PozycjaZamowienia import PozycjaZamowienia
 from encje.ICena import ICena
 from datetime import date
+from typing import List
 
-class Zamowienie:
-    def __init__(self, uzytkownik: Klient, pozycje: list[PozycjaZamowienia],
-                 data: date, cenaRazem: float, status: str, metodaPlatnosci: str):
-        self.uzytkownik = uzytkownik
-        self.pozycje = pozycje
-        self.data = data
-        self.cenaRazem = cenaRazem
-        self.status = status
-        self.metodaPlatnosci = metodaPlatnosci
+class Zamowienie(ICena):
+    def __init__(self, klient: Klient,
+                 data: date, status: str, metodaPlatnosci: str):
+        self.klient: Klient = klient
+        self.pozycje: List[PozycjaZamowienia] = []
+        self.data: date = data
+        self.status: str = status
+        self.metodaPlatnosci: str = metodaPlatnosci
+        self.cenaRazem: foalt = 0.0
 
     def dodajPozycje(self, pozycja: PozycjaZamowienia):
         self.pozycje.append(pozycja)
+        self.obliczCene()
 
     def obliczCene(self) -> float:
         self.cenaRazem = sum(p.cenaJednostkowa * p.ilosc for p in self.pozycje)

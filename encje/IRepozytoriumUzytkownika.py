@@ -27,20 +27,27 @@
 # 	def pobierzDaneUzytkownika(self, aIdUzytkownika : int) -> Uzytkownik:
 # 		pass
 
+from abc import ABCMeta, abstractmethod
 from encje.Uzytkownik import Uzytkownik
+from typing import List
 
-class IRepozytoriumUzytkownika:
+class IRepozytoriumUzytkownika(ABC):
+    @abstractmethod
     def rejestrujUzytkownika(self, uzytkownik: Uzytkownik):
         pass
 
+    @abstractmethod
     def znajdzUzytkownikaPoEmail(self, email: str) -> Uzytkownik:
         pass
 
+    @abstractmethod
     def czyIstnieje(self, email: str) -> bool:
         pass
 
+    @abstractmethod
     def usun(self, idUzytkownika: int):
         pass
 
+    @abstractmethod
     def pobierzDaneUzytkownika(self, idUzytkownika: int) -> Uzytkownik:
         pass

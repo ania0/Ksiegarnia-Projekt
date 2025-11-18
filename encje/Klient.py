@@ -16,10 +16,10 @@ from encje.Uzytkownik import Uzytkownik
 
 class Klient(Uzytkownik):
     def __init__(self, imie: str, nazwisko: str, email: str, hashHasla: str,
-                 adresWysylki: str, KlientLojalny: bool):
+                 adresWysylki: str, klientLojalny: bool):
         super().__init__(imie, nazwisko, email, hashHasla)
-        self.adresWysylki = adresWysylki
-        self.KlientLojalny = KlientLojalny
+        self.adresWysylki: str = adresWysylki
+        self.klientLojalny: bool = klientLojalny
 
     def aktualizujStatus(self):
         # Tu możesz dodać logikę aktualizacji statusu klienta

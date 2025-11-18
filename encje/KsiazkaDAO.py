@@ -25,28 +25,29 @@
 
 from encje.IKsiazka import IKsiazka
 from encje.IRepozytoriumKsiazek import IRepozytoriumKsiazek
+from encje.KsiazkaPapierowa import KsiazkaPapierowa
 from typing import List
 
 class KsiazkaDAO(IRepozytoriumKsiazek):
     def __init__(self):
-        self.ksiazki: List[IKsiazka] = []
+        self.listaKsiazek: List[IKsiazka] = []
 
     def dodajKsiazke(self, ksiazka: IKsiazka):
-        self.ksiazki.append(ksiazka)
+        self.listaKsiazek.append(ksiazka)
 
     def usunKsiazke(self, idKsiazki: int):
-        self.ksiazki = [k for k in self.ksiazki if getattr(k, 'id', None) != idKsiazki]
+        self.listaKsiazek = [k for k in self.listaKsiazek if getattr(k, 'id', None) != idKsiazki]
 
     def pobierzWszystkie(self) -> List[IKsiazka]:
-        return self.ksiazki
+        return self.listaKsiazek
 
     def AktualizujDane(self, ksiazka: IKsiazka):
-        for i, k in enumerate(self.ksiazki):
+        for i, k in enumerate(self.listaKsiazek):
             if getattr(k, 'id', None) == getattr(ksiazka, 'id', None):
-                self.ksiazki[i] = ksiazka
+                self.listaKsiazek[i] = ksiazka
 
     def pobierzPoId(self, id: int) -> IKsiazka:
-        for k in self.ksiazki:
+        for k in self.listaKsiazek:
             if getattr(k, 'id', None) == id:
                 return k
         return None

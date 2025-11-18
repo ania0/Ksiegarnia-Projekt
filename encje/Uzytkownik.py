@@ -16,8 +16,8 @@
 class Uzytkownik:
     """Encja użytkownika"""
 
-    def __init__(self, imie=None, nazwisko=None, hashHasla=None, email=None):
-        self.imie = imie
-        self.nazwisko = nazwisko
-        self.hashHasla = hashHasla
-        self.email = email
+    def __init__(self, imie=str, nazwisko=str, hashHasla=str, email=str):
+        self.imie: str = imie
+        self.nazwisko: str = nazwisko
+        self.hashHasla: str = hashHasla
+        self.email: str = email

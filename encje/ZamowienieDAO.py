@@ -27,16 +27,16 @@ from typing import List
 
 class ZamowienieDAO(IRepozytoriumZamowien):
     def __init__(self):
-        self.zamowienia: List[Zamowienie] = []
+        self.listaZamowien: List[Zamowienie] = []
 
     def zapiszZamowienie(self, zamowienie: Zamowienie):
-        self.zamowienia.append(zamowienie)
+        self.listaZamowien.append(zamowienie)
 
     def pobierzHistorieDlaKlienta(self, idKlienta: int) -> List[Zamowienie]:
-        return [z for z in self.zamowienia if z.uzytkownik.id == idKlienta]
+        return [z for z in self.listaZamowien if z.uzytkownik.id == idKlienta]
 
     def pobierzWszystkieZamowienia(self) -> List[Zamowienie]:
-        return self.zamowienia
+        return self.listaZamowien
 
     def obliczCeneOstateczna(self, zamowienie: Zamowienie, klient: Klient) -> float:
         # W tym miejscu można zastosować dekoratory rabatów itp.

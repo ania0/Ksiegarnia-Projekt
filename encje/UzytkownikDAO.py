@@ -28,25 +28,25 @@ from typing import List
 
 class UzytkownikDAO(IRepozytoriumUzytkownika):
     def __init__(self):
-        self.uzytkownicy: List[Uzytkownik] = []
+        self.listaUzytkownikow: List[Uzytkownik] = []
 
     def rejestrujUzytkownika(self, uzytkownik: Uzytkownik):
-        self.uzytkownicy.append(uzytkownik)
+        self.listaUzytkownikow.append(uzytkownik)
 
     def znajdzUzytkownikaPoEmail(self, email: str) -> Uzytkownik:
-        for u in self.uzytkownicy:
+        for u in self.listaUzytkownikow:
             if u.email == email:
                 return u
         return None
 
     def czyIstnieje(self, email: str) -> bool:
-        return any(u.email == email for u in self.uzytkownicy)
+        return any(u.email == email for u in self.listaUzytkownikow)
 
     def usun(self, idUzytkownika: int):
-        self.uzytkownicy = [u for u in self.uzytkownicy if getattr(u, 'id', None) != idUzytkownika]
+        self.listaUzytkownikow = [u for u in self.listaUzytkownikow if getattr(u, 'id', None) != idUzytkownika]
 
     def pobierzDaneUzytkownika(self, idUzytkownika: int) -> Uzytkownik:
-        for u in self.uzytkownicy:
+        for u in self.listaUzytkownikow:
             if getattr(u, 'id', None) == idUzytkownika:
                 return u
         return None

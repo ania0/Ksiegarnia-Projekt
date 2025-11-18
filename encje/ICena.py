@@ -16,5 +16,3 @@ class ICena(ABC):
     @abstractmethod
     def obliczCene(self) -> float:
         pass
-
-
