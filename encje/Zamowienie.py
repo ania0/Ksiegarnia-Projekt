@@ -26,6 +26,7 @@
 
 from encje.Klient import Klient
 from encje.PozycjaZamowienia import PozycjaZamowienia
+from encje.ICena import ICena
 from datetime import date
 
 class Zamowienie:

@@ -16,7 +16,7 @@
 # 		self.___stanMagazynowy : int = None
 # 		self.___opis : String = None
 #
-
+from encje.IKsiazka import IKsiazka
 
 class KsiazkaPapierowa:
     def __init__(self, tytul: str, autor: str, ISBN: int, gatunek: str,

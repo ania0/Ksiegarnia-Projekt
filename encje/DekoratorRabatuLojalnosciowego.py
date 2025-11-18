@@ -7,7 +7,7 @@
 # 	pass
 
 
-from encje.DekoraotrCenyZamowienia__klasa_Abstrakcyjna import DekoratorCenyZamowienia
+from encje.DekoratorCenyZamowienia__klasa_Abstrakcyjna import DekoratorCenyZamowienia
 from encje.Klient import Klient
 
 class DekoratorRabatuLojalnosciowego(DekoratorCenyZamowienia):

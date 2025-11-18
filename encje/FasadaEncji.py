@@ -57,7 +57,7 @@
 from encje.IRepozytoriumKsiazek import IRepozytoriumKsiazek
 from encje.IRepozytoriumUzytkownika import IRepozytoriumUzytkownika
 from encje.IRepozytoriumZamowien import IRepozytoriumZamowien
-
+from encje.IEncjeFasada import IEncjeFasada
 class FasadaEncji:
     def __init__(self, repoKsiazek: IRepozytoriumKsiazek,
                  repoUzytkownika: IRepozytoriumUzytkownika,

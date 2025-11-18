@@ -32,7 +32,6 @@
 #
 
 
-from encje.IKsiazka import IKsiazka
 from typing import List
 
 class IRepozytoriumKsiazek:

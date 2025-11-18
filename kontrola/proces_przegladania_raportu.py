@@ -1,4 +1,4 @@
-from encje.iencje_fasada import IEncjeFasada
+from encje.IEncjeFasada import IEncjeFasada
 
 
 class ProcesPrzegladaniaRaportu:

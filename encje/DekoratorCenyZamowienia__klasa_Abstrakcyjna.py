@@ -12,7 +12,7 @@ from encje.Zamowienie import Zamowienie
 from encje.ICena import ICena
 from abc import ABC, abstractmethod
 
-class DekoratorCenyZamowienia(KCena, ABC):
+class DekoratorCenyZamowienia(ICena, ABC):
     def __init__(self, zamowienie: Zamowienie):
         self._zamowienie = zamowienie
 

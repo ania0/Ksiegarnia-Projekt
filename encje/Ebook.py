@@ -17,7 +17,7 @@
 # 		self.___opis : String = None
 #
 
-
+from encje.IKsiazka import IKsiazka
 class Ebook:
     def __init__(self, tytul: str, autor: str, ISBN: int, gatunek: str,
                  cena: float, sciezkaDoPliku: str, opis: str):
