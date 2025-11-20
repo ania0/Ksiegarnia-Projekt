@@ -41,6 +41,7 @@ class UzytkownikDAO(IRepozytoriumUzytkownika):
 
     def czyIstnieje(self, email: str) -> bool:
         return any(u.email == email for u in self.listaUzytkownikow)
+    # True - istnieje
 
     def usun(self, idUzytkownika: int):
         self.listaUzytkownikow = [u for u in self.listaUzytkownikow if getattr(u, 'id', None) != idUzytkownika]

@@ -33,9 +33,10 @@
 
 
 from typing import List
-from abc import ABCMeta, abstractmethod
+from abc import ABC, abstractmethod
 from encje.IKsiazka import IKsiazka
 
+# jakie operacje klasa repozytorium ma dostarczyc
 class IRepozytoriumKsiazek(ABC):
 
     @abstractmethod

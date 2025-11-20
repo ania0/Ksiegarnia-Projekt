@@ -25,6 +25,11 @@ from encje.Zamowienie import Zamowienie
 from encje.Klient import Klient
 from typing import List
 
+
+# przechowywanie i pobieraniem obiektow Zamowienie
+# dziedziczy po IRepozytoriumZamowien - musi implementować metody
+
+# wzorzec projektowy do oddzielania logiki dostępu do danych od reszty aplikacji
 class ZamowienieDAO(IRepozytoriumZamowien):
     def __init__(self):
         self.listaZamowien: List[Zamowienie] = []
@@ -32,6 +37,8 @@ class ZamowienieDAO(IRepozytoriumZamowien):
     def zapiszZamowienie(self, zamowienie: Zamowienie):
         self.listaZamowien.append(zamowienie)
 
+
+# zwraca liste zamowien klienta, po idKlienta
     def pobierzHistorieDlaKlienta(self, idKlienta: int) -> List[Zamowienie]:
         return [z for z in self.listaZamowien if z.uzytkownik.id == idKlienta]
 
@@ -39,5 +46,4 @@ class ZamowienieDAO(IRepozytoriumZamowien):
         return self.listaZamowien
 
     def obliczCeneOstateczna(self, zamowienie: Zamowienie, klient: Klient) -> float:
-        # W tym miejscu można zastosować dekoratory rabatów itp.
         return zamowienie.obliczCene()

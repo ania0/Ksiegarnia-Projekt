@@ -31,6 +31,7 @@ from datetime import date
 from typing import List
 
 class Zamowienie(ICena):
+    # konstruktor
     def __init__(self, klient: Klient,
                  data: date, status: str, metodaPlatnosci: str):
         self.klient: Klient = klient
@@ -38,7 +39,7 @@ class Zamowienie(ICena):
         self.data: date = data
         self.status: str = status
         self.metodaPlatnosci: str = metodaPlatnosci
-        self.cenaRazem: foalt = 0.0
+        self.cenaRazem: float = 0.0
 
     def dodajPozycje(self, pozycja: PozycjaZamowienia):
         self.pozycje.append(pozycja)

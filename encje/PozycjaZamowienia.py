@@ -16,6 +16,7 @@
 #
 
 from encje.IKsiazka import IKsiazka
+from encje.Zamowienie import Zamowienie
 from typing import Union
 
 class PozycjaZamowienia:

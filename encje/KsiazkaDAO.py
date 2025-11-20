@@ -28,6 +28,8 @@ from encje.IRepozytoriumKsiazek import IRepozytoriumKsiazek
 from encje.KsiazkaPapierowa import KsiazkaPapierowa
 from typing import List
 
+# zarzadzanie obiektami ksiazek w bazie
+
 class KsiazkaDAO(IRepozytoriumKsiazek):
     def __init__(self):
         self.listaKsiazek: List[IKsiazka] = []
@@ -35,6 +37,7 @@ class KsiazkaDAO(IRepozytoriumKsiazek):
     def dodajKsiazke(self, ksiazka: IKsiazka):
         self.listaKsiazek.append(ksiazka)
 
+# po id
     def usunKsiazke(self, idKsiazki: int):
         self.listaKsiazek = [k for k in self.listaKsiazek if getattr(k, 'id', None) != idKsiazki]
 
@@ -52,6 +55,8 @@ class KsiazkaDAO(IRepozytoriumKsiazek):
                 return k
         return None
 
+
+# z repozytorium po id, zmienia pole stanMagazynowy
     def aktualizujStan(self, idKsiazki: int, nowyStan: int):
         k = self.pobierzPoId(idKsiazki)
         if k:

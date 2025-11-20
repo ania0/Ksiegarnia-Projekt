@@ -20,6 +20,7 @@
 from encje.IKsiazka import IKsiazka
 
 class Ebook(IKsiazka):
+    # konstruktor
     def __init__(self, tytul: str, autor: str, ISBN: int, gatunek: str,
                  cena: float, sciezkaDoPliku: str, opis: str):
         self.tytul: str = tytul
@@ -30,5 +31,6 @@ class Ebook(IKsiazka):
         self.sciezkaDoPliku: str = sciezkaDoPliku
         self.opis: str = opis
 
+    # przyklad metody interf IKsiazka
     def pobierzCene(self) -> float:
         return self.cena

@@ -25,10 +25,12 @@
 # 		pass
 #
 
-from abc import ABCMeta, abstractmethod
+from abc import ABC, abstractmethod
 from encje.Zamowienie import Zamowienie
 from encje.Klient import Klient
 from typing import List
+
+# jakie operacje klasa repozytorium ma dostarczyc
 
 class IRepozytoriumZamowien(ABC):
     @abstractmethod

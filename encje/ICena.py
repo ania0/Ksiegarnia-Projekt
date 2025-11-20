@@ -10,6 +10,7 @@
 # 	def obliczCene(self):
 # 		pass
 
+
 from abc import ABC, abstractmethod
 
 class ICena(ABC):

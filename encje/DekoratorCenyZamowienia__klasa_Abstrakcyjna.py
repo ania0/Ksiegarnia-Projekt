@@ -8,7 +8,7 @@
 # 	def __init__(self):
 # 		self._unnamed_ICena_ : ICena = None
 
-from encje.ICena import ICena
+from encje.ICena import ICena # dziedziczy
 from abc import ABC, abstractmethod
 
 class DekoratorCenyZamowienia(ICena, ABC):

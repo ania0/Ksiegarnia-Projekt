@@ -27,9 +27,11 @@
 # 	def pobierzDaneUzytkownika(self, aIdUzytkownika : int) -> Uzytkownik:
 # 		pass
 
-from abc import ABCMeta, abstractmethod
+from abc import ABC, abstractmethod
 from encje.Uzytkownik import Uzytkownik
 from typing import List
+
+# jakie operacje klasa repozytorium ma dostarczyc
 
 class IRepozytoriumUzytkownika(ABC):
     @abstractmethod

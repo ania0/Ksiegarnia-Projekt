@@ -15,9 +15,11 @@
 # 		self.___cena : float = None
 # 		self.___stanMagazynowy : int = None
 # 		self.___opis : String = None
-#
+
+
 from encje.IKsiazka import IKsiazka
 
+# dziedziczy po IKsiazka
 class KsiazkaPapierowa(IKsiazka):
     def __init__(self, tytul: str, autor: str, ISBN: int, gatunek: str,
                  cena: float, stanMagazynowy: int, opis: str):

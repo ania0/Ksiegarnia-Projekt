@@ -67,6 +67,7 @@ from encje.FabrykaKsiazek import FabrykaKsiazek
 from encje.DekoratorRabatuLojalnosciowego import DekoratorRabatuLojalnosciowego
 from encje.ICena import ICena
 
+# posrednik miedzy kodem biznesowym a repo
 class FasadaEncji:
     def __init__(self, repoKsiazek: IRepozytoriumKsiazek,
                  repoUzytkownika: IRepozytoriumUzytkownika,
@@ -77,6 +78,7 @@ class FasadaEncji:
         self.repoZamowien = repoZamowien
         self.fabrykaKsiazek = fabrykaKsiazek
 
+#deleguje zadania do repo i ukrywa szczegoly
     # Uzytkownicy
     def rejestrujUzytkownika(self, uzytkownik):
         self.repoUzytkownika.rejestrujUzytkownika(uzytkownik)
@@ -94,6 +96,7 @@ class FasadaEncji:
         return self.repoUzytkownika.pobierzDaneUzytkownika(idUzytkownika)
 
     # Ksiazki
+    # metoda moze przyjmować obiekt implementujący ten interfejs
     def dodajKsiazke(self, ksiazka: IKsiazka):
         self.repoKsiazek.dodajKsiazke(ksiazka)
 
@@ -122,8 +125,12 @@ class FasadaEncji:
     def pobierzWszystkieZamowienia(self) -> List[Zamowienie]:
         return self.repoZamowien.pobierzWszystkieZamowienia()
 
+# wzorzec dekoratora
+    # zamowienie implementuje interfejs ICena
+    # jesli klient lojalny – owijamy zamowienie dekoratorem rabatu
     def obliczCeneOstateczna(self, zamowienie: Zamowienie, klient: Klient) -> float:
         komponent_ceny: ICena = zamowienie
         if klient.klientLojalny:
+            # dodawanie funkcji bez zmieniania podstawowej klasy
             komponent_ceny = DekoratorRabatuLojalnosciowego(komponent_ceny)
         return komponent_ceny.obliczCene()
