@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
-from encje.modele import Uzytkownik # Ważny import!
+from encje.Uzytkownik import Uzytkownik
+
 
 class IStrategiaUwierzytelniania(ABC):
     @abstractmethod

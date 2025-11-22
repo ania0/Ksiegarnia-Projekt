@@ -7,5 +7,4 @@ class ProcesPrzegladaniaRaportu:
 
     def wykonaj(self):
         print("ProcesPrzegladaniaRaportu: Rozpoczynam...")
-        # STUB
         raise NotImplementedError("PU: Logika ProcesPrzegladaniaRaportu nie jest zaimplementowana.")

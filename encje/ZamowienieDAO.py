@@ -19,25 +19,25 @@
 # 		pass
 #
 
-
+from typing import List
 from encje.IRepozytoriumZamowien import IRepozytoriumZamowien
 from encje.Zamowienie import Zamowienie
 from encje.Klient import Klient
-from typing import List
+from encje.MagazynZamowien import MagazynZamowien
 
 class ZamowienieDAO(IRepozytoriumZamowien):
     def __init__(self):
-        self.zamowienia: List[Zamowienie] = []
+        self._magazyn = MagazynZamowien()
 
     def zapiszZamowienie(self, zamowienie: Zamowienie):
-        self.zamowienia.append(zamowienie)
+        print("DAO: Zapisuję zamówienie do Magazynu...")
+        self._magazyn.dodaj(zamowienie)
 
     def pobierzHistorieDlaKlienta(self, idKlienta: int) -> List[Zamowienie]:
-        return [z for z in self.zamowienia if z.uzytkownik.id == idKlienta]
+        return self._magazyn.pobierz_dla_klienta(idKlienta)
 
     def pobierzWszystkieZamowienia(self) -> List[Zamowienie]:
-        return self.zamowienia
+        return self._magazyn.pobierz_wszystkie()
 
     def obliczCeneOstateczna(self, zamowienie: Zamowienie, klient: Klient) -> float:
-        # W tym miejscu można zastosować dekoratory rabatów itp.
         return zamowienie.obliczCene()

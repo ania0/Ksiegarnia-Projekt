@@ -32,23 +32,25 @@
 #
 
 
+from abc import ABC, abstractmethod
 from typing import List
+from encje.IKsiazka import IKsiazka
 
-class IRepozytoriumKsiazek:
-    def dodajKsiazke(self, ksiazka: IKsiazka):
-        pass
+class IRepozytoriumKsiazek(ABC):
+    @abstractmethod
+    def dodajKsiazke(self, ksiazka: IKsiazka): pass
 
-    def usunKsiazke(self, idKsiazki: int):
-        pass
+    @abstractmethod
+    def usunKsiazke(self, idKsiazki: int): pass
 
-    def pobierzWszystkie(self) -> List[IKsiazka]:
-        pass
+    @abstractmethod
+    def pobierzWszystkie(self) -> List[IKsiazka]: pass
 
-    def AktualizujDane(self, ksiazka: IKsiazka):
-        pass
+    @abstractmethod
+    def AktualizujDane(self, ksiazka: IKsiazka): pass
 
-    def pobierzPoId(self, id: int) -> IKsiazka:
-        pass
+    @abstractmethod
+    def pobierzPoId(self, id: int) -> IKsiazka: pass
 
-    def aktualizujStan(self, idKsiazki: int, nowyStan: int):
-        pass
+    @abstractmethod
+    def aktualizujStan(self, idKsiazki: int, nowyStan: int): pass

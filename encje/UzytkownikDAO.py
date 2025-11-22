@@ -22,31 +22,36 @@
 #
 
 
+
 from encje.IRepozytoriumUzytkownika import IRepozytoriumUzytkownika
 from encje.Uzytkownik import Uzytkownik
-from typing import List
+from encje.MagazynUzytkownikow import MagazynUzytkownikow
+from typing import Optional
+
 
 class UzytkownikDAO(IRepozytoriumUzytkownika):
     def __init__(self):
-        self.uzytkownicy: List[Uzytkownik] = []
+        self._magazyn = MagazynUzytkownikow()
 
     def rejestrujUzytkownika(self, uzytkownik: Uzytkownik):
-        self.uzytkownicy.append(uzytkownik)
+        print(f"DAO: Zapisuję użytkownika {uzytkownik.login} do Magazynu...")
+        self._magazyn.dodaj(uzytkownik)
 
-    def znajdzUzytkownikaPoEmail(self, email: str) -> Uzytkownik:
-        for u in self.uzytkownicy:
-            if u.email == email:
+    def znajdzUzytkownikaPoEmail(self, email: str) -> Optional[Uzytkownik]:
+        wszyscy = self._magazyn.pobierz_wszystkich()
+
+        for u in wszyscy:
+            if u.login == email:
                 return u
         return None
 
     def czyIstnieje(self, email: str) -> bool:
-        return any(u.email == email for u in self.uzytkownicy)
+        uzytkownik = self.znajdzUzytkownikaPoEmail(email)
+        return uzytkownik is not None
 
-    def usun(self, idUzytkownika: int):
-        self.uzytkownicy = [u for u in self.uzytkownicy if getattr(u, 'id', None) != idUzytkownika]
+    def usun(self, login: str):
+        print(f"DAO: Usuwam użytkownika {login} z Magazynu...")
+        self._magazyn.usun_po_loginie(login)
 
-    def pobierzDaneUzytkownika(self, idUzytkownika: int) -> Uzytkownik:
-        for u in self.uzytkownicy:
-            if getattr(u, 'id', None) == idUzytkownika:
-                return u
-        return None
+    def pobierzDaneUzytkownika(self, login: str) -> Optional[Uzytkownik]:
+        return self.znajdzUzytkownikaPoEmail(login)

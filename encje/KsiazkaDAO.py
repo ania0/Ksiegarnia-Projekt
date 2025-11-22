@@ -23,36 +23,40 @@
 # 		pass
 
 
-from encje.IKsiazka import IKsiazka
-from encje.IRepozytoriumKsiazek import IRepozytoriumKsiazek
 from typing import List
+from encje.IRepozytoriumKsiazek import IRepozytoriumKsiazek
+from encje.IKsiazka import IKsiazka
+from encje.MagazynKsiazek import MagazynKsiazek
 
 class KsiazkaDAO(IRepozytoriumKsiazek):
     def __init__(self):
-        self.ksiazki: List[IKsiazka] = []
+        # Relacja z diagramu: DAO -> Magazyn
+        self._magazyn = MagazynKsiazek()
 
     def dodajKsiazke(self, ksiazka: IKsiazka):
-        self.ksiazki.append(ksiazka)
+        print("DAO: Dodaję książkę do Magazynu...")
+        self._magazyn.dodaj(ksiazka)
 
     def usunKsiazke(self, idKsiazki: int):
-        self.ksiazki = [k for k in self.ksiazki if getattr(k, 'id', None) != idKsiazki]
+        self._magazyn.usun(idKsiazki)
 
     def pobierzWszystkie(self) -> List[IKsiazka]:
-        return self.ksiazki
+        return self._magazyn.pobierz_wszystkie()
 
     def AktualizujDane(self, ksiazka: IKsiazka):
-        for i, k in enumerate(self.ksiazki):
-            if getattr(k, 'id', None) == getattr(ksiazka, 'id', None):
-                self.ksiazki[i] = ksiazka
+        self._magazyn.aktualizuj(ksiazka)
 
     def pobierzPoId(self, id: int) -> IKsiazka:
-        for k in self.ksiazki:
-            if getattr(k, 'id', None) == id:
-                return k
-        return None
+        return self._magazyn.znajdz_po_id(id)
 
     def aktualizujStan(self, idKsiazki: int, nowyStan: int):
-        k = self.pobierzPoId(idKsiazki)
-        if k:
-            k.stanMagazynowy = nowyStan
-
+        # Logika: pobierz z magazynu -> zmień stan -> (magazyn trzyma referencję, więc się zaktualizuje)
+        ksiazka = self._magazyn.znajdz_po_id(idKsiazki)
+        if ksiazka:
+            # Zakładamy, że obiekt IKsiazka ma pole stanMagazynowy
+            # Jeśli IKsiazka to interfejs, upewnij się, że ta operacja jest tam dozwolona,
+            # lub rzutuj na konkretną klasę Ksiazka
+            if hasattr(ksiazka, 'stanMagazynowy'):
+                 ksiazka.stanMagazynowy = nowyStan
+            else:
+                 print("Błąd: Obiekt nie ma pola stanMagazynowy")

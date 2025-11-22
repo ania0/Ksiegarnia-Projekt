@@ -27,6 +27,7 @@
 # 	def pobierzDaneUzytkownika(self, aIdUzytkownika : int) -> Uzytkownik:
 # 		pass
 
+from abc import ABC, abstractmethod
 from encje.Uzytkownik import Uzytkownik
 
 class IRepozytoriumUzytkownika:

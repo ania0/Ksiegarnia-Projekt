@@ -25,19 +25,20 @@
 # 		pass
 #
 
-from encje.Zamowienie import Zamowienie
-from encje.Klient import Klient
+from abc import ABC, abstractmethod
 from typing import List
+from encje.Zamowienie import Zamowienie
+from encje.Klient import Klient # Zakładam plik klient.py
 
-class IRepozytoriumZamowien:
-    def zapiszZamowienie(self, zamowienie: Zamowienie):
-        pass
+class IRepozytoriumZamowien(ABC):
+    @abstractmethod
+    def zapiszZamowienie(self, zamowienie: Zamowienie): pass
 
-    def pobierzHistorieDlaKlienta(self, idKlienta: int) -> List[Zamowienie]:
-        pass
+    @abstractmethod
+    def pobierzHistorieDlaKlienta(self, idKlienta: int) -> List[Zamowienie]: pass
 
-    def pobierzWszystkieZamowienia(self) -> List[Zamowienie]:
-        pass
+    @abstractmethod
+    def pobierzWszystkieZamowienia(self) -> List[Zamowienie]: pass
 
-    def obliczCeneOstateczna(self, zamowienie: Zamowienie, klient: Klient) -> float:
-        pass
+    @abstractmethod
+    def obliczCeneOstateczna(self, zamowienie: Zamowienie, klient: Klient) -> float: pass
