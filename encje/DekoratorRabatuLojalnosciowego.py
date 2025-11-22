@@ -10,9 +10,15 @@
 from encje.DekoratorCenyZamowienia__klasa_Abstrakcyjna import DekoratorCenyZamowienia
 from encje.Klient import Klient
 
+
+# klasa dziedziczy po DekoratorCenyZamowienia:
+# implementuje interf ICena (bliczCene()), obiekt komponent
+
 class DekoratorRabatuLojalnosciowego(DekoratorCenyZamowienia):
     def obliczCene(self) -> float:
-        cena = self._zamowienie.obliczCene()
-        if isinstance(self._zamowienie.uzytkownik, Klient) and self._zamowienie.uzytkownik.KlientLojalny:
+        cena = self._komponent.obliczCene()
+        uzytkownik = getattr(self._komponent, 'uzytkownik', None) # czy instancja i czy lojalny
+
+        if isinstance(uzytkownik, Klient) and uzytkownik.klientLojalny:
             cena *= 0.9  # 10% rabatu dla lojalnego klienta
         return cena

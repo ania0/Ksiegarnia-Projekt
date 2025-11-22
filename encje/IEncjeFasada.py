@@ -1,5 +1,7 @@
 # #!/usr/bin/python
 
+
+
 from abc import ABC, abstractmethod
 from typing import List
 from encje.Uzytkownik import Uzytkownik
@@ -8,9 +10,11 @@ from encje.Zamowienie import Zamowienie
 from encje.IKsiazka import IKsiazka
 
 class IEncjeFasada(ABC):
-    """Interface dla fasady operacji na encjach"""
 
-    # --- Użytkownicy ---
+    # Uzytkownicy
+    # klient moze wykonac operacje na uzyt przez jedna klase
+    # dekorator
+    # klasa dziedziczaca musi zaimplementowac metode
     @abstractmethod
     def rejestrujUzytkownika(self, uzytkownik: Uzytkownik):
         pass
@@ -31,7 +35,7 @@ class IEncjeFasada(ABC):
     def pobierzDaneUzytkownika(self, idUzytkownika: int) -> Uzytkownik:
         pass
 
-    # --- Książki ---
+    # Ksiazki
     @abstractmethod
     def dodajKsiazke(self, ksiazka: IKsiazka):
         pass
@@ -56,7 +60,7 @@ class IEncjeFasada(ABC):
     def aktualizujStan(self, idKsiazki: int, nowyStan: int):
         pass
 
-    # --- Zamówienia ---
+    # Zamowienia
     @abstractmethod
     def zapiszZamowienie(self, zamowienie: Zamowienie):
         pass
@@ -69,6 +73,7 @@ class IEncjeFasada(ABC):
     def pobierzWszystkieZamowienia(self) -> List[Zamowienie]:
         pass
 
+    #laczy wiecej niz jedna encje
     @abstractmethod
     def obliczCeneOstateczna(self, zamowienie: Zamowienie, klient: Klient) -> float:
         pass
