@@ -24,17 +24,16 @@
 # 		"""# @AssociationMultiplicity *"""
 #
 
+from typing import List
+from datetime import date
 from encje.Klient import Klient
 from encje.PozycjaZamowienia import PozycjaZamowienia
 from encje.ICena import ICena
-from datetime import date
-from typing import List
 
 class Zamowienie(ICena):
-    # konstruktor
-    def __init__(self, klient: Klient,
-                 data: date, status: str, metodaPlatnosci: str):
+    def __init__(self, klient: Klient, data: date, status: str, metodaPlatnosci: str):
         self.klient: Klient = klient
+        # Relacja: Zamówienie zawiera listę Pozycji
         self.pozycje: List[PozycjaZamowienia] = []
         self.data: date = data
         self.status: str = status
@@ -43,8 +42,11 @@ class Zamowienie(ICena):
 
     def dodajPozycje(self, pozycja: PozycjaZamowienia):
         self.pozycje.append(pozycja)
+        # Automatyczne przeliczenie ceny po dodaniu
         self.obliczCene()
 
+    # Implementacja metody z interfejsu ICena
     def obliczCene(self) -> float:
-        self.cenaRazem = sum(p.cenaJednostkowa * p.ilosc for p in self.pozycje)
+        # Wyrażenie generatorowe sumujące: ilość * cena dla każdej pozycji
+        self.cenaRazem = sum(p.ilosc * p.cenaJednostkowa for p in self.pozycje)
         return self.cenaRazem

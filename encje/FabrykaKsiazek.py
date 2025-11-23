@@ -18,3 +18,6 @@ class FabrykaKsiazek:
 
     def utworzKsiazkePapierowa(self, tytul, autor, ISBN, gatunek, cena, stanMagazynowy, opis) -> KsiazkaPapierowa:
         return KsiazkaPapierowa(tytul, autor, ISBN, gatunek, cena, stanMagazynowy, opis)
+
+    def stworzKsiazke(self, tytul: str, autor: str, cena: float):
+        pass

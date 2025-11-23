@@ -16,11 +16,12 @@
 #
 
 from encje.IKsiazka import IKsiazka
-from encje.Zamowienie import Zamowienie
-from typing import Union
 
 class PozycjaZamowienia:
     def __init__(self, ksiazka: IKsiazka, ilosc: int, cenaJednostkowa: float):
         self.ksiazka: IKsiazka = ksiazka
         self.ilosc: int = ilosc
         self.cenaJednostkowa: float = cenaJednostkowa
+
+    def obliczWartosc(self) -> float:
+        return self.ilosc * self.cenaJednostkowa
