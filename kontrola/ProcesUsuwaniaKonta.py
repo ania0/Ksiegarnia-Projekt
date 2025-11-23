@@ -7,5 +7,4 @@ class ProcesUsuwaniaKonta:
 
     def wykonaj(self):
         print("ProcesUsuwaniaKonta: Rozpoczynam...")
-        # STUB
         raise NotImplementedError("PU: Logika ProcesUsuwaniaKonta nie jest zaimplementowana.")

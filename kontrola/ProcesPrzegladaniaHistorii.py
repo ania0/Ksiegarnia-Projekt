@@ -7,5 +7,4 @@ class ProcesPrzegladaniaHistorii:
 
     def wykonaj(self):
         print("ProcesPrzegladaniaHistorii: Rozpoczynam...")
-        # STUB
         raise NotImplementedError("PU: Logika ProcesPrzegladaniaHistorii nie jest zaimplementowana.")

@@ -1,7 +1,6 @@
 from abc import ABC, abstractmethod
 
 
-# Interfejs dla warstwy Prezentacji (GUI)
 class IKsiegarniaKontrola(ABC):
     @abstractmethod
     def stworzKonto(self, dane): pass
