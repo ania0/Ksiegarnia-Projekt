@@ -25,14 +25,14 @@ def main():
     zamowienie_dao = ZamowienieDAO()
     fabryka_ksiazek = FabrykaKsiazek()
 
-    fasada_encji = FasadaEncji(
+    encje_fasada = FasadaEncji(
         repoUzytkownika=uzytkownik_dao,
         repoKsiazek=ksiazka_dao,
         repoZamowien=zamowienie_dao,
         fabrykaKsiazek=fabryka_ksiazek
     )
 
-    fasada_kontroli = KsiegarniaKontrolaFacade(fasada_encji=fasada_encji)
+    fasada_kontroli = KsiegarniaKontrolaFacade(encje_fasada=encje_fasada)
 
     print("\n--- System gotowy. Rozpoczynam testy... ---")
 

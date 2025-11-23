@@ -6,12 +6,12 @@
 # class Administrator(Uzytkownik):
 # 	pass
 
-
-from encje.Uzytkownik import Uzytkownik
-
 # class Administrator(Uzytkownik):
 #     def __init__(self, imie: str, nazwisko: str, email: str, hashHasla: str):
 #         super().__init__(imie, nazwisko, email, hashHasla)
+
+
+from encje.Uzytkownik import Uzytkownik
 
 
 

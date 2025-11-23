@@ -83,7 +83,7 @@ class FasadaEncji:
     def rejestrujUzytkownika(self, uzytkownik):
         self.repoUzytkownika.rejestrujUzytkownika(uzytkownik)
 
-    def znajdzUzytkownikaPoEmail(self, email: str) -> Uzytkownik:
+    def znajdzUzytkownikaPoLoginie(self, email: str) -> Uzytkownik:
         return self.repoUzytkownika.znajdzUzytkownikaPoEmail(email)
 
     def czyIstnieje(self, email: str) -> bool:
