@@ -1,4 +1,5 @@
 from kontrola.ProcesZarzadzania import ProcesZarzadzania
+from encje.IEncjeFasada import IEncjeFasada
 
 class ZarzadzanieKsiazkami(ProcesZarzadzania):
     def _wykonajOperacjeNaEncji(self):
