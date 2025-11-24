@@ -28,6 +28,8 @@ from encje.IRepozytoriumKsiazek import IRepozytoriumKsiazek
 from encje.IKsiazka import IKsiazka
 from encje.MagazynKsiazek import MagazynKsiazek
 
+# wzorzec, oddzielić logikę dostępu do bazy danych od logiki aplikacji
+
 class KsiazkaDAO(IRepozytoriumKsiazek):
     def __init__(self):
         # Relacja z diagramu: DAO -> Magazyn

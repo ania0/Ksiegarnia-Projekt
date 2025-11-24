@@ -25,6 +25,8 @@ from encje.Zamowienie import Zamowienie
 from encje.Klient import Klient
 from encje.MagazynZamowien import MagazynZamowien
 
+# wzorzec, oddzielić logikę dostępu do bazy danych od logiki aplikacji
+
 class ZamowienieDAO(IRepozytoriumZamowien):
     def __init__(self):
         self._magazyn = MagazynZamowien()

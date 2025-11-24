@@ -28,6 +28,8 @@ from encje.Uzytkownik import Uzytkownik
 from encje.MagazynUzytkownikow import MagazynUzytkownikow
 from typing import Optional
 
+# wzorzec, oddzielić logikę dostępu do bazy danych od logiki aplikacji
+
 
 class UzytkownikDAO(IRepozytoriumUzytkownika):
     def __init__(self):

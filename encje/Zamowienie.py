@@ -47,6 +47,6 @@ class Zamowienie(ICena):
 
     # Implementacja metody z interfejsu ICena
     def obliczCene(self) -> float:
-        # Wyrażenie generatorowe sumujące: ilość * cena dla każdej pozycji
+        # ilość * cena dla każdej pozycji
         self.cenaRazem = sum(p.ilosc * p.cenaJednostkowa for p in self.pozycje)
         return self.cenaRazem
