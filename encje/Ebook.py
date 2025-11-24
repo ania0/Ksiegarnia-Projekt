@@ -18,10 +18,13 @@
 #
 
 
-from encje.IKsiazka import IKsiazka
+from encje.IKsiazka import IKsiazka  # import interf książki, po którym dziedziczy Ebook
 
+
+# kl implementująca interf IKsiazka
 class Ebook(IKsiazka):
-    # konstruktor
+
+    # konstruktor Ebook
     def __init__(self, tytul: str, autor: str, ISBN: int, gatunek: str,
                  cena: float, sciezkaDoPliku: str, opis: str):
         self.tytul: str = tytul
@@ -32,6 +35,7 @@ class Ebook(IKsiazka):
         self.sciezkaDoPliku: str = sciezkaDoPliku
         self.opis: str = opis
 
-    # przyklad metody interf IKsiazka
+
+    # implementacja met z interf IKsiazka - zwraca cenę e-booka
     def pobierzCene(self) -> float:
         return self.cena

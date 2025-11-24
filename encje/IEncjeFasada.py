@@ -1,20 +1,20 @@
 # #!/usr/bin/python
 
 
-
-from abc import ABC, abstractmethod
-from typing import List
+from abc import ABC, abstractmethod  # klasy do tworzenia interfejsów i metod abstrakcyjnych
+from typing import List  # do typowania list
 from encje.Uzytkownik import Uzytkownik
 from encje.Klient import Klient
 from encje.Zamowienie import Zamowienie
 from encje.IKsiazka import IKsiazka
 
+
+# Interf fasady dla encji – zestaw metod, które fasada musi udostępniać
+# Klient używa fasady, zamiast bezpośrednio kontaktować się z repozytoriami
+# Met abstrakt wymuszają implementację w kl dziedziczących
 class IEncjeFasada(ABC):
 
-    # Uzytkownicy
-    # klient moze wykonac operacje na uzyt przez jedna klase
-    # dekorator
-    # klasa dziedziczaca musi zaimplementowac metode
+
     @abstractmethod
     def rejestrujUzytkownika(self, uzytkownik: Uzytkownik):
         pass
@@ -35,7 +35,7 @@ class IEncjeFasada(ABC):
     def pobierzDaneUzytkownika(self, idUzytkownika: int) -> Uzytkownik:
         pass
 
-    # Ksiazki
+
     @abstractmethod
     def dodajKsiazke(self, ksiazka: IKsiazka):
         pass
@@ -60,7 +60,6 @@ class IEncjeFasada(ABC):
     def aktualizujStan(self, idKsiazki: int, nowyStan: int):
         pass
 
-    # Zamowienia
     @abstractmethod
     def zapiszZamowienie(self, zamowienie: Zamowienie):
         pass
@@ -73,7 +72,8 @@ class IEncjeFasada(ABC):
     def pobierzWszystkieZamowienia(self) -> List[Zamowienie]:
         pass
 
-    #laczy wiecej niz jedna encje
     @abstractmethod
     def obliczCeneOstateczna(self, zamowienie: Zamowienie, klient: Klient) -> float:
+        # laczy encje zamówienie + klient
+        # moze zastosować dekoratory
         pass

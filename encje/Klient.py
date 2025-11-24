@@ -12,6 +12,7 @@
 # 		self.___klinetLojalny : long = None
 #
 
+
 from encje.Uzytkownik import Uzytkownik
 
 #dziedziczy po klasie uzytkownik

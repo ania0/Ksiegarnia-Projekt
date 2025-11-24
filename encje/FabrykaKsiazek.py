@@ -7,15 +7,17 @@
 
 from encje.KsiazkaPapierowa import KsiazkaPapierowa
 from encje.Ebook import Ebook
-from encje.IKsiazka import IKsiazka
+from encje.IKsiazka import IKsiazka  # import interf IKsiazka
 
-# tworzenie obiektow ksiazek
-# fabryka - nie trzeba znac konstruktorow konkretnych klas
 
+# pozwala tworzyć obiekty książek bez bezpośredniego wywoływania konstruktorów konkretnych klas
 class FabrykaKsiazek:
+
+    # met tworząca obiekt typu Ebook
     def utworzEbook(self, tytul, autor, ISBN, gatunek, cena, sciezkaDoPliku, opis) -> Ebook:
         return Ebook(tytul, autor, ISBN, gatunek, cena, sciezkaDoPliku, opis)
 
+    # met tworząca obiekt książ papierowej - wymagane przez konstruktor KsiazkaPapierowa
     def utworzKsiazkePapierowa(self, tytul, autor, ISBN, gatunek, cena, stanMagazynowy, opis) -> KsiazkaPapierowa:
         return KsiazkaPapierowa(tytul, autor, ISBN, gatunek, cena, stanMagazynowy, opis)
 

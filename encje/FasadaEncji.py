@@ -51,7 +51,8 @@
 #
 # 	def obliczCeneOstateczna(self, aZamowienie : Zamowienie, aKlient : Klient) -> float:
 # 		pass
-#
+
+
 
 from encje.Uzytkownik import Uzytkownik
 from encje.Zamowienie import Zamowienie
@@ -67,19 +68,22 @@ from encje.FabrykaKsiazek import FabrykaKsiazek
 from encje.DekoratorRabatuLojalnosciowego import DekoratorRabatuLojalnosciowego
 from encje.ICena import ICena
 
-# posrednik miedzy kodem biznesowym a repo
+
+# fasada dla encji – kl pośrednicząca między logiką biznes a repozytoriami - ukrywa szczegóły i deleguje zadania do repo
 class FasadaEncji:
+
+    # konstruktor fasady
     def __init__(self, repoKsiazek: IRepozytoriumKsiazek,
                  repoUzytkownika: IRepozytoriumUzytkownika,
                  repoZamowien: IRepozytoriumZamowien,
                  fabrykaKsiazek: FabrykaKsiazek):
+
         self.repoKsiazek = repoKsiazek
         self.repoUzytkownika = repoUzytkownika
         self.repoZamowien = repoZamowien
         self.fabrykaKsiazek = fabrykaKsiazek
 
-#deleguje zadania do repo i ukrywa szczegoly
-    # Uzytkownicy
+    # rejestracja użytk delegowana do repo
     def rejestrujUzytkownika(self, uzytkownik):
         self.repoUzytkownika.rejestrujUzytkownika(uzytkownik)
 
@@ -95,8 +99,8 @@ class FasadaEncji:
     def pobierzDaneUzytkownika(self, idUzytkownika: int) -> Uzytkownik:
         return self.repoUzytkownika.pobierzDaneUzytkownika(idUzytkownika)
 
-    # Ksiazki
-    # metoda moze przyjmować obiekt implementujący ten interfejs
+
+    # typ tylko IKsiazka
     def dodajKsiazke(self, ksiazka: IKsiazka):
         self.repoKsiazek.dodajKsiazke(ksiazka)
 
@@ -115,7 +119,7 @@ class FasadaEncji:
     def aktualizujStan(self, idKsiazki: int, nowyStan: int):
         self.repoKsiazek.aktualizuj(idKsiazki, nowyStan)
 
-    # Zamowienia
+
     def zapiszZamowienie(self, zamowienie: Zamowienie):
         self.repoZamowien.zapiszZamowienie(zamowienie)
 
@@ -125,12 +129,11 @@ class FasadaEncji:
     def pobierzWszystkieZamowienia(self) -> List[Zamowienie]:
         return self.repoZamowien.pobierzWszystkieZamowienia()
 
-# wzorzec dekoratora
-    # zamowienie implementuje interfejs ICena
-    # jesli klient lojalny – owijamy zamowienie dekoratorem rabatu
+
+    # dekoarator - zamówienie implementuje ICena
+    # Jeśli klient lojalny → owijamy zamówienie dekoratorem dodającym rabat, bez modyfikowania kl Zamowienie
     def obliczCeneOstateczna(self, zamowienie: Zamowienie, klient: Klient) -> float:
         komponent_ceny: ICena = zamowienie
         if klient.klientLojalny:
-            # dodawanie funkcji bez zmieniania podstawowej klasy
             komponent_ceny = DekoratorRabatuLojalnosciowego(komponent_ceny)
         return komponent_ceny.obliczCene()
