@@ -1,6 +1,3 @@
-# #!/usr/bin/python
-
-
 from abc import ABC, abstractmethod  # klasy do tworzenia interfejsów i metod abstrakcyjnych
 from typing import List  # do typowania list
 from encje.Uzytkownik import Uzytkownik

@@ -1,28 +1,3 @@
-#!/usr/bin/python
-# -*- coding: UTF-8 -*-
-# from Encje import Uzytkownik
-# from Encje import IRepozytoriumUzytkownika
-# from typing import List
-#
-# class UzytkownikDAO(IRepozytoriumUzytkownika):
-# 	def rejestrujUzytkownika(self, aUzytkownik : Class_Diagram___Class_in_a_Package__Airline_.Encje.Uzytkownik):
-# 		pass
-#
-# 	def znajdzUzytkownikaPoEmail(self, aEmail : String) -> Uzytkownik:
-# 		pass
-#
-# 	def czyIstnieje(self, aEmail : String) -> long:
-# 		pass
-#
-# 	def usun(self, aIdUzytkownika : int):
-# 		pass
-#
-# 	def pobierzDaneUzytkownika(self, aIdUzytkownika : int) -> Uzytkownik:
-# 		pass
-#
-
-
-
 from encje.IRepozytoriumUzytkownika import IRepozytoriumUzytkownika
 from encje.Uzytkownik import Uzytkownik
 from encje.MagazynUzytkownikow import MagazynUzytkownikow
@@ -51,9 +26,9 @@ class UzytkownikDAO(IRepozytoriumUzytkownika):
         uzytkownik = self.znajdzUzytkownikaPoEmail(email)
         return uzytkownik is not None
 
-    def usun(self, login: str):
-        print(f"DAO: Usuwam użytkownika {login} z Magazynu...")
-        self._magazyn.usun_po_loginie(login)
+    def usun(self, idUzytkownika: int):
+        print(f"DAO: Usuwam użytkownika z Magazynu...")
+        self._magazyn.usun_po_id(idUzytkownika)
 
     def pobierzDaneUzytkownika(self, login: str) -> Optional[Uzytkownik]:
         return self.znajdzUzytkownikaPoEmail(login)

@@ -1,18 +1,3 @@
-# #!/usr/bin/python
-# # -*- coding: UTF-8 -*-
-# from Encje import Uzytkownik
-# from typing import List
-#
-# class Klient(Uzytkownik):
-# 	def aktualizujStatus(self):
-# 		pass
-#
-# 	def __init__(self):
-# 		self.___adresWysylki : String = None
-# 		self.___klinetLojalny : long = None
-#
-
-
 from encje.Uzytkownik import Uzytkownik
 
 #dziedziczy po klasie uzytkownik

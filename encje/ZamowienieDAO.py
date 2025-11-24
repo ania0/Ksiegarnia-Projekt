@@ -1,24 +1,3 @@
-#!/usr/bin/python
-# -*- coding: UTF-8 -*-
-# from Encje import Zamowienie
-# from Encje import Klient
-# from Encje import IRepozytoriumZamowien
-# from typing import List
-#
-# class ZamowienieDAO(IRepozytoriumZamowien):
-# 	def zapiszZamowienie(self, aZamowienie : Zamowienie):
-# 		pass
-#
-# 	def pobierzHistorieDlaKlienta(self, aIdKlienta : int) -> List:
-# 		pass
-#
-# 	def pobierzWszystkieZamowienia(self) -> List:
-# 		pass
-#
-# 	def obliczCeneOstateczna(self, aZamowienie : Zamowienie, aKlient : Klient) -> float:
-# 		pass
-#
-
 from typing import List
 from encje.IRepozytoriumZamowien import IRepozytoriumZamowien
 from encje.Zamowienie import Zamowienie
@@ -40,6 +19,3 @@ class ZamowienieDAO(IRepozytoriumZamowien):
 
     def pobierzWszystkieZamowienia(self) -> List[Zamowienie]:
         return self._magazyn.pobierz_wszystkie()
-
-    def obliczCeneOstateczna(self, zamowienie: Zamowienie, klient: Klient) -> float:
-        return zamowienie.obliczCene()

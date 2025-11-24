@@ -1,28 +1,3 @@
-#!/usr/bin/python
-# -*- coding: UTF-8 -*-
-# from Encje import IRepozytoriumKsiazek
-# from typing import List
-#
-# class KsiazkaDAO(IRepozytoriumKsiazek):
-# 	def dodajKsiazke(self, aKsiazka : IKsiazka):
-# 		pass
-#
-# 	def usunKsiazke(self, aIdKsiazki : int):
-# 		pass
-#
-# 	def pobierzWszystkie(self) -> List:
-# 		pass
-#
-# 	def AktualizujDane(self, aKsiazka : IKsiazka):
-# 		pass
-#
-# 	def pobierzPoId(self, aId : int) -> IKsiazka:
-# 		pass
-#
-# 	def aktualizujStan(self, aIdKsiazki : int, aNowyStan : int):
-# 		pass
-
-
 from typing import List
 from encje.IRepozytoriumKsiazek import IRepozytoriumKsiazek
 from encje.IKsiazka import IKsiazka

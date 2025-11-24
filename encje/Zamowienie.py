@@ -1,29 +1,3 @@
-# #!/usr/bin/python
-# # -*- coding: UTF-8 -*-
-# from Encje import Uzytkownik
-# from Encje import ICena
-# from typing import List
-#
-# class Zamowienie(ICena):
-# 	def dodajPozycje(self):
-# 		pass
-#
-# 	def obliczCene(self):
-# 		pass
-#
-# 	def __init__(self):
-# 		self.___data : date = None
-# 		self.___cenaRazem : float = None
-# 		self.___uzytkownik : Uzytkownik = None
-# 		self.___pozycje : List = None
-# 		self.___status : String = None
-# 		self.___metodaPlatnosci : String = None
-# 		self._unnamed_Uzytkownik_ : Uzytkownik = None
-# 		"""# @AssociationMultiplicity 1"""
-# 		self._unnamed_PozycjaZamowienia_ = []
-# 		"""# @AssociationMultiplicity *"""
-#
-
 from typing import List
 from datetime import date
 from encje.Klient import Klient
@@ -48,5 +22,4 @@ class Zamowienie(ICena):
     # Implementacja metody z interfejsu ICena
     def obliczCene(self) -> float:
         # ilość * cena dla każdej pozycji
-        self.cenaRazem = sum(p.ilosc * p.cenaJednostkowa for p in self.pozycje)
-        return self.cenaRazem
+        return sum(p.ilosc * p.cenaJednostkowa for p in self.pozycje)

@@ -1,6 +1,5 @@
 from encje.IKsiazka import IKsiazka  # import interf książki
 
-
 # przechowuje obiekty implementujące IKsiazka
 class MagazynKsiazek:
 
