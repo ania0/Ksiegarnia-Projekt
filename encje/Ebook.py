@@ -18,4 +18,6 @@ class Ebook(IKsiazka):
 
     # implementacja met z interf IKsiazka - zwraca cenę e-booka
     def pobierzCene(self) -> float:
-        return self.cena
+        # return self.cena
+        raise NotImplementedError()
+

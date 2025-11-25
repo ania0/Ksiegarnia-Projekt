@@ -6,11 +6,11 @@ from encje.IKsiazka import IKsiazka
 class IRepozytoriumKsiazek(ABC):
 
     @abstractmethod
-    def dodajKsiazke(self, ksiazka: IKsiazka):
+    def dodajKsiazke(self, Ksiazka: IKsiazka) -> None:
         pass
 
     @abstractmethod
-    def usunKsiazke(self, idKsiazki: int):
+    def usunKsiazke(self, ISBN: int) -> None:
         pass
 
     @abstractmethod
@@ -18,13 +18,13 @@ class IRepozytoriumKsiazek(ABC):
         pass
 
     @abstractmethod
-    def AktualizujDane(self, ksiazka: IKsiazka):
+    def AktualizujDane(self, Ksiazka: IKsiazka) -> None:
         pass
 
     @abstractmethod
-    def pobierzPoId(self, id: int) -> IKsiazka:
+    def pobierzPoISBN(self, ISBN: int) -> IKsiazka:
         pass
 
     @abstractmethod
-    def aktualizujStan(self, idKsiazki: int, nowyStan: int):
+    def aktualizujStan(self, ISBN: int, NowyStan: int) -> None:
         pass

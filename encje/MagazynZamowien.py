@@ -1,14 +1,49 @@
-from encje.Zamowienie import Zamowienie 
+# from encje.Zamowienie import Zamowienie
+#
+# class MagazynZamowien:
+#     def __init__(self):
+#         self._zamowienia = []
+#
+#     def dodaj(self, zamowienie: Zamowienie):
+#         self._zamowienia.append(zamowienie)
+#
+#     def pobierz_wszystkie(self):
+#         return self._zamowienia
+#
+#     def pobierz_dla_klienta(self, id_klienta: int):
+#         return [z for z in self._zamowienia if getattr(z.uzytkownik, 'id', None) == id_klienta]
 
-class MagazynZamowien:
+
+from typing import List
+from encje.IRepozytoriumZamowien import IRepozytoriumZamowien
+from encje.Zamowienie import Zamowienie
+
+class MagazynZamowien(IRepozytoriumZamowien):
+
     def __init__(self):
-        self._zamowienia = []
+        # lista przechowująca zamówienia
+        self._listaZamowien: List[Zamowienie] = []
+        """# @AssociationKind Aggregation"""
 
-    def dodaj(self, zamowienie: Zamowienie):
-        self._zamowienia.append(zamowienie)
+    # metody pomocnicze
+    def pobierzListeZamowien(self) -> List[Zamowienie]:
+        return []
 
-    def pobierz_wszystkie(self):
-        return self._zamowienia
+    def dodaj(self, zamowienie: Zamowienie) -> None:
+        raise NotImplementedError("dodaj - niezaimplementowane.")
 
-    def pobierz_dla_klienta(self, id_klienta: int):
-        return [z for z in self._zamowienia if getattr(z.uzytkownik, 'id', None) == id_klienta]
+    def usun(self, id: int) -> None:
+        raise NotImplementedError("usun - niezaimplementowane.")
+
+    def pobierz(self, id: int) -> Zamowienie:
+        return None
+
+    # metody z interfejsu IRepozytoriumZamowien
+    def zapiszZamowienie(self, zamowienie: Zamowienie) -> None:
+        raise NotImplementedError("zapiszZamowienie - niezaimplementowane.")
+
+    def pobierzHistorieDlaKlienta(self, id: int) -> List[Zamowienie]:
+        return []
+
+    def pobierzWszystkieZamowienia(self) -> List[Zamowienie]:
+        return []

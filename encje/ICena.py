@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod  # do tworzenia interf/klas abstrakt
+from encje.Klient import Klient
 
 # Klasy implementujące ten interfejs muszą dostarczyć metodę obliczCene().
 class ICena(ABC):
@@ -9,3 +10,6 @@ class ICena(ABC):
     def obliczCene(self) -> float:
         pass
 
+    @abstractmethod
+    def pobierzKlienta(self) -> Klient:
+        pass

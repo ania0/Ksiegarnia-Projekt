@@ -5,10 +5,13 @@ from encje.Klient import Klient # Zakładam plik klient.py
 
 class IRepozytoriumZamowien(ABC):
     @abstractmethod
-    def zapiszZamowienie(self, zamowienie: Zamowienie): pass
+    def zapiszZamowienie(self, zamowienie: Zamowienie):
+        pass
 
     @abstractmethod
-    def pobierzHistorieDlaKlienta(self, idKlienta: int) -> List[Zamowienie]: pass
+    def pobierzHistorieDlaKlienta(self, idKlienta: int) -> List[Zamowienie]:
+        pass
 
     @abstractmethod
-    def pobierzWszystkieZamowienia(self) -> List[Zamowienie]: pass
+    def pobierzWszystkieZamowienia(self) -> List[Zamowienie]:
+        pass

@@ -38,7 +38,7 @@ class IEncjeFasada(ABC):
         pass
 
     @abstractmethod
-    def usunKsiazke(self, idKsiazki: int):
+    def usunKsiazke(self, ISBN: int):
         pass
 
     @abstractmethod
@@ -54,7 +54,7 @@ class IEncjeFasada(ABC):
         pass
 
     @abstractmethod
-    def aktualizujStan(self, idKsiazki: int, nowyStan: int):
+    def aktualizujStan(self, ISBN: int, nowyStan: int):
         pass
 
     @abstractmethod
