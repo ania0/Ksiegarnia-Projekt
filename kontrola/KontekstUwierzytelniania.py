@@ -1,5 +1,6 @@
 from kontrola.IStrategiaUwierzytelniania import IStrategiaUwierzytelniania
 from encje.Uzytkownik import Uzytkownik
+from typing import Optional
 
 
 class KontekstUwierzytelniania:
@@ -24,5 +25,5 @@ class KontekstUwierzytelniania:
 
         return self._zalogowanyUzytkownik
 
-    def getZalogowanyUzytkownik(self) -> Uzytkownik:
+    def getZalogowanyUzytkownik(self) -> Optional[Uzytkownik]:
         return self._zalogowanyUzytkownik
