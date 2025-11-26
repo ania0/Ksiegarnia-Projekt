@@ -106,7 +106,7 @@ class FasadaEncji(IEncjeFasada):
     def rejestrujUzytkownika(self, uzytkownik: Uzytkownik):
         raise NotImplementedError()
 
-    def znajdzUzytkownikaPoLoginie(self, email: str) -> Uzytkownik:
+    def znajdzUzytkownikaPoEmailu(self, email: str) -> Uzytkownik:
         raise NotImplementedError()
 
     def czyIstnieje(self, email: str) -> bool:

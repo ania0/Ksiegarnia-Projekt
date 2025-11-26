@@ -17,7 +17,7 @@ class IEncjeFasada(ABC):
         pass
 
     @abstractmethod
-    def znajdzUzytkownikaPoLoginie(self, email: str) -> Uzytkownik:
+    def znajdzUzytkownikaPoEmailu(self, email: str) -> Uzytkownik:
         pass
 
     @abstractmethod
