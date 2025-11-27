@@ -161,5 +161,5 @@ class FasadaEncji(IEncjeFasada):
     # DEKORATORY / CENA
     # ----------------------------
 
-    def obliczCeneOstateczna(self, zamowienie: Zamowienie, klient: Klient) -> double:
+    def obliczCeneOstateczna(self, zamowienie: Zamowienie, klient: Klient) -> float:
         raise NotImplementedError()

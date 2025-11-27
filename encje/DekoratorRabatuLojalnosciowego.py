@@ -21,6 +21,8 @@
 
 from encje.DekoratorCenyZamowienia import DekoratorCenyZamowienia
 
+from encje.Klient import Klient
+
 
 class DekoratorRabatuLojalnosciowego(DekoratorCenyZamowienia):
     """

@@ -70,7 +70,7 @@ class IEncjeFasada(ABC):
         pass
 
     @abstractmethod
-    def obliczCeneOstateczna(self, zamowienie: Zamowienie, klient: Klient) -> double:
+    def obliczCeneOstateczna(self, zamowienie: Zamowienie, klient: Klient) -> float:
         # laczy encje zamówienie + klient
         # moze zastosować dekoratory
         pass
