@@ -88,6 +88,10 @@ from encje.Uzytkownik import Uzytkownik
 from encje.Klient import Klient
 from encje.Zamowienie import Zamowienie
 from encje.IKsiazka import IKsiazka
+from encje.FabrykaKsiazek import FabrykaKsiazek
+from encje.DekoratorRabatuLojalnosciowego import DekoratorRabatuLojalnosciowego
+from encje.IRepozytoriumKsiazek import IRepozytoriumKsiazek
+from encje.IRepozytoriumUzytkownika import IRepozytoriumUzytkownika
 from typing import List
 
 
@@ -134,8 +138,8 @@ class FasadaEncji(IEncjeFasada):
     def AktualizujDane(self, ksiazka: IKsiazka):
         raise NotImplementedError()
 
-    def pobierzPoId(self, id: int) -> IKsiazka:
-        raise NotImplementedError()
+    def pobierzPoISBN(self, ISBN : int) -> IKsiazka:
+		raise NotImplementedError()
 
     def aktualizujStan(self, ISBN: int, nowyStan: int):
         raise NotImplementedError()
@@ -157,5 +161,5 @@ class FasadaEncji(IEncjeFasada):
     # DEKORATORY / CENA
     # ----------------------------
 
-    def obliczCeneOstateczna(self, zamowienie: Zamowienie, klient: Klient) -> float:
+    def obliczCeneOstateczna(self, zamowienie: Zamowienie, klient: Klient) -> double:
         raise NotImplementedError()

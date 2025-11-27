@@ -1,10 +1,17 @@
 from encje.IEncjeFasada import IEncjeFasada
+from encje.Administrator import Administrator
 
 
 class ProcesPrzegladaniaRaportu:
-    def __init__(self, fasada_encji: IEncjeFasada):
-        self._fasada_encji = fasada_encji
+    """
+    Proces przeglądania raportu — wersja szkieletowa zgodna z wymaganiami laboratoriów.
+    """
 
-    def wykonaj(self):
-        print("ProcesPrzegladaniaRaportu: Rozpoczynam...")
-        raise NotImplementedError("PU: Logika ProcesPrzegladaniaRaportu nie jest zaimplementowana.")
+    def __init__(self, fasada_encji: IEncjeFasada):
+        # Asocjacja z fasadą encji (warstwa danych)
+        self._fasada_encji: IEncjeFasada = fasada_encji
+        # Użytkownik wykonujący operację (administrator)
+        self._uzytkownik: Administrator = None
+
+    def wykonajPrzegladanieRaportu(self) -> None:
+        raise NotImplementedError("wykonajPrzegladanieRaportu() nie jest jeszcze zaimplementowane.")

@@ -19,7 +19,7 @@
 #
 #         return cena
 
-from encje.DekoratorCenyZamowienia__klasa_Abstrakcyjna import DekoratorCenyZamowienia
+from encje.DekoratorCenyZamowienia import DekoratorCenyZamowienia
 
 
 class DekoratorRabatuLojalnosciowego(DekoratorCenyZamowienia):
@@ -31,4 +31,9 @@ class DekoratorRabatuLojalnosciowego(DekoratorCenyZamowienia):
     def obliczCene(self) -> float:
         print("DekoratorRabatuLojalnosciowego: obliczCene() – tymczasowa implementacja.")
         raise NotImplementedError()
+
+    def pobierzKlienta(self) -> Klient:
+        print("DekoratorRabatuLojalnosciowego: pobierzKlienta() – tymczasowa implementacja.")
+        raise NotImplementedError()
+
 

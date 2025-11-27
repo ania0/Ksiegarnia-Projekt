@@ -6,7 +6,7 @@ from encje.Uzytkownik import Uzytkownik
 class IStrategiaUwierzytelniania(ABC):
 
     @abstractmethod
-    def uwierzytelnij(self, login: str, haslo: str) -> Optional[Uzytkownik]:
+    def uwierzytelnij(self, email: str, hashHasla: str) -> Uzytkownik:
         """
         Próbuje uwierzytelnić użytkownika.
         Zwraca:

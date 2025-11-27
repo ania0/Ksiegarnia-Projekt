@@ -1,29 +1,61 @@
-from kontrola.IStrategiaUwierzytelniania import IStrategiaUwierzytelniania
-from encje.Uzytkownik import Uzytkownik
+# from kontrola.IStrategiaUwierzytelniania import IStrategiaUwierzytelniania
+# from encje.Uzytkownik import Uzytkownik
+# from typing import Optional
+#
+#
+# class KontekstUwierzytelniania:
+#     def __init__(self):
+#         self._strategia = None
+#         self._zalogowanyUzytkownik = None
+#
+#     def ustawStrategie(self, strategia: IStrategiaUwierzytelniania):
+#         self._strategia = strategia
+#
+#     def wykonajUwierzytelnianie(self, login: str, haslo: str):
+#         if not self._strategia:
+#             print("Błąd: Nie ustawiono strategii logowania.")
+#             return None
+#
+#     def getZalogowanyUzytkownik(self) -> Optional[Uzytkownik]:
+#         return self._zalogowanyUzytkownik
+#
+#         self._zalogowanyUzytkownik = self._strategia.uwierzytelnij(login, haslo)
+#
+#         if self._zalogowanyUzytkownik:
+#             print(f"Kontekst: Zalogowano użytkownika: {self._zalogowanyUzytkownik.login}")
+#         else:
+#             print("Kontekst: Nieudane logowanie.")
+#
+#         return self._zalogowanyUzytkownik
+#
+#
 from typing import Optional
+from encje.Uzytkownik import Uzytkownik
+from kontrola.IStrategiaUwierzytelniania import IStrategiaUwierzytelniania
+from kontrola.KsiegarniaKontrolaFacade import KsiegarniaKontrolaFacade
 
 
 class KontekstUwierzytelniania:
+    """
+    Kontekst wzorca Strategia – wersja szkieletowa zgodna z wymaganiami laboratoriów.
+    Brak implementacji logiki, tylko sygnatury i struktura.
+    """
+
     def __init__(self):
-        self._strategia = None
+        # Strategia uwierzytelniania (asocjacja 1..1)
+        self._strategia: IStrategiaUwierzytelniania = None
+        # Zalogowany użytkownik (asocjacja 0..1)
+        self._zalogowanyUzytkownik: Uzytkownik = None
+        # Asocjacja z fasadą (warstwa kontroli)
+        self._fasadaKontroli: KsiegarniaKontrolaFacade = None # tu nie jestem pewwna czy jest wystarczajaca ilosc atrybutow
         self._zalogowanyUzytkownik = None
 
-    def ustawStrategie(self, strategia: IStrategiaUwierzytelniania):
-        self._strategia = strategia
 
-    def wykonajUwierzytelnianie(self, login: str, haslo: str):
-        if not self._strategia:
-            print("Błąd: Nie ustawiono strategii logowania.")
-            return None
+    def ustawStrategie(self, strategia: IStrategiaUwierzytelniania) -> None:
+        raise NotImplementedError("ustawStrategie() nie jest jeszcze zaimplementowane.")
 
-        self._zalogowanyUzytkownik = self._strategia.uwierzytelnij(login, haslo)
+    def wykonajUwierzytelnianie(self, email: str, hashHasla: str) -> Uzytkownik:
+        return None  # tymczasowa wartość
 
-        if self._zalogowanyUzytkownik:
-            print(f"Kontekst: Zalogowano użytkownika: {self._zalogowanyUzytkownik.login}")
-        else:
-            print("Kontekst: Nieudane logowanie.")
-
-        return self._zalogowanyUzytkownik
-
-    def getZalogowanyUzytkownik(self) -> Optional[Uzytkownik]:
+    def getZalogowanyUzytkownik(self) -> Uzytkownik:
         return self._zalogowanyUzytkownik

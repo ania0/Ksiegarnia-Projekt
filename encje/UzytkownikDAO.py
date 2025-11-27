@@ -46,7 +46,7 @@ class UzytkownikDAO(IRepozytoriumUzytkownika):
     def rejestrujUzytkownika(self, uzytkownik: Uzytkownik):
         raise NotImplementedError("rejestrujUzytkownika - niezaimplementowane.")
 
-    def znajdzUzytkownikaPoEmail(self, email: str) -> Uzytkownik:
+    def znajdzUzytkownikaPoEmailu(self, email: str) -> Uzytkownik:
         return None  # domyślna wartość
 
     def czyIstnieje(self, email: str) -> bool:

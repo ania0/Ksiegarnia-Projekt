@@ -50,8 +50,8 @@ class IEncjeFasada(ABC):
         pass
 
     @abstractmethod
-    def pobierzPoId(self, id: int) -> IKsiazka:
-        pass
+    def pobierzPoISBN(self, ISBN : int) -> IKsiazka:
+		pass
 
     @abstractmethod
     def aktualizujStan(self, ISBN: int, nowyStan: int):
@@ -70,7 +70,7 @@ class IEncjeFasada(ABC):
         pass
 
     @abstractmethod
-    def obliczCeneOstateczna(self, zamowienie: Zamowienie, klient: Klient) -> float:
+    def obliczCeneOstateczna(self, zamowienie: Zamowienie, klient: Klient) -> double:
         # laczy encje zamówienie + klient
         # moze zastosować dekoratory
         pass

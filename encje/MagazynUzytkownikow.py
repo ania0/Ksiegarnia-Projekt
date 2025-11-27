@@ -54,7 +54,7 @@ class MagazynUzytkownikow(IRepozytoriumUzytkownika):
     def rejestrujUzytkownika(self, uzytkownik: Uzytkownik) -> None:
         raise NotImplementedError("rejestrujUzytkownika - niezaimplementowane.")
 
-    def znajdzUzytkownikaPoEmail(self, email: str) -> Uzytkownik:
+    def znajdzUzytkownikaPoEmailu(self, email: str) -> Uzytkownik:
         return None
 
     def czyIstnieje(self, email: str) -> bool:

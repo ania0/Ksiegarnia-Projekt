@@ -1,6 +1,5 @@
 from kontrola.ProcesZarzadzania import ProcesZarzadzania
 from encje.IEncjeFasada import IEncjeFasada
-
 """
 class IEncjeFasada(ABC):
 
@@ -47,8 +46,33 @@ class IEncjeFasada(ABC):
         # moze zastosować dekoratory
         pass
 """
+#
+# class ZarzadzanieKsiazkami(ProcesZarzadzania):
+#     def _wykonajOperacjeNaEncji(self):
+#         print("ZarzadzanieKsiazkami: Wykonuję operacje na katalogu (Dodaj/Edytuj/Usuń)...")
+#         raise NotImplementedError("PU: Zarządzanie książkami niezaimplementowane.")
+
+from encje.IEncjeFasada import IEncjeFasada
+from encje.Administrator import Administrator
+from kontrola.ProcesZarzadzania import ProcesZarzadzania
+from typing import Optional
+
 
 class ZarzadzanieKsiazkami(ProcesZarzadzania):
-    def _wykonajOperacjeNaEncji(self):
-        print("ZarzadzanieKsiazkami: Wykonuję operacje na katalogu (Dodaj/Edytuj/Usuń)...")
-        raise NotImplementedError("PU: Zarządzanie książkami niezaimplementowane.")
+    """
+    Proces zarządzania książkami – wersja szkieletowa.
+    Dziedziczy po ProcesZarzadzania.
+    """
+
+    def __init__(self, fasada_encji: Optional[IEncjeFasada] = None, uzytkownik: Optional[Administrator] = None):
+        super().__init__(fasada_encji, uzytkownik)
+        # Pola klasy (związki z encjami i użytkownikiem)
+        self._fasada_encji: Optional[IEncjeFasada] = fasada_encji
+        self._uzytkownik: Optional[Administrator] = uzytkownik
+
+    def zarzadzajKsiazkami(self) -> None:
+        """
+        Tymczasowa metoda – sygnatura operacji.
+        PU: Logika zarządzania książkami nie jest zaimplementowana.
+        """
+        raise NotImplementedError("zarzadzajKsiazkami() nie jest jeszcze zaimplementowane.")

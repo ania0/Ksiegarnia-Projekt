@@ -3,39 +3,40 @@ from typing import List, Optional
 from encje.Uzytkownik import Uzytkownik
 from encje.KsiazkaPapierowa import KsiazkaPapierowa
 from encje.Ebook import Ebook
+from encje.Uzytkownik import Uzytkownik
 
 
 class IKsiegarniaKontrola(ABC):
 
     @abstractmethod
-    def stworzKonto(self, login: str, haslo: str, email: str) -> bool:
+    def stworzKonto(self, uzytkownik: Uzytkownik) -> None:
         """Tworzy nowe konto użytkownika."""
         pass
 
     @abstractmethod
-    def zalogujKlienta(self, login: str, haslo: str) -> Optional[Uzytkownik]:
+    def zalogujKlienta(self, hashHasla: str, email: str, haslo: str) -> None:
         """Zwraca obiekt użytkownika jeśli logowanie przebiegło pomyślnie."""
         pass
 
     @abstractmethod
-    def zalogujAdministratora(self, login: str, haslo: str) -> Optional[Uzytkownik]:
+    def zalogujAdministratora(self, hashHasla : str, email : str) -> None:
         """Loguje administratora i zwraca jego encję."""
         pass
 
 
 
     @abstractmethod
-    def przegladajKsiazki(self) -> List[Ksiazka]: #nie jestem pewna jak tu rozroznic ebook od ksiazki papier
+    def przegladajKsiazki(self) -> None:
         """Zwraca listę wszystkich książek w katalogu."""
         pass
 
     @abstractmethod
-    def wybierzKsiazke(self, id_ksiazki: int) -> Optional[Ksiazka]:
+    def wybierzKsiazke(self, ISBN: int) -> None:
         """Zwraca książkę o wskazanym ID."""
         pass
 
     @abstractmethod
-    def zarzadzajKatalogiem(self, operacja: str, ksiazka: Optional[Ksiazka] = None) -> bool:
+    def zarzadzajKatalogiem(self) -> None:
         """
         Pozwala administratorowi zarządzać katalogiem.
         operacja może być: 'dodaj', 'usun', 'aktualizuj'.
@@ -43,25 +44,25 @@ class IKsiegarniaKontrola(ABC):
         pass
 
 
-    @abstractmethod
-    def zlozZamowienie(self, id_klienta: int, lista_id_ksiazek: List[int]) -> bool:
-        """Składa zamówienie dla danego klienta."""
-        pass
+    # @abstractmethod
+    # def zlozZamowienie(self, id_klienta: int, lista_id_ksiazek: List[int]) -> bool:
+    #     """Składa zamówienie dla danego klienta."""
+    #     pass
+    #
 
-
     @abstractmethod
-    def przegladajHistorie(self, id_klienta: int):
+    def przegladajHistorie(self, id_klienta: int) -> None:
         """Zwraca historię zamówień klienta."""
         pass
 
     @abstractmethod
-    def przegladajRaporty(self) -> List[str]:
+    def przegladajRaporty(self) -> None:
         """Administrator przegląda raporty sprzedaży, aktywności itp."""
         pass
 
 
     @abstractmethod
-    def usunKonto(self, id_klienta: int) -> bool:
+    def usunKonto(self, id_klienta: int) -> None:
         """Usuwa konto klienta o podanym ID."""
         pass
 

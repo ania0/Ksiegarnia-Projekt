@@ -6,10 +6,5 @@ class ProcesSkladaniaZamowienia:
         self._fasada_encji = fasada_encji
         self._uzytkownik = uzytkownik
 
-    def wykonaj(self):
-        if not self._uzytkownik:
-            print("Błąd: Musisz być zalogowany, aby złożyć zamówienie.")
-            return
-
-        print(f"ProcesSkladaniaZamowienia: Przetwarzam zamówienie dla {self._uzytkownik.login}...")
-        raise NotImplementedError("PU: Składanie zamówienia niezaimplementowane.")
+    def wykonajSkladanieZamowienia(self) -> None:
+        pass

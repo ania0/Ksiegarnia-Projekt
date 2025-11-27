@@ -6,5 +6,3 @@ class PozycjaZamowienia:
         self.ilosc: int = ilosc
         self.cenaJednostkowa: float = cenaJednostkowa
 
-    # def obliczWartosc(self) -> float:
-    #     return self.ilosc * self.cenaJednostkowa

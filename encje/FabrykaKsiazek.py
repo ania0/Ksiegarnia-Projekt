@@ -17,8 +17,9 @@
 #         raise NotImplementedError()
 
 from typing import List
-from encje.IKsiazka import IKsiazka
-#?
+from encje.KsiazkaPapierowa import KsiazkaPapierowa
+from encje.Ebook import Ebook
+
 class FabrykaKsiazek:
 	def utworzKsiazke(self, typ : str, tytul : str, autor : str, cena : float) -> IKsiazka:
 		pass

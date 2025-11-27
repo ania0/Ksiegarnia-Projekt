@@ -27,26 +27,27 @@ class IEncjeFasada(ABC):
         pass
 """
 
+from encje.IEncjeFasada import IEncjeFasada
+from encje.Administrator import Administrator
+from kontrola.ProcesZarzadzania import ProcesZarzadzania
+from typing import Optional
+
+
 class ZarzadzanieUzytkownikami(ProcesZarzadzania):
     """
-    Proces zarządzania użytkownikami.
-    Implementacja operacji CRUD na użytkownikach.
+    Proces zarządzania użytkownikami – wersja szkieletowa.
+    Dziedziczy po ProcesZarzadzania.
     """
 
-    def _wykonajOperacjeNaEncji(self):
-        print("ZarzadzanieUzytkownikami: Wykonuję operacje na kontach...")
+    def __init__(self, fasada_encji: IEncjeFasada = None, uzytkownik: Administrator = None):
+        super().__init__(fasada_encji, uzytkownik)
+        # Pola klasy (związki z encjami i użytkownikiem)
+        self._fasada_encji: IEncjeFasada = fasada_encji
+        self._uzytkownik: Administrator = uzytkownik
 
-        # 1. Pobranie wszystkich użytkowników
-        wszyscy_uzytkownicy = self._fasada_encji.pobierzWszystkie()
-        print(f"Liczba użytkowników w bazie: {len(wszyscy_uzytkownicy)}")
-
-        # 2. Wyświetlenie danych każdego użytkownika
-        for uzytkownik in wszyscy_uzytkownicy:
-            print(f"- {uzytkownik.imie} {uzytkownik.nazwisko}, email: {uzytkownik.email}, id: {uzytkownik.id}")
-
-        # 3. Przykład: usunięcie użytkownika o konkretnym id (tylko jeśli istnieje)
-        if wszyscy_uzytkownicy:
-            pierwszy_uzytkownik = wszyscy_uzytkownicy[0]
-            print(f"Usuwam użytkownika: {pierwszy_uzytkownik.email}")
-            self._fasada_encji.usun(pierwszy_uzytkownik.id)
-            print("Użytkownik został usunięty.")
+    def zarzadzajUzytkownikami(self) -> None:
+        """
+        Tymczasowa metoda – sygnatura operacji.
+        PU: Logika zarządzania użytkownikami nie jest zaimplementowana.
+        """
+        raise NotImplementedError("zarzadzajUzytkownikami() nie jest jeszcze zaimplementowane.")

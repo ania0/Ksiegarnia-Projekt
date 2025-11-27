@@ -16,8 +16,11 @@ class Ebook(IKsiazka):
         self.opis: str = opis
 
 
-    # implementacja met z interf IKsiazka - zwraca cenę e-booka
+    # implementacja met z interf IKsiazka - zwraca cenę e-booka - NA DIAGRAMIE JUZ JEJ NIE MA
     def pobierzCene(self) -> float:
-        # return self.cena
-        raise NotImplementedError()
+        """
+            Tymczasowa implementacja – sygnatura operacji.
+            Zwraca testową wartość lub podnosi wyjątek.
+            """
+        raise NotImplementedError("pobierzCene() nie jest jeszcze zaimplementowane.")
 

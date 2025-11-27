@@ -10,7 +10,7 @@ class IRepozytoriumUzytkownika(ABC):
         pass
 
     @abstractmethod
-    def znajdzUzytkownikaPoEmail(self, email: str) -> Uzytkownik:
+    def znajdzUzytkownikaPoEmailu(self, email: str) -> Uzytkownik:
         pass
 
     @abstractmethod
