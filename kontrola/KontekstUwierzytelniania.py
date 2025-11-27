@@ -32,7 +32,7 @@
 from typing import Optional
 from encje.Uzytkownik import Uzytkownik
 from kontrola.IStrategiaUwierzytelniania import IStrategiaUwierzytelniania
-from kontrola.KsiegarniaKontrolaFacade import KsiegarniaKontrolaFacade
+#from kontrola.KsiegarniaKontrolaFacade import KsiegarniaKontrolaFacade
 
 
 class KontekstUwierzytelniania:

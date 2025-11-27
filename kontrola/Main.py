@@ -6,17 +6,17 @@ from encje.KsiazkaDAO import KsiazkaDAO
 from encje.ZamowienieDAO import ZamowienieDAO
 
 
-
 def main():
-
-
     print("--- START SYSTEMU (Tryb tekstowy 'Main.py') ---")
 
     print("\n[Krok 1] Przygotowanie danych testowych...")
-    dane_rejestracji = {"login": "anna", "haslo": "pass123"}
-    dane_logowania_klient = {"login": "anna", "haslo": "pass123"}
-    dane_logowania_admin = {"login": "admin", "haslo": "admin123"}
-    pusty_koszyk = {"id_ksiazek": [1, 3]}
+    # Dane testowe
+    haslo_test = "pass123"
+    email_test = "anna@test.pl"
+
+    # Symulacja koszyka (lista ID)
+    koszyk_ISBN_ksiazek = [1, 3]
+    id_klienta_test = 1
 
     print("\n[Krok 2] Budowanie architektury...")
 
@@ -26,8 +26,8 @@ def main():
     fabryka_ksiazek = FabrykaKsiazek()
 
     encje_fasada = FasadaEncji(
-        repoUzytkownika=uzytkownik_dao,
         repoKsiazek=ksiazka_dao,
+        repoUzytkownika=uzytkownik_dao,
         repoZamowien=zamowienie_dao,
         fabrykaKsiazek=fabryka_ksiazek
     )
@@ -45,23 +45,29 @@ def main():
             print(f">>> OK: Poprawnie przechwycono błąd STUB: {e}")
         except Exception as e:
             print(f"XXX BŁĄD KRYTYCZNY: {e}")
+            import traceback
+            traceback.print_exc()
+
+    # --- POPRAWIONE WYWOŁANIA ZGODNIE Z NOWYMI SYGNATURAMI ---
 
     testuj_przypadek_uzycia("PU01: Stworzenie konta",
-                            lambda: fasada_kontroli.stworzKonto(dane_rejestracji))
+                            # Teraz przekazujemy 2 argumenty: haslo, email
+                            lambda: fasada_kontroli.stworzKonto(haslo_test, email_test))
 
     testuj_przypadek_uzycia("PU02: Logowanie klienta",
-                            lambda: fasada_kontroli.zalogujKlienta(dane_logowania_klient["login"],
-                                                                   dane_logowania_klient["haslo"]))
+                            # Argumenty: haslo, email (zgodnie z IKsiegarniaKontrola)
+                            lambda: fasada_kontroli.zalogujKlienta(haslo_test, email_test))
 
     testuj_przypadek_uzycia("PU14: Logowanie administratora",
-                            lambda: fasada_kontroli.zalogujAdministratora(dane_logowania_admin["login"],
-                                                                          dane_logowania_admin["haslo"]))
+                            lambda: fasada_kontroli.zalogujAdministratora("admin123", "admin@test.pl"))
 
     testuj_przypadek_uzycia("PU07: Złożenie zamówienia",
-                            lambda: fasada_kontroli.zlozZamowienie(pusty_koszyk))
+                            # Teraz przekazujemy ID klienta i listę ID książek
+                            lambda: fasada_kontroli.zlozZamowienie(id_klienta_test, koszyk_ISBN_ksiazek))
 
     testuj_przypadek_uzycia("PU03: Usunięcie konta",
-                            lambda: fasada_kontroli.usunKonto())
+                            # Metoda wymaga ID klienta
+                            lambda: fasada_kontroli.usunKonto(id_klienta_test))
 
     testuj_przypadek_uzycia("PU13: Przeglądanie raportu",
                             lambda: fasada_kontroli.przegladajRaporty())
@@ -70,10 +76,10 @@ def main():
                             lambda: fasada_kontroli.przegladajKsiazki())
 
     testuj_przypadek_uzycia("PU06: Przeglądanie historii",
-                            lambda: fasada_kontroli.przegladajHistorie())
+                            # Metoda wymaga ID klienta
+                            lambda: fasada_kontroli.przegladajHistorie(id_klienta_test))
 
     print("\n--- ZAKOŃCZONO TESTY 'Main.py' ---")
-
 
 
 if __name__ == "__main__":

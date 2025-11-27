@@ -1,4 +1,3 @@
-from encje.MagazynUzytkownikow import MagazynUzytkownikow
 
 
 class Uzytkownik:

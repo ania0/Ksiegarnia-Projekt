@@ -1,77 +1,4 @@
-# from kontrola.IKsiegarniaKontrola import IKsiegarniaKontrola
-# from encje.IEncjeFasada import IEncjeFasada
-#
-# from kontrola.KontekstUwierzytelniania import KontekstUwierzytelniania
-# from kontrola.StrategiaLogowaniaKlienta import StrategiaLogowanieKlienta
-# from kontrola.StrategiaLogowaniaAdministratora import StrategiaLogowanieAdministratora
-#
-# from kontrola.ProcesRejestracji import ProcesRejestracji
-# from kontrola.ProcesSkladaniaZamowienia import ProcesSkladaniaZamowienia
-# from kontrola.ProcesPrzegladaniaKsiazek import ProcesPrzegladaniaKsiazek
-# from kontrola.ZarzadzanieKsiazkami import ZarzadzanieKsiazkami
-# from kontrola.ZarzadzanieUzytkownikami import ZarzadzanieUzytkownikami
-# from kontrola.ProcesPrzegladaniaHistorii import ProcesPrzegladaniaHistorii
-# from kontrola.ProcesPrzegladaniaRaportu import ProcesPrzegladaniaRaportu
-# from kontrola.ProcesUsuwaniaKonta import ProcesUsuwaniaKonta
-#
-# class KsiegarniaKontrolaFacade(IKsiegarniaKontrola):
-#     def __init__(self, encje_fasada: IEncjeFasada):
-#         self._encje_fasada = encje_fasada
-#         self._strategia_klienta = StrategiaLogowanieKlienta(encje_fasada)
-#         self._strategia_admina = StrategiaLogowanieAdministratora(encje_fasada)
-#         self._kontekst_auth = KontekstUwierzytelniania()
-#
-#     def stworzKonto(self, dane):
-#         proces = ProcesRejestracji(self._encje_fasada)
-#         proces.wykonaj()
-#
-#     def zalogujKlienta(self, login, haslo):
-#         strategia = StrategiaLogowanieKlienta(self._encje_fasada)
-#         self._kontekst_auth.ustawStrategie(strategia)
-#         return self._kontekst_auth.wykonajUwierzytelnianie(login, haslo)
-#
-#     def zalogujAdministratora(self, login, haslo):
-#         strategia = StrategiaLogowanieAdministratora(self._encje_fasada)
-#         self._kontekst_auth.ustawStrategie(strategia)
-#         return self._kontekst_auth.wykonajUwierzytelnianie(login, haslo)
-#
-#     def zarzadzajKatalogiem(self, polecenie=None):
-#         user = self._kontekst_auth.getZalogowanyUzytkownik()
-#         proces = ZarzadzanieKsiazkami(self._encje_fasada, user)
-#         proces.wykonajZarzadzanie()
-#
-#     # def zarzadzajUzytkownikami(self):
-#     #     user = self._kontekst_auth.getZalogowanyUzytkownik()
-#     #     proces = ZarzadzanieUzytkownikami(self._encje_fasada, user)
-#     #     proces.wykonajZarzadzanie()
-#
-#     def przegladajKsiazki(self):
-#         proces = ProcesPrzegladaniaKsiazek(self._encje_fasada)
-#         proces.wykonaj()
-#
-#     # def zlozZamowienie(self, koszyk):
-#     #     user = self._kontekst_auth.getZalogowanyUzytkownik()
-#     #     proces = ProcesSkladaniaZamowienia(self._encje_fasada, user)
-#     #     proces.wykonaj()
-#
-#     def przegladajRaporty(self):
-#         proces = ProcesPrzegladaniaRaportu(self._encje_fasada)
-#         proces.wykonaj()
-#
-#     # def usunKonto(self):
-#     #     proces = ProcesUsuwaniaKonta(self._encje_fasada)
-#     #     proces.wykonaj()
-#
-#     def wybierzKsiazke(self, id):
-#         pass
-#
-#     def przegladajHistorie(self):
-#         proces = ProcesPrzegladaniaHistorii(self._encje_fasada)
-#         proces.wykonaj()
-#
-#
-
-from typing import Optional
+from typing import Optional, List
 
 from kontrola.IKsiegarniaKontrola import IKsiegarniaKontrola
 from encje.IEncjeFasada import IEncjeFasada
@@ -80,51 +7,85 @@ from kontrola.KontekstUwierzytelniania import KontekstUwierzytelniania
 from kontrola.StrategiaLogowaniaKlienta import StrategiaLogowanieKlienta
 from kontrola.StrategiaLogowaniaAdministratora import StrategiaLogowanieAdministratora
 
+# Importy Procesów
 from kontrola.ProcesRejestracji import ProcesRejestracji
 from kontrola.ProcesPrzegladaniaKsiazek import ProcesPrzegladaniaKsiazek
 from kontrola.ProcesPrzegladaniaHistorii import ProcesPrzegladaniaHistorii
 from kontrola.ProcesPrzegladaniaRaportu import ProcesPrzegladaniaRaportu
+from kontrola.ProcesSkladaniaZamowienia import ProcesSkladaniaZamowienia
+from kontrola.ProcesUsuwaniaKonta import ProcesUsuwaniaKonta
 from kontrola.ZarzadzanieKsiazkami import ZarzadzanieKsiazkami
+from kontrola.ZarzadzanieUzytkownikami import ZarzadzanieUzytkownikami
 
 
 class KsiegarniaKontrolaFacade(IKsiegarniaKontrola):
     """
-    Fasada warstwy kontroli – wersja szkieletowa zgodna z wymaganiami laboratoriów.
-    Brak implementacji logiki przypadków użycia.
+    Fasada warstwy kontroli – realizuje przypadki użycia.
     """
 
     def __init__(self, encje_fasada: IEncjeFasada):
-        # Asocjacja z warstwą encji (fasada encji)
         self._encje_fasada: IEncjeFasada = encje_fasada
-        self._strategia_klienta: StrategiaLogowanieKlienta = None
-        self._strategia_admina: StrategiaLogowanieAdministratora = None
-        self._kontekst_auth: KontekstUwierzytelniania = None
 
+        # --- NAPRAWA 1: Tworzymy obiekty, zamiast przypisywać None ---
+        self._kontekst_auth = KontekstUwierzytelniania()
+        self._strategia_klienta = StrategiaLogowanieKlienta(encje_fasada)
+        self._strategia_admina = StrategiaLogowanieAdministratora(encje_fasada)
 
-    def stworzKonto(self, dane) -> None:
-        raise NotImplementedError("stworzKonto() nie jest jeszcze zaimplementowane.")
+    # --- NAPRAWA 2: Poprawne argumenty (login, haslo, email) ---
+    def stworzKonto(self, haslo: str, email: str) -> None:
+        # Tutaj przekazujemy dane do procesu
+        # Uwaga: ProcesRejestracji w wersji stub może nie przyjmować argumentów w __init__,
+        # ale metoda musi pasować do wywołania w Main.py
+        proces = ProcesRejestracji()
+        proces.wykonajRejestracje()
+
+        # --- NAPRAWA 3: Logowanie musi działać, a nie zwracać None ---
 
     def zalogujKlienta(self, hashHasla: str, email: str) -> None:
-        return None  # domyślna wartość
+        self._kontekst_auth.ustawStrategie(self._strategia_klienta)
+        # W Main.py podajesz (haslo, email), a metoda nazywa sie (hashHasla, email)
+        # Przekazujemy w odpowiedniej kolejności do kontekstu
+        self._kontekst_auth.wykonajUwierzytelnianie(email, hashHasla)
 
     def zalogujAdministratora(self, hashHasla: str, email: str) -> None:
-        return None  # domyślna wartość
+        self._kontekst_auth.ustawStrategie(self._strategia_admina)
+        self._kontekst_auth.wykonajUwierzytelnianie(email, hashHasla)
 
-    def zarzadzajKatalogiem(self, polecenie=None) -> None: # czy polecenie?
-        raise NotImplementedError("zarzadzajKatalogiem() nie jest jeszcze zaimplementowane.")
+    def zarzadzajKatalogiem(self, polecenie=None) -> None:
+        uzytkownik = self._kontekst_auth.getZalogowanyUzytkownik()
+        proces = ZarzadzanieKsiazkami(self._encje_fasada, uzytkownik)
+        proces.zarzadzajKsiazkami()
+
+    def zarzadzajUzytkownikami(self) -> None:
+        uzytkownik = self._kontekst_auth.getZalogowanyUzytkownik()
+        proces = ZarzadzanieUzytkownikami(self._encje_fasada, uzytkownik)
+        proces.zarzadzajUzytkownikami()
 
     def przegladajKsiazki(self) -> None:
-        raise NotImplementedError("przegladajKsiazki() nie jest jeszcze zaimplementowane.")
+        proces = ProcesPrzegladaniaKsiazek(self._encje_fasada)
+        proces.wykonajPrzegladanieKsiazek()
 
     def przegladajRaporty(self) -> None:
-        raise NotImplementedError("przegladajRaporty() nie jest jeszcze zaimplementowane.")
+        proces = ProcesPrzegladaniaRaportu(self._encje_fasada)
+        proces.wykonajPrzegladanieRaportu()
 
     def wybierzKsiazke(self, ISBN: int) -> None:
-        return None  # domyślna wartość
+        return None
 
-    def przegladajHistorie(self, dane) -> None: #czy tu dane czy id ?
-        raise NotImplementedError("przegladajHistorie() nie jest jeszcze zaimplementowane.")
+    def zlozZamowienie(self, id_klienta: int, lista_id_ksiazek: List[int]) -> None:
+        # Pobieramy zalogowanego użytkownika (z Kontekstu, który już nie jest None!)
+        uzytkownik = self._kontekst_auth.getZalogowanyUzytkownik()
 
-    def usunKonto(self, dane) -> None:
-        raise NotImplementedError("usunKonto() nie jest jeszcze zaimplementowane.")
+        # Jeśli użytkownik nie jest zalogowany, proces może rzucić błąd lub obsłużyć to
+        # Na potrzeby testu zakładamy, że logowanie w PU02 zadziałało
+        proces = ProcesSkladaniaZamowienia(self._encje_fasada, uzytkownik)
+        proces.wykonajSkladanieZamowienia()
 
+    def przegladajHistorie(self, id_klienta: int) -> None:
+        proces = ProcesPrzegladaniaHistorii(self._encje_fasada)
+        proces.wykonajPrzegladanieHistorii()
+
+    def usunKonto(self, id_klienta: int) -> None:
+        # Przekazujemy stub użytkownika lub ID do procesu
+        proces = ProcesUsuwaniaKonta(self._encje_fasada)
+        proces.wykonajUsuwanie()

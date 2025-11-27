@@ -11,7 +11,6 @@ from encje.IKsiazka import IKsiazka
 # Met abstrakt wymuszają implementację w kl dziedziczących
 class IEncjeFasada(ABC):
 
-
     @abstractmethod
     def rejestrujUzytkownika(self, uzytkownik: Uzytkownik):
         pass
@@ -51,7 +50,7 @@ class IEncjeFasada(ABC):
 
     @abstractmethod
     def pobierzPoISBN(self, ISBN : int) -> IKsiazka:
-		pass
+        pass
 
     @abstractmethod
     def aktualizujStan(self, ISBN: int, nowyStan: int):

@@ -135,11 +135,11 @@ class FasadaEncji(IEncjeFasada):
     def pobierzWszystkie(self) -> List[IKsiazka]:
         raise NotImplementedError()
 
-    def AktualizujDane(self, ksiazka: IKsiazka):
+    def aktualizujDane(self, ksiazka: IKsiazka):
         raise NotImplementedError()
 
     def pobierzPoISBN(self, ISBN : int) -> IKsiazka:
-		raise NotImplementedError()
+        raise NotImplementedError()
 
     def aktualizujStan(self, ISBN: int, nowyStan: int):
         raise NotImplementedError()
