@@ -50,7 +50,8 @@ class KontekstUwierzytelniania:
         # Zalogowany użytkownik (asocjacja 0..1)
         self._zalogowanyUzytkownik: Uzytkownik = None
         # Asocjacja z fasadą (warstwa kontroli)
-#        self._fasadaKontroli: KsiegarniaKontrolaFacade = None # tu nie jestem pewwna czy jest wystarczajaca ilosc atrybutow
+        from kontrola.KsiegarniaKontrolaFacade import KsiegarniaKontrolaFacade  # tu żeby zapobiec cross import
+        self._fasadaKontroli: KsiegarniaKontrolaFacade = None # tu nie jestem pewwna czy jest wystarczajaca ilosc atrybutow
         self._zalogowanyUzytkownik = None
 
 
