@@ -23,6 +23,6 @@ from encje.IKsiazka import IKsiazka
 
 class FabrykaKsiazek:
 	def utworzKsiazke(self, typ : str, tytul : str, autor : str, cena : float) -> IKsiazka:
-		pass
+		raise NotImplementedError("utworzKsiazke() nie jest jeszcze zaimplementowane.")
 
 

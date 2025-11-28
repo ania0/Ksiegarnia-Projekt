@@ -1,6 +1,5 @@
 from encje.IKsiazka import IKsiazka  # import interf książki, po którym dziedziczy Ebook
 
-
 # kl implementująca interf IKsiazka
 class Ebook(IKsiazka):
 
@@ -16,11 +15,6 @@ class Ebook(IKsiazka):
         self.opis: str = opis
 
 
-    # implementacja met z interf IKsiazka - zwraca cenę e-booka - NA DIAGRAMIE JUZ JEJ NIE MA
+    # implementacja met z interf IKsiazka - zwraca cenę e-booka
     def pobierzCene(self) -> float:
-        """
-            Tymczasowa implementacja – sygnatura operacji.
-            Zwraca testową wartość lub podnosi wyjątek.
-            """
-        raise NotImplementedError("pobierzCene() nie jest jeszcze zaimplementowane.")
-
+        return self.cena

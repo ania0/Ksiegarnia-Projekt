@@ -91,7 +91,6 @@ class KsiazkaDAO(IRepozytoriumKsiazek):
     def __init__(self):
         # Asocjacja z MagazynKsiazek (warstwa danych)
         self._magazyn: Optional[MagazynKsiazek] = None
-        # brak logiki – tylko struktura
 
     def dodajKsiazke(self, ksiazka: IKsiazka) -> None:
         raise NotImplementedError("dodajKsiazke() nie jest jeszcze zaimplementowane.")

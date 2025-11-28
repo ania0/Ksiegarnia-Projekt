@@ -27,10 +27,9 @@ from typing import List
 
 
 from typing import List
-from encje.IRepozytoriumUzytkownika import IRepozytoriumUzytkownika
 from encje.Uzytkownik import Uzytkownik
 
-class MagazynUzytkownikow(IRepozytoriumUzytkownika):
+class MagazynUzytkownikow:
 
     def __init__(self):
         # lista przechowująca użytkowników
@@ -39,7 +38,8 @@ class MagazynUzytkownikow(IRepozytoriumUzytkownika):
 
     # metody pomocnicze
     def pobierzListeUzytkownikow(self) -> List[Uzytkownik]:
-        return []
+        # return self._listaUzytkownikow
+        raise NotImplementedError("pobierzUzytkownikow - niezaimplementowane.")
 
     def dodaj(self, uzytkownik: Uzytkownik) -> None:
         raise NotImplementedError("dodaj - niezaimplementowane.")
@@ -51,14 +51,14 @@ class MagazynUzytkownikow(IRepozytoriumUzytkownika):
         return None
 
     # metody z interfejsu IRepozytoriumUzytkownika
-    def rejestrujUzytkownika(self, uzytkownik: Uzytkownik) -> None:
-        raise NotImplementedError("rejestrujUzytkownika - niezaimplementowane.")
-
-    def znajdzUzytkownikaPoEmailu(self, email: str) -> Uzytkownik:
-        return None
-
-    def czyIstnieje(self, email: str) -> bool:
-        return False
-
-    def pobierzDaneUzytkownika(self, idUzytkownika: int) -> Uzytkownik:
-        return None
+#    def rejestrujUzytkownika(self, uzytkownik: Uzytkownik) -> None:
+#       raise NotImplementedError("rejestrujUzytkownika - niezaimplementowane.")
+#
+#    def znajdzUzytkownikaPoEmailu(self, email: str) -> Uzytkownik:
+#        return None
+#
+#    def czyIstnieje(self, email: str) -> bool:
+#        return False
+#
+#    def pobierzDaneUzytkownika(self, idUzytkownika: int) -> Uzytkownik:
+#        return None

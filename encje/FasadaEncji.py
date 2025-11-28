@@ -92,23 +92,29 @@ from encje.FabrykaKsiazek import FabrykaKsiazek
 from encje.DekoratorRabatuLojalnosciowego import DekoratorRabatuLojalnosciowego
 from encje.IRepozytoriumKsiazek import IRepozytoriumKsiazek
 from encje.IRepozytoriumUzytkownika import IRepozytoriumUzytkownika
+from encje.IRepozytoriumZamowien import IRepozytoriumZamowien
 from typing import List
 
 
 class FasadaEncji(IEncjeFasada):
 
-    def __init__(self, repoKsiazek, repoUzytkownika, repoZamowien, fabrykaKsiazek):
-        self.repoKsiazek = repoKsiazek
-        self.repoUzytkownika = repoUzytkownika
-        self.repoZamowien = repoZamowien
-        self.fabrykaKsiazek = fabrykaKsiazek
+    def __init__(self, repoKsiazek: IRepozytoriumKsiazek,
+                 repoUzytkownika: IRepozytoriumUzytkownika,
+                 repoZamowien: IRepozytoriumZamowien,
+                 fabrykaKsiazek: FabrykaKsiazek,
+                 dekoratorRabatu: DekoratorRabatuLojalnosciowego):
+        self._repoKsiazek = repoKsiazek
+        self._repoUzytkownika = repoUzytkownika
+        self._repoZamowien = repoZamowien
+        self._fabrykaKsiazek = fabrykaKsiazek
+        self._dekoratorRabatu = dekoratorRabatu
 
     # ----------------------------
     # UŻYTKOWNICY
     # ----------------------------
 
     def rejestrujUzytkownika(self, uzytkownik: Uzytkownik):
-        raise NotImplementedError()
+        self.repoUzytkownika.rejestrujUzytkownika(uzytkownik)
 
     def znajdzUzytkownikaPoEmailu(self, email: str) -> Uzytkownik:
         raise NotImplementedError()
@@ -162,4 +168,9 @@ class FasadaEncji(IEncjeFasada):
     # ----------------------------
 
     def obliczCeneOstateczna(self, zamowienie: Zamowienie, klient: Klient) -> float:
+        # Jeśli klient lojalny → owijamy zamówienie dekoratorem dodającym rabat, bez modyfikowania kl Zamowienie
+        # komponent_ceny: ICena = zamowienie
+        # if klient.klientLojalny:
+        #   komponent_ceny = DekoratorRabatuLojalnosciowego(komponent_ceny)
+        # return komponent_ceny.obliczCene()
         raise NotImplementedError()

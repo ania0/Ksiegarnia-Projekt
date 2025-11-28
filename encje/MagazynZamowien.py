@@ -15,10 +15,9 @@
 
 
 from typing import List
-from encje.IRepozytoriumZamowien import IRepozytoriumZamowien
 from encje.Zamowienie import Zamowienie
 
-class MagazynZamowien(IRepozytoriumZamowien):
+class MagazynZamowien:
 
     def __init__(self):
         # lista przechowująca zamówienia
@@ -32,18 +31,18 @@ class MagazynZamowien(IRepozytoriumZamowien):
     def dodaj(self, zamowienie: Zamowienie) -> None:
         raise NotImplementedError("dodaj - niezaimplementowane.")
 
-    def usun(self, id: int) -> None:
-        raise NotImplementedError("usun - niezaimplementowane.")
+#    def usun(self, id: int) -> None:   # po co nam usuwanie zamówień??
+#        raise NotImplementedError("usun - niezaimplementowane.")
 
     def pobierz(self, id: int) -> Zamowienie:
         return None
 
     # metody z interfejsu IRepozytoriumZamowien
-    def zapiszZamowienie(self, zamowienie: Zamowienie) -> None:
-        raise NotImplementedError("zapiszZamowienie - niezaimplementowane.")
-
-    def pobierzHistorieDlaKlienta(self, id: int) -> List[Zamowienie]:
-        return []
-
-    def pobierzWszystkieZamowienia(self) -> List[Zamowienie]:
-        return []
+#   def zapiszZamowienie(self, zamowienie: Zamowienie) -> None:
+#        raise NotImplementedError("zapiszZamowienie - niezaimplementowane.")
+#
+#    def pobierzHistorieDlaKlienta(self, id: int) -> List[Zamowienie]:
+#        return []
+#
+#    def pobierzWszystkieZamowienia(self) -> List[Zamowienie]:
+#        return []

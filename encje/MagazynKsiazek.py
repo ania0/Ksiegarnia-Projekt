@@ -32,10 +32,9 @@
 #                 return
 
 from typing import List
-from encje.IRepozytoriumKsiazek import IRepozytoriumKsiazek
 from encje.IKsiazka import IKsiazka
 
-class MagazynKsiazek(IRepozytoriumKsiazek):
+class MagazynKsiazek:
 
     def __init__(self):
         """# @AssociationKind Aggregation"""
@@ -56,23 +55,23 @@ class MagazynKsiazek(IRepozytoriumKsiazek):
         return None
 
     # implementacja metod z interfejsu IRepozytoriumKsiazek
-    def dodajKsiazke(self, ksiazka: IKsiazka) -> None:
-        raise NotImplementedError("dodajKsiazke - niezaimplementowane.")
-
-    def usunKsiazke(self, ISBN: int) -> None:
-        raise NotImplementedError("usunKsiazke - niezaimplementowane.")
-
-    def pobierzWszystkie(self) -> List[IKsiazka]:
-        return []
-
-    def AktualizujDane(self, ksiazka: IKsiazka) -> None:
-        raise NotImplementedError("AktualizujDane - niezaimplementowane.")
-
-    def pobierzPoISBN(self, ISBN: int) -> IKsiazka:
-        return None
-
-    def aktualizujStan(self, ISBN: int, nowyStan: int) -> None:
-        raise NotImplementedError("aktualizujStan - niezaimplementowane.")
+#    def dodajKsiazke(self, ksiazka: IKsiazka) -> None:
+#        raise NotImplementedError("dodajKsiazke - niezaimplementowane.")
+#
+#    def usunKsiazke(self, ISBN: int) -> None:
+#        raise NotImplementedError("usunKsiazke - niezaimplementowane.")
+#
+#    def pobierzWszystkie(self) -> List[IKsiazka]:
+#        return []
+#
+#    def AktualizujDane(self, ksiazka: IKsiazka) -> None:
+#        raise NotImplementedError("AktualizujDane - niezaimplementowane.")
+#
+#    def pobierzPoISBN(self, ISBN: int) -> IKsiazka:
+#        return None
+#
+#    def aktualizujStan(self, ISBN: int, nowyStan: int) -> None:
+#        raise NotImplementedError("aktualizujStan - niezaimplementowane.")
 
 
 

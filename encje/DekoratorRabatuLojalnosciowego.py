@@ -7,22 +7,13 @@
 # class DekoratorRabatuLojalnosciowego(DekoratorCenyZamowienia):
 #
 #     def obliczCene(self) -> float:
-#         # pobranie ceny bazowej z dekor komponent
-#         cena = self._komponent.obliczCene()
-#
-#         # pobranie uzytkownika z komponent
-#         uzytkownik = self._komponent.pobierzKlienta()
-#
-#         # Sprawdz czy uzytkownik jest instancją klasy Klient i czy klientLojalny == True
-#         if isinstance(uzytkownik, Klient) and uzytkownik.klientLojalny:
-#             cena *= 0.9  # zastosowanie 10% rabatu dla lojalnego klienta
-#
+#         # cena = self._komponent.obliczCene()
+#         # klient = self.pobierzKlienta()
+#         # if klient.klientLojalny: cena *= 0.9
 #         return cena
 
 from encje.DekoratorCenyZamowienia import DekoratorCenyZamowienia
-
 from encje.Klient import Klient
-
 
 class DekoratorRabatuLojalnosciowego(DekoratorCenyZamowienia):
     """
@@ -31,11 +22,4 @@ class DekoratorRabatuLojalnosciowego(DekoratorCenyZamowienia):
     """
 
     def obliczCene(self) -> float:
-        print("DekoratorRabatuLojalnosciowego: obliczCene() – tymczasowa implementacja.")
-        raise NotImplementedError()
-
-    def pobierzKlienta(self) -> Klient:
-        print("DekoratorRabatuLojalnosciowego: pobierzKlienta() – tymczasowa implementacja.")
-        raise NotImplementedError()
-
-
+        raise NotImplementedError("DekoratorRabatuLojalnosciowego: obliczCene() – tymczasowa implementacja.")

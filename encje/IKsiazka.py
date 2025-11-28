@@ -4,4 +4,6 @@ from abc import ABC, abstractmethod  # import ABC i abstractmethod do tworzenia 
 # Interf reprezentujący książkę
 # Każda kl implementująca IKsiazka musi dostarczyć met
 class IKsiazka(ABC):
-    pass
+    @abstractmethod
+    def pobierzCene(self) -> float:  # KLUCZOWA METODA
+        pass

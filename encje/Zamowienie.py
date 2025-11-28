@@ -58,7 +58,6 @@ from typing import List, Optional
 from datetime import date
 from encje.ICena import ICena
 from encje.Klient import Klient
-from encje.Uzytkownik import Uzytkownik
 from encje.PozycjaZamowienia import PozycjaZamowienia
 
 
@@ -72,14 +71,13 @@ class Zamowienie(ICena):
         # Atrybuty podstawowe
         self._data: Optional[date] = None
         self._cenaRazem: Optional[float] = None
-        self._uzytkownik: Optional[Uzytkownik] = None
-        self._pozycje: List[PozycjaZamowienia] = []   # kompozycja
+        self._pozycje: List[PozycjaZamowienia] = []
         self._status: Optional[str] = None
         self._metodaPlatnosci: Optional[str] = None
         self._id: Optional[int] = None
 
-        # Asocjacja 0..1 z Klientem
-        self._klient: Optional[Klient] = None
+        # Asocjacja 1..1 z Klientem
+        self._klient: Klient = None
 
         # Kompozycja: * PozycjaZamowienia
         self._pozycjeZamowienia: List[PozycjaZamowienia] = []
@@ -87,7 +85,7 @@ class Zamowienie(ICena):
         # @AssociationKind Composition
 
 
-    def dodajPozycje(self) -> None:
+    def dodajPozycje(self, pozycja: PozycjaZamowienia) -> None:
         raise NotImplementedError("dodajPozycje() nie jest jeszcze zaimplementowane.")
 
     def obliczCene(self) -> float:

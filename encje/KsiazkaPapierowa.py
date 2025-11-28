@@ -13,4 +13,4 @@ class KsiazkaPapierowa(IKsiazka):
         self.opis: str = opis
 
     def pobierzCene(self) -> float:
-        pass
+        return self.cena

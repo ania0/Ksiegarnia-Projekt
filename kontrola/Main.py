@@ -1,3 +1,4 @@
+from encje.DekoratorRabatuLojalnosciowego import DekoratorRabatuLojalnosciowego
 from encje.FabrykaKsiazek import FabrykaKsiazek
 from kontrola.KsiegarniaKontrolaFacade import KsiegarniaKontrolaFacade
 from encje.FasadaEncji import FasadaEncji
@@ -24,12 +25,14 @@ def main():
     ksiazka_dao = KsiazkaDAO()
     zamowienie_dao = ZamowienieDAO()
     fabryka_ksiazek = FabrykaKsiazek()
+    dekorator_rabatu = DekoratorRabatuLojalnosciowego
 
     encje_fasada = FasadaEncji(
         repoKsiazek=ksiazka_dao,
         repoUzytkownika=uzytkownik_dao,
         repoZamowien=zamowienie_dao,
-        fabrykaKsiazek=fabryka_ksiazek
+        fabrykaKsiazek=fabryka_ksiazek,
+        dekoratorRabatu=dekorator_rabatu
     )
 
     fasada_kontroli = KsiegarniaKontrolaFacade(encje_fasada=encje_fasada)

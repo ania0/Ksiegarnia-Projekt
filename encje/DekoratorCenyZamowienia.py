@@ -16,16 +16,7 @@ class DekoratorCenyZamowienia(ICena, ABC):
 
     @abstractmethod
     def obliczCene(self) -> float:
-        """
-        Metoda abstrakcyjna, musi zostać nadpisana w klasach potomnych.
-        """
         pass
 
     def pobierzKlienta(self) -> Optional[Klient]:
-        """
-        Tymczasowa metoda — sygnatura operacji.
-        Zwraca domyślnie None.
-        """
-        return None
-        # lub można też użyć:
-        # raise NotImplementedError("pobierzKlienta() nie jest jeszcze zaimplementowane.")
+        return self._komponent.pobierzKlienta()
