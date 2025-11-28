@@ -35,6 +35,9 @@ from kontrola.IStrategiaUwierzytelniania import IStrategiaUwierzytelniania
 #from kontrola.KsiegarniaKontrolaFacade import KsiegarniaKontrolaFacade
 
 
+#from kontrola.KsiegarniaKontrolaFacade import KsiegarniaKontrolaFacade
+
+
 class KontekstUwierzytelniania:
     """
     Kontekst wzorca Strategia – wersja szkieletowa zgodna z wymaganiami laboratoriów.
@@ -47,15 +50,15 @@ class KontekstUwierzytelniania:
         # Zalogowany użytkownik (asocjacja 0..1)
         self._zalogowanyUzytkownik: Uzytkownik = None
         # Asocjacja z fasadą (warstwa kontroli)
-        self._fasadaKontroli: KsiegarniaKontrolaFacade = None # tu nie jestem pewwna czy jest wystarczajaca ilosc atrybutow
+#        self._fasadaKontroli: KsiegarniaKontrolaFacade = None # tu nie jestem pewwna czy jest wystarczajaca ilosc atrybutow
         self._zalogowanyUzytkownik = None
 
 
     def ustawStrategie(self, strategia: IStrategiaUwierzytelniania) -> None:
         raise NotImplementedError("ustawStrategie() nie jest jeszcze zaimplementowane.")
 
-    def wykonajUwierzytelnianie(self, email: str, hashHasla: str) -> Uzytkownik:
+    def wykonajUwierzytelnianie(self, email: str, hashHasla: str) -> Optional[Uzytkownik]:
         return None  # tymczasowa wartość
 
-    def getZalogowanyUzytkownik(self) -> Uzytkownik:
+    def getZalogowanyUzytkownik(self) -> Optional[Uzytkownik]:
         return self._zalogowanyUzytkownik

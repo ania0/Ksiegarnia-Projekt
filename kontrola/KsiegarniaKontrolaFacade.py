@@ -82,7 +82,8 @@ class KsiegarniaKontrolaFacade(IKsiegarniaKontrola):
         proces.wykonajSkladanieZamowienia()
 
     def przegladajHistorie(self, id_klienta: int) -> None:
-        proces = ProcesPrzegladaniaHistorii(self._encje_fasada)
+        uzytkownik = self._kontekst_auth.getZalogowanyUzytkownik()
+        proces = ProcesPrzegladaniaHistorii(self._encje_fasada, uzytkownik)
         proces.wykonajPrzegladanieHistorii()
 
     def usunKonto(self, id_klienta: int) -> None:
