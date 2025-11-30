@@ -81,7 +81,7 @@ def main():
                             # Metoda wymaga ID klienta
                             lambda: fasada_kontroli.przegladajHistorie(id_klienta_test))
 
-    print("\n--- ZAKOŃCZONO TESTY 'Main.py' ---")
+    print("\n ZAKOŃCZONO TESTY 'Main.py'")
 
 
 if __name__ == "__main__":
