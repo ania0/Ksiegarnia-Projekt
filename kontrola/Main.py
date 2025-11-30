@@ -51,10 +51,9 @@ def main():
             import traceback
             traceback.print_exc()
 
-    # --- POPRAWIONE WYWOŁANIA ZGODNIE Z NOWYMI SYGNATURAMI ---
 
     testuj_przypadek_uzycia("PU01: Stworzenie konta",
-                            # Teraz przekazujemy 2 argumenty: haslo, email
+                            #przekazujemy 2 argumenty: haslo, email
                             lambda: fasada_kontroli.stworzKonto(haslo_test, email_test))
 
     testuj_przypadek_uzycia("PU02: Logowanie klienta",
@@ -65,7 +64,7 @@ def main():
                             lambda: fasada_kontroli.zalogujAdministratora("admin123", "admin@test.pl"))
 
     testuj_przypadek_uzycia("PU07: Złożenie zamówienia",
-                            # Teraz przekazujemy ID klienta i listę ID książek
+                            # przekazujemy ID klienta i listę ID książek
                             lambda: fasada_kontroli.zlozZamowienie(id_klienta_test, koszyk_ISBN_ksiazek))
 
     testuj_przypadek_uzycia("PU03: Usunięcie konta",
