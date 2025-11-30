@@ -109,10 +109,7 @@ class FasadaEncji(IEncjeFasada):
         self._fabrykaKsiazek = fabrykaKsiazek
         self._dekoratorRabatu = dekoratorRabatu
 
-    # ----------------------------
     # UŻYTKOWNICY
-    # ----------------------------
-
     def rejestrujUzytkownika(self, uzytkownik: Uzytkownik):
         self.repoUzytkownika.rejestrujUzytkownika(uzytkownik)
 
@@ -128,10 +125,7 @@ class FasadaEncji(IEncjeFasada):
     def pobierzDaneUzytkownika(self, idUzytkownika: int) -> Uzytkownik:
         raise NotImplementedError()
 
-    # ----------------------------
     # KSIĄŻKI
-    # ----------------------------
-
     def dodajKsiazke(self, ksiazka: IKsiazka):
         raise NotImplementedError()
 
@@ -150,10 +144,7 @@ class FasadaEncji(IEncjeFasada):
     def aktualizujStan(self, ISBN: int, nowyStan: int):
         raise NotImplementedError()
 
-    # ----------------------------
     # ZAMÓWIENIA
-    # ----------------------------
-
     def zapiszZamowienie(self, zamowienie: Zamowienie):
         raise NotImplementedError()
 
@@ -163,10 +154,7 @@ class FasadaEncji(IEncjeFasada):
     def pobierzWszystkieZamowienia(self) -> List[Zamowienie]:
         raise NotImplementedError()
 
-    # ----------------------------
     # DEKORATORY / CENA
-    # ----------------------------
-
     def obliczCeneOstateczna(self, zamowienie: Zamowienie, klient: Klient) -> float:
         # Jeśli klient lojalny → owijamy zamówienie dekoratorem dodającym rabat, bez modyfikowania kl Zamowienie
         # komponent_ceny: ICena = zamowienie
