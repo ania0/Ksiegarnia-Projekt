@@ -51,7 +51,7 @@ from encje.Administrator import Administrator
 
 class ProcesZarzadzania(ABC):
     """
-    Abstrakcyjny proces zarządzania – szkielet zgodny z wymaganiami laboratoriów.
+    Abstrakcyjny proces zarządzania – szkielet.
     """
 
     def __init__(self, fasada_encji: IEncjeFasada, uzytkownik: Administrator):
