@@ -39,10 +39,7 @@ from kontrola.IStrategiaUwierzytelniania import IStrategiaUwierzytelniania
 
 
 class KontekstUwierzytelniania:
-    """
-    Kontekst wzorca Strategia – wersja szkieletowa zgodna z wymaganiami laboratoriów.
-    Brak implementacji logiki, tylko sygnatury i struktura.
-    """
+
 
     def __init__(self):
         # Strategia uwierzytelniania (asocjacja 1..1)
