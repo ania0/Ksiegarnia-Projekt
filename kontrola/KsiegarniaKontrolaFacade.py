@@ -22,29 +22,20 @@ class KsiegarniaKontrolaFacade(IKsiegarniaKontrola):
     """
     Fasada warstwy kontroli – realizuje przypadki użycia.
     """
-
     def __init__(self, encje_fasada: IEncjeFasada):
         self._encje_fasada: IEncjeFasada = encje_fasada
 
-        # --- NAPRAWA 1: Tworzymy obiekty, zamiast przypisywać None ---
         self._kontekst_auth = KontekstUwierzytelniania()
         self._strategia_klienta = StrategiaLogowanieKlienta(encje_fasada)
         self._strategia_admina = StrategiaLogowanieAdministratora(encje_fasada)
 
-    # --- NAPRAWA 2: Poprawne argumenty (login, haslo, email) ---
     def stworzKonto(self, haslo: str, email: str) -> None:
-        # Tutaj przekazujemy dane do procesu
-        # Uwaga: ProcesRejestracji w wersji stub może nie przyjmować argumentów w __init__,
-        # ale metoda musi pasować do wywołania w Main.py
         proces = ProcesRejestracji()
         proces.wykonajRejestracje()
 
-        # --- NAPRAWA 3: Logowanie musi działać, a nie zwracać None ---
 
     def zalogujKlienta(self, hashHasla: str, email: str) -> None:
         self._kontekst_auth.ustawStrategie(self._strategia_klienta)
-        # W Main.py podajesz (haslo, email), a metoda nazywa sie (hashHasla, email)
-        # Przekazujemy w odpowiedniej kolejności do kontekstu
         self._kontekst_auth.wykonajUwierzytelnianie(email, hashHasla)
 
     def zalogujAdministratora(self, hashHasla: str, email: str) -> None:
@@ -73,11 +64,7 @@ class KsiegarniaKontrolaFacade(IKsiegarniaKontrola):
         return None
 
     def zlozZamowienie(self, id_klienta: int, lista_id_ksiazek: List[int]) -> None:
-        # Pobieramy zalogowanego użytkownika (z Kontekstu, który już nie jest None!)
         uzytkownik = self._kontekst_auth.getZalogowanyUzytkownik()
-
-        # Jeśli użytkownik nie jest zalogowany, proces może rzucić błąd lub obsłużyć to
-        # Na potrzeby testu zakładamy, że logowanie w PU02 zadziałało
         proces = ProcesSkladaniaZamowienia(self._encje_fasada, uzytkownik)
         proces.wykonajSkladanieZamowienia()
 
