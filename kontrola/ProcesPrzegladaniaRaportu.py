@@ -3,10 +3,6 @@ from encje.Administrator import Administrator
 
 
 class ProcesPrzegladaniaRaportu:
-    """
-    Proces przeglądania raportu — wersja szkieletowa zgodna z wymaganiami laboratoriów.
-    """
-
     def __init__(self, fasada_encji: IEncjeFasada):
         # Asocjacja z fasadą encji (warstwa danych)
         self._fasada_encji: IEncjeFasada = fasada_encji
