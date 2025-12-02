@@ -93,7 +93,7 @@ from encje.DekoratorRabatuLojalnosciowego import DekoratorRabatuLojalnosciowego
 from encje.IRepozytoriumKsiazek import IRepozytoriumKsiazek
 from encje.IRepozytoriumUzytkownika import IRepozytoriumUzytkownika
 from encje.IRepozytoriumZamowien import IRepozytoriumZamowien
-from typing import List
+from typing import List # TU
 
 
 class FasadaEncji(IEncjeFasada):
@@ -110,55 +110,57 @@ class FasadaEncji(IEncjeFasada):
         self._dekoratorRabatu = dekoratorRabatu
 
     # UŻYTKOWNICY
-    def rejestrujUzytkownika(self, uzytkownik: Uzytkownik):
+    def rejestrujUzytkownika(self, uzytkownik: Uzytkownik) -> None:
         self.repoUzytkownika.rejestrujUzytkownika(uzytkownik)
 
     def znajdzUzytkownikaPoEmailu(self, email: str) -> Uzytkownik:
-        raise NotImplementedError()
+        return self._repoUzytkownika.znajdzPoEmailu(email)
 
     def czyIstnieje(self, email: str) -> bool:
-        raise NotImplementedError()
+        return self._repoUzytkownika.czyIstnieje(email)
 
-    def usun(self, idUzytkownika: int):
-        raise NotImplementedError()
+    def usun(self, idUzytkownika: int) -> None:
+        self._repoUzytkownika.usun(idUzytkownika)
 
     def pobierzDaneUzytkownika(self, idUzytkownika: int) -> Uzytkownik:
-        raise NotImplementedError()
+        return self._repoUzytkownika.pobierz(idUzytkownika)
 
     # KSIĄŻKI
-    def dodajKsiazke(self, ksiazka: IKsiazka):
-        raise NotImplementedError()
+    def dodajKsiazke(self, ksiazka: IKsiazka) -> None:
+        self._repoKsiazek.dodaj(ksiazka)
 
-    def usunKsiazke(self, ISBN: int):
-        raise NotImplementedError()
+    def usunKsiazke(self, ISBN: int) -> None:
+        self._repoKsiazek.usun(ISBN)
 
     def pobierzWszystkie(self) -> List[IKsiazka]:
-        raise NotImplementedError()
+        return self._repoKsiazek.pobierzWszystkie()
 
-    def aktualizujDane(self, ksiazka: IKsiazka):
-        raise NotImplementedError()
+    def aktualizujDane(self, ksiazka: IKsiazka) -> None:
+        self._repoKsiazek.aktualizuj(ksiazka)
 
-    def pobierzPoISBN(self, ISBN : int) -> IKsiazka:
-        raise NotImplementedError()
+    def pobierzPoISBN(self, ISBN: int) -> IKsiazka:
+        return self._repoKsiazek.pobierzPoISBN(ISBN)
 
-    def aktualizujStan(self, ISBN: int, nowyStan: int):
-        raise NotImplementedError()
+    def aktualizujStan(self, ISBN: int, nowyStan: int) -> None:
+        self._repoKsiazek.aktualizujStan(ISBN, nowyStan)
 
     # ZAMÓWIENIA
-    def zapiszZamowienie(self, zamowienie: Zamowienie):
-        raise NotImplementedError()
+    def zapiszZamowienie(self, zamowienie: Zamowienie) -> None:
+        self._repoZamowien.zapisz(zamowienie)
 
     def pobierzHistorieDlaKlienta(self, idKlienta: int) -> List[Zamowienie]:
-        raise NotImplementedError()
+        return self._repoZamowien.pobierzHistorieKlienta(idKlienta)
 
     def pobierzWszystkieZamowienia(self) -> List[Zamowienie]:
-        raise NotImplementedError()
+        return self._repoZamowien.pobierzWszystkie()
 
     # DEKORATORY / CENA
     def obliczCeneOstateczna(self, zamowienie: Zamowienie, klient: Klient) -> float:
-        # Jeśli klient lojalny → owijamy zamówienie dekoratorem dodającym rabat, bez modyfikowania kl Zamowienie
-        # komponent_ceny: ICena = zamowienie
-        # if klient.klientLojalny:
-        #   komponent_ceny = DekoratorRabatuLojalnosciowego(komponent_ceny)
-        # return komponent_ceny.obliczCene()
-        raise NotImplementedError()
+        komponent: ICena = zamowienie  # Zamowienie implementuje ICena
+
+        if klient.klientLojalny:
+            dekorator = self._dekoratorRabatuLojalnosciowego(komponent)
+            return dekorator.obliczCene()
+        else:
+            return komponent.obliczCene()
+

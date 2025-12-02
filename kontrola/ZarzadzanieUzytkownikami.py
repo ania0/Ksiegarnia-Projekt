@@ -46,8 +46,10 @@ class ZarzadzanieUzytkownikami(ProcesZarzadzania):
         self._uzytkownik: Administrator = uzytkownik
 
     def zarzadzajUzytkownikami(self) -> None:
-        """
-        Tymczasowa metoda – sygnatura operacji.
-        PU: Logika zarządzania użytkownikami nie jest zaimplementowana.
-        """
-        raise NotImplementedError("zarzadzajUzytkownikami() nie jest jeszcze zaimplementowane.")
+        # Tymczasowa logika testowa: wypisanie listy użytkowników
+        uzytkownicy = self._fasada_encji.pobierzWszystkichUzytkownikow() if self._fasada_encji else []
+        print("Zarządzanie użytkownikami – lista dostępnych użytkowników:")
+        for u in uzytkownicy:
+            print(
+                f"- {getattr(u, 'imie', 'Brak imienia')} {getattr(u, 'nazwisko', 'Brak nazwiska')} ({getattr(u, 'email', 'Brak email')})")
+        print("PU: Logika dodawania/edycji/usuwania użytkowników nie jest jeszcze zaimplementowana.")

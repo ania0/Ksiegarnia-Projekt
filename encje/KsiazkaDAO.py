@@ -93,21 +93,27 @@ class KsiazkaDAO(IRepozytoriumKsiazek):
         self._magazyn: Optional[MagazynKsiazek] = None
 
     def dodajKsiazke(self, ksiazka: IKsiazka) -> None:
-        raise NotImplementedError("dodajKsiazke() nie jest jeszcze zaimplementowane.")
+        self._ksiazki.append(ksiazka)
 
     def usunKsiazke(self, ISBN: int) -> None:
-        raise NotImplementedError("usunKsiazke() nie jest jeszcze zaimplementowane.")
+        self._ksiazki = [k for k in self._ksiazki if k.ISBN != ISBN]
 
     def pobierzWszystkie(self) -> List[IKsiazka]:
-        # domyślna wartość, bo nie ma implementacji
-        return []
+        return self._ksiazki.copy()
 
-    def AktualizujDane(self, ksiazka: IKsiazka) -> None:
-        raise NotImplementedError("AktualizujDane() nie jest jeszcze zaimplementowane.")
+    def aktualizujDane(self, ksiazka: IKsiazka) -> None:
+        for i, k in enumerate(self._ksiazki):
+            if k.ISBN == ksiazka.ISBN:
+                self._ksiazki[i] = ksiazka
+                break
 
     def pobierzPoISBN(self, ISBN: int) -> Optional[IKsiazka]:
-        # domyślnie brak obiektu
+        for k in self._ksiazki:
+            if k.ISBN == ISBN:
+                return k
         return None
 
     def aktualizujStan(self, ISBN: int, nowyStan: int) -> None:
-        raise NotImplementedError("aktualizujStan() nie jest jeszcze zaimplementowane.")
+        ksiazka = self.pobierzPoISBN(ISBN)
+        if ksiazka is not None:
+            ksiazka.stan = nowyStan

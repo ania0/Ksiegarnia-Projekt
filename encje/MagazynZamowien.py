@@ -24,18 +24,21 @@ class MagazynZamowien:
         self._listaZamowien: List[Zamowienie] = []
         """# @AssociationKind Aggregation"""
 
-    # metody pomocnicze
     def pobierzListeZamowien(self) -> List[Zamowienie]:
-        return []
+        return self._listaZamowien
 
     def dodaj(self, zamowienie: Zamowienie) -> None:
-        raise NotImplementedError("dodaj - niezaimplementowane.")
+        self._listaZamowien.append(zamowienie)
+
+    def pobierz(self, id: int) -> Optional[Zamowienie]:
+        for z in self._listaZamowien:
+            if z.id == id:
+                return z
+        return None
 
 #    def usun(self, id: int) -> None:   # po co nam usuwanie zamówień??
 #        raise NotImplementedError("usun - niezaimplementowane.")
 
-    def pobierz(self, id: int) -> Zamowienie:
-        return None
 
     # metody z interfejsu IRepozytoriumZamowien
 #   def zapiszZamowienie(self, zamowienie: Zamowienie) -> None:

@@ -51,12 +51,26 @@ class KontekstUwierzytelniania:
         self._fasadaKontroli: KsiegarniaKontrolaFacade = None # tu nie jestem pewwna czy jest wystarczajaca ilosc atrybutow
         self._zalogowanyUzytkownik = None
 
-
     def ustawStrategie(self, strategia: IStrategiaUwierzytelniania) -> None:
-        raise NotImplementedError("ustawStrategie() nie jest jeszcze zaimplementowane.")
+        """
+        Ustawia strategię uwierzytelniania.
+        """
+        self._strategia = strategia
 
     def wykonajUwierzytelnianie(self, email: str, hashHasla: str) -> Optional[Uzytkownik]:
-        return None  # tymczasowa wartość
+        """
+        Wykonuje uwierzytelnianie przy użyciu aktualnej strategii.
+        """
+        if self._strategia is None:
+            raise ValueError("Nie ustawiono strategii uwierzytelniania.")
+
+        # Strategia zwraca użytkownika jeśli dane są poprawne, w przeciwnym wypadku None
+        uzytkownik = self._strategia.uwierz(email, hashHasla)
+        self._zalogowanyUzytkownik = uzytkownik
+        return uzytkownik
 
     def getZalogowanyUzytkownik(self) -> Optional[Uzytkownik]:
+        """
+        Zwraca aktualnie zalogowanego użytkownika.
+        """
         return self._zalogowanyUzytkownik

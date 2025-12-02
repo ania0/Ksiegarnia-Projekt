@@ -33,7 +33,7 @@
 #     def pobierzDaneUzytkownika(self, login: str) -> Optional[Uzytkownik]:
 #         return self.znajdzUzytkownikaPoEmail(login)
 
-from typing import List
+from typing import List # TU
 from encje.IRepozytoriumUzytkownika import IRepozytoriumUzytkownika
 from encje.Uzytkownik import Uzytkownik
 
@@ -43,17 +43,28 @@ class UzytkownikDAO(IRepozytoriumUzytkownika):
         # referencja do magazynu (agregacja)
         self._magazyn = None  # w pełnej implementacji: MagazynUzytkownikow
 
-    def rejestrujUzytkownika(self, uzytkownik: Uzytkownik):
-        raise NotImplementedError("rejestrujUzytkownika - niezaimplementowane.")
+    def rejestrujUzytkownika(self, uzytkownik: Uzytkownik) -> None:
+        """Dodaje użytkownika do magazynu."""
+        self._magazyn.append(uzytkownik)
 
-    def znajdzUzytkownikaPoEmailu(self, email: str) -> Uzytkownik:
-        return None  # domyślna wartość
+    def znajdzUzytkownikaPoEmailu(self, email: str) -> Optional[Uzytkownik]:
+        """Zwraca użytkownika o podanym emailu lub None jeśli nie istnieje."""
+        for u in self._magazyn:
+            if u.email == email:
+                return u
+        return None
 
     def czyIstnieje(self, email: str) -> bool:
-        return False  # domyślna wartość
+        """Sprawdza, czy istnieje użytkownik o podanym emailu."""
+        return any(u.email == email for u in self._magazyn)
 
-    def usun(self, idUzytkownika: int):
-        raise NotImplementedError("usun - niezaimplementowane.")
+    def usun(self, idUzytkownika: int) -> None:
+        """Usuwa użytkownika o podanym ID."""
+        self._magazyn = [u for u in self._magazyn if u.pobierzId() != idUzytkownika]
 
-    def pobierzDaneUzytkownika(self, idUzytkownika: str) -> Uzytkownik:
-        return None  # domyślna wartość
+    def pobierzDaneUzytkownika(self, idUzytkownika: int) -> Optional[Uzytkownik]:
+        """Zwraca użytkownika o podanym ID lub None jeśli nie istnieje."""
+        for u in self._magazyn:
+            if u.pobierzId() == idUzytkownika:
+                return u
+        return None

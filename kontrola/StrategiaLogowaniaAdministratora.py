@@ -9,6 +9,9 @@ class StrategiaLogowanieAdministratora(IStrategiaUwierzytelniania):
     def __init__(self, fasada_encji: IEncjeFasada):
         self._fasada_encji = fasada_encji
 
-    def uwierzytelnij(self, email: str, hashHasla: str) -> Uzytkownik:
-        # print("StrategiaAdmin: Weryfikacja uprawnień admina...")
-        raise NotImplementedError("PU: Logika logowania administratora nie jest zaimplementowana.")
+    def uwierzytelnij(self, email: str, hashHasla: str) -> Optional[Uzytkownik]:
+        # Tymczasowa logika: jeśli email kończy się na 'admin.com', traktujemy jako admina
+        if email.endswith("admin.com"):
+            uzytkownik = self._fasada_encji.znajdzUzytkownikaPoEmailu(email)
+            return uzytkownik
+        return None

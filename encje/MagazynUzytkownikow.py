@@ -29,26 +29,36 @@ from typing import List
 from typing import List
 from encje.Uzytkownik import Uzytkownik
 
+from typing import List, Optional
+from encje.Uzytkownik import Uzytkownik
+
 class MagazynUzytkownikow:
+    """
+    Magazyn użytkowników – prosty magazyn w pamięci do testów.
+    """
 
     def __init__(self):
-        # lista przechowująca użytkowników
+        # Lista przechowująca użytkowników
         self._listaUzytkownikow: List[Uzytkownik] = []
-        """# @AssociationKind Aggregation"""
 
-    # metody pomocnicze
     def pobierzListeUzytkownikow(self) -> List[Uzytkownik]:
-        # return self._listaUzytkownikow
-        raise NotImplementedError("pobierzUzytkownikow - niezaimplementowane.")
+        # Zwraca kopię listy, aby nie pozwolić na bezpośrednią modyfikację
+        return self._listaUzytkownikow.copy()
 
     def dodaj(self, uzytkownik: Uzytkownik) -> None:
-        raise NotImplementedError("dodaj - niezaimplementowane.")
+        self._listaUzytkownikow.append(uzytkownik)
 
     def usun(self, id: int) -> None:
-        raise NotImplementedError("usun - niezaimplementowane.")
+        self._listaUzytkownikow = [
+            u for u in self._listaUzytkownikow if u.id != id
+        ]
 
-    def pobierz(self, id: int) -> Uzytkownik:
+    def pobierz(self, id: int) -> Optional[Uzytkownik]:
+        for u in self._listaUzytkownikow:
+            if u.id == id:
+                return u
         return None
+
 
     # metody z interfejsu IRepozytoriumUzytkownika
 #    def rejestrujUzytkownika(self, uzytkownik: Uzytkownik) -> None:

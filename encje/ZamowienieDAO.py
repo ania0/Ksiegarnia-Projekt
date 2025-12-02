@@ -43,18 +43,22 @@ class ZamowienieDAO(IRepozytoriumZamowien):
             Zapisuje zamówienie do repozytorium.
             Tymczasowa implementacja — metoda niezaimplementowana.
             """
-            raise NotImplementedError("Operacja zapiszZamowienie() nie jest jeszcze zaimplementowana.")
+            self._magazyn._listaZamowien.append(zamowienie)
 
         def pobierzHistorieDlaKlienta(self, idKlienta: int) -> List[Zamowienie]:
             """
             Zwraca historię zamówień klienta.
             Tymczasowa implementacja — zwraca pustą listę.
             """
-            return []
+            historia = [
+                z for z in self._magazyn._listaZamowien
+                if z.pobierzKlienta() is not None and z.pobierzKlienta().pobierzId() == idKlienta
+            ]
+            return historia
 
         def pobierzWszystkieZamowienia(self) -> List[Zamowienie]:
             """
             Zwraca wszystkie zamówienia.
             Tymczasowa implementacja — metoda niezaimplementowana.
             """
-            raise NotImplementedError("Operacja pobierzWszystkieZamowienia() nie jest jeszcze zaimplementowana.")
+            return list(self._magazyn._listaZamowien)

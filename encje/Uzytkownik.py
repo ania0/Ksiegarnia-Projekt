@@ -20,7 +20,10 @@ class Uzytkownik:
         self.id: Optional[int] = id
 
     def weryfikujHaslo(self, podaneHaslo: str) -> bool:
-        raise NotImplementedError("weryfikujHaslo() nie jest jeszcze zaimplementowane.")
+        # Można tu zrobić prostą testową weryfikację np. porównanie hashów
+        if self.hashHasla is None:
+            return False
+        return podaneHaslo == self.hashHasla  # testowa wersja
 
     def pobierzId(self) -> Optional[int]:
         return self._id

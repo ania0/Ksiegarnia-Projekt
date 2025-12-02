@@ -43,15 +43,19 @@ class MagazynKsiazek:
 
     # dodatkowe metody pomocnicze (tymczasowo – same sygnatury)
     def pobierzListeKsiazek(self) -> List[IKsiazka]:
-        return []
+        # Zwracamy kopię listy, aby nie pozwolić na bezpośrednią modyfikację
+        return self._listaKsiazek.copy()
 
     def dodaj(self, ksiazka: IKsiazka) -> None:
-        raise NotImplementedError("dodaj - niezaimplementowane.")
+        self._listaKsiazek.append(ksiazka)
 
     def usun(self, ISBN: int) -> None:
-        raise NotImplementedError("usun - niezaimplementowane.")
+        self._listaKsiazek = [k for k in self._listaKsiazek if k.ISBN != ISBN]
 
-    def pobierz(self, ISBN: int) -> IKsiazka:
+    def pobierz(self, ISBN: int) -> Optional[IKsiazka]:
+        for k in self._listaKsiazek:
+            if k.ISBN == ISBN:
+                return k
         return None
 
     # implementacja metod z interfejsu IRepozytoriumKsiazek

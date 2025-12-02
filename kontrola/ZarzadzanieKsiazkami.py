@@ -70,9 +70,11 @@ class ZarzadzanieKsiazkami(ProcesZarzadzania):
         self._fasada_encji: Optional[IEncjeFasada] = fasada_encji
         self._uzytkownik: Optional[Administrator] = uzytkownik
 
-    def zarzadzajKsiazkami(self) -> None:
-        """
-        Tymczasowa metoda – sygnatura operacji.
-        PU: Logika zarządzania książkami nie jest zaimplementowana.
-        """
-        raise NotImplementedError("zarzadzajKsiazkami() nie jest jeszcze zaimplementowane.")
+        def zarzadzajKsiazkami(self) -> None:
+            # Tymczasowa logika testowa: np. pobranie listy książek i wypisanie tytułów
+            ksiazki = self._fasada_encji.pobierzWszystkie() if self._fasada_encji else []
+            print("Zarządzanie książkami – lista dostępnych książek:")
+            for k in ksiazki:
+                print(f"- {getattr(k, 'tytul', 'Brak tytułu')}")
+            print("PU: Logika dodawania/edycji/usuwania książek nie jest jeszcze zaimplementowana.")
+

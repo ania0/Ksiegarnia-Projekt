@@ -1,5 +1,7 @@
 from typing import Optional, List
 
+# TU
+
 from kontrola.IKsiegarniaKontrola import IKsiegarniaKontrola
 from encje.IEncjeFasada import IEncjeFasada
 
@@ -31,7 +33,7 @@ class KsiegarniaKontrolaFacade(IKsiegarniaKontrola):
 
     def stworzKonto(self, haslo: str, email: str) -> None:
         proces = ProcesRejestracji()
-        proces.wykonajRejestracje()
+        proces.wykonajRejestracje(email, haslo)
 
 
     def zalogujKlienta(self, hashHasla: str, email: str) -> None:
@@ -45,7 +47,7 @@ class KsiegarniaKontrolaFacade(IKsiegarniaKontrola):
     def zarzadzajKatalogiem(self, polecenie=None) -> None:
         uzytkownik = self._kontekst_auth.getZalogowanyUzytkownik()
         proces = ZarzadzanieKsiazkami(self._encje_fasada, uzytkownik)
-        proces.zarzadzajKsiazkami()
+        proces.zarzadzajKsiazkami(polecenie)
 
     def zarzadzajUzytkownikami(self) -> None:
         uzytkownik = self._kontekst_auth.getZalogowanyUzytkownik()
@@ -66,14 +68,14 @@ class KsiegarniaKontrolaFacade(IKsiegarniaKontrola):
     def zlozZamowienie(self, id_klienta: int, lista_id_ksiazek: List[int]) -> None:
         uzytkownik = self._kontekst_auth.getZalogowanyUzytkownik()
         proces = ProcesSkladaniaZamowienia(self._encje_fasada, uzytkownik)
-        proces.wykonajSkladanieZamowienia()
+        proces.wykonajSkladanieZamowienia(id_klienta, lista_id_ksiazek)
 
     def przegladajHistorie(self, id_klienta: int) -> None:
         uzytkownik = self._kontekst_auth.getZalogowanyUzytkownik()
         proces = ProcesPrzegladaniaHistorii(self._encje_fasada, uzytkownik)
-        proces.wykonajPrzegladanieHistorii()
+        proces.wykonajPrzegladanieHistorii(id_klienta)
 
     def usunKonto(self, id_klienta: int) -> None:
         # Przekazujemy stub użytkownika lub ID do procesu
         proces = ProcesUsuwaniaKonta(self._encje_fasada)
-        proces.wykonajUsuwanie()
+        proces.wykonajUsuwanie(id_klienta)

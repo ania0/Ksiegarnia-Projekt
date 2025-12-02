@@ -86,14 +86,17 @@ class Zamowienie(ICena):
 
 
     def dodajPozycje(self, pozycja: PozycjaZamowienia) -> None:
-        raise NotImplementedError("dodajPozycje() nie jest jeszcze zaimplementowane.")
+        """Dodaje pozycję do zamówienia i przelicza cenę."""
+        self._pozycjeZamowienia.append(pozycja)
 
     def obliczCene(self) -> float:
-        # metoda zwracająca wartość domyślną
-        return 0.0
+        """Oblicza sumaryczną cenę zamówienia na podstawie pozycji."""
+        return sum(p.ilosc * p.cenaJednostkowa for p in self._pozycjeZamowienia)
 
     def pobierzId(self) -> int:
-        return 0  # domyślna wartość
+        """Zwraca ID zamówienia."""
+        return self._id
 
-    def pobierzKlienta(self) -> Klient:
-        return None  # domyślna wartość
+    def pobierzKlienta(self) -> Optional[Klient]:
+        """Zwraca klienta powiązanego z zamówieniem."""
+        return self._klient
