@@ -122,20 +122,20 @@ class FasadaEncji(IEncjeFasada):
         self._repoUzytkownika.usun(idUzytkownika)
 
     def pobierzDaneUzytkownika(self, idUzytkownika: int) -> Uzytkownik:
-        return self._repoUzytkownika.pobierz(idUzytkownika)
+        return self._repoUzytkownika.pobierzDaneUzytkownika(idUzytkownika)
 
     # KSIĄŻKI
     def dodajKsiazke(self, ksiazka: IKsiazka) -> None:
-        self._repoKsiazek.dodaj(ksiazka)
+        self._repoKsiazek.dodajKsiazke(ksiazka)
 
     def usunKsiazke(self, ISBN: int) -> None:
-        self._repoKsiazek.usun(ISBN)
+        self._repoKsiazek.usunKsiazke(ISBN)
 
     def pobierzWszystkie(self) -> List[IKsiazka]:
         return self._repoKsiazek.pobierzWszystkie()
 
     def aktualizujDane(self, ksiazka: IKsiazka) -> None:
-        self._repoKsiazek.aktualizuj(ksiazka)
+        self._repoKsiazek.aktualizujStan(ksiazka)
 
     def pobierzPoISBN(self, ISBN: int) -> IKsiazka:
         return self._repoKsiazek.pobierzPoISBN(ISBN)
@@ -145,13 +145,13 @@ class FasadaEncji(IEncjeFasada):
 
     # ZAMÓWIENIA
     def zapiszZamowienie(self, zamowienie: Zamowienie) -> None:
-        self._repoZamowien.zapisz(zamowienie)
+        self._repoZamowien.zapiszZamowienie(zamowienie)
 
     def pobierzHistorieDlaKlienta(self, idKlienta: int) -> List[Zamowienie]:
-        return self._repoZamowien.pobierzHistorieKlienta(idKlienta)
+        return self._repoZamowien.pobierzHistorieDlaKlienta(idKlienta)
 
     def pobierzWszystkieZamowienia(self) -> List[Zamowienie]:
-        return self._repoZamowien.pobierzWszystkie()
+        return self._repoZamowien.pobierzWszystkieZamowienia()
 
     # DEKORATORY / CENA
     def obliczCeneOstateczna(self, zamowienie: Zamowienie, klient: Klient) -> float:

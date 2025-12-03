@@ -1,3 +1,4 @@
+from encje.Administrator import Administrator
 from encje.DekoratorRabatuLojalnosciowego import DekoratorRabatuLojalnosciowego
 from encje.FabrykaKsiazek import FabrykaKsiazek
 from kontrola.KsiegarniaKontrolaFacade import KsiegarniaKontrolaFacade
@@ -34,6 +35,15 @@ def main():
         fabrykaKsiazek=fabryka_ksiazek,
         dekoratorRabatu=dekorator_rabatu
     )
+    admin_uzytkownik = Administrator(
+        imie="Jan",
+        nazwisko="Admin",
+        email="admin@test.pl",
+        hashHasla="admin123",
+        id = 1
+    )
+    encje_fasada.rejestrujUzytkownika(admin_uzytkownik)
+    print("Zarejestrowano administratora testowego: admin@test.pl")
 
     fasada_kontroli = KsiegarniaKontrolaFacade(encje_fasada=encje_fasada)
 
