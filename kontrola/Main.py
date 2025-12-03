@@ -12,7 +12,7 @@ def main():
 
     print("\n[Krok 1] Przygotowanie danych testowych...")
     # Dane testowe
-    haslo_test = "pass123"
+    haslo_test = "haslo123"
     email_test = "anna@test.pl"
 
     # Symulacja koszyka (lista ID)

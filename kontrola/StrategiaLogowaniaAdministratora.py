@@ -1,3 +1,4 @@
+from encje.Administrator import Administrator
 from kontrola.IStrategiaUwierzytelniania import IStrategiaUwierzytelniania
 from encje.IEncjeFasada import IEncjeFasada
 from encje.Uzytkownik import Uzytkownik
@@ -14,12 +15,10 @@ class StrategiaLogowanieAdministratora(IStrategiaUwierzytelniania):
         uzytkownik = self._fasada_encji.znajdzUzytkownikaPoEmailu(email)
 
         if uzytkownik is not None:
-            # 1.2: weryfikujHaslo(haslo)
-            if uzytkownik.weryfikujHaslo(haslo):
-                # 1.r: uzytkownik
-                return uzytkownik
-            # else weryfikujHaslo == false -> 1.r: null
-            return None
-
+            # SPRAWDZENIE TYPU: Logowanie Admina tylko dla Administratorów
+            if isinstance(uzytkownik, Administrator):
+                if uzytkownik.weryfikujHaslo(haslo):
+                    return uzytkownik
             # [uzytkownik == null] -> 1.r: null
+
         return None

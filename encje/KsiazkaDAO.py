@@ -90,7 +90,7 @@ class KsiazkaDAO(IRepozytoriumKsiazek):
 
     def __init__(self):
         # Asocjacja z MagazynKsiazek (warstwa danych)
-        self._magazyn: Optional[MagazynKsiazek] = None
+        self._ksiazki: List[IKsiazka] = []
 
     def dodajKsiazke(self, ksiazka: IKsiazka) -> None:
         self._ksiazki.append(ksiazka)
@@ -99,6 +99,7 @@ class KsiazkaDAO(IRepozytoriumKsiazek):
         self._ksiazki = [k for k in self._ksiazki if k.ISBN != ISBN]
 
     def pobierzWszystkie(self) -> List[IKsiazka]:
+        # Ta linia teraz zadziała, ponieważ _ksiazki jest zainicjalizowane jako []
         return self._ksiazki.copy()
 
     def aktualizujDane(self, ksiazka: IKsiazka) -> None:

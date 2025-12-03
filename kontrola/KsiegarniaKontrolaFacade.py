@@ -59,7 +59,8 @@ class KsiegarniaKontrolaFacade(IKsiegarniaKontrola):
         proces.wykonajPrzegladanieKsiazek()
 
     def przegladajRaporty(self) -> None:
-        proces = ProcesPrzegladaniaRaportu(self._encje_fasada)
+        uzytkownik = self._kontekst_auth.getZalogowanyUzytkownik()
+        proces = ProcesPrzegladaniaRaportu(self._encje_fasada, uzytkownik)
         proces.wykonajPrzegladanieRaportu()
 
     def wybierzKsiazke(self, ISBN: int) -> None:
@@ -77,5 +78,6 @@ class KsiegarniaKontrolaFacade(IKsiegarniaKontrola):
 
     def usunKonto(self, id_klienta: int) -> None:
         # Przekazujemy stub użytkownika lub ID do procesu
-        proces = ProcesUsuwaniaKonta(self._encje_fasada)
+        uzytkownik = self._kontekst_auth.getZalogowanyUzytkownik()
+        proces = ProcesUsuwaniaKonta(self._encje_fasada, uzytkownik)
         proces.wykonajUsuwanie(id_klienta)
