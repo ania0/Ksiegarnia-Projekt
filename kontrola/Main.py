@@ -9,9 +9,9 @@ from encje.ZamowienieDAO import ZamowienieDAO
 
 
 def main():
-    print("--- START SYSTEMU (Tryb tekstowy 'Main.py') ---")
+    print("START")
 
-    print("\n[Krok 1] Przygotowanie danych testowych...")
+    print("\nPrzygotowanie danych testowych")
     # Dane testowe
     haslo_test = "haslo123"
     email_test = "anna@test.pl"
@@ -20,7 +20,7 @@ def main():
     koszyk_ISBN_ksiazek = [1, 3]
     id_klienta_test = 1
 
-    print("\n[Krok 2] Budowanie architektury...")
+    print("\nBudowanie architektury")
 
     uzytkownik_dao = UzytkownikDAO()
     ksiazka_dao = KsiazkaDAO()
@@ -47,38 +47,34 @@ def main():
 
     fasada_kontroli = KsiegarniaKontrolaFacade(encje_fasada=encje_fasada)
 
-    print("\n--- System gotowy. Rozpoczynam testy... ---")
+    print("\nRozpoczęcie testów")
 
     def testuj_przypadek_uzycia(nazwa_pu, funkcja_do_wywolania):
-        print(f"\n--- Testowanie {nazwa_pu} ---")
+        print(f"\nTestowanie {nazwa_pu}")
         try:
             wynik = funkcja_do_wywolania()
             print(f"Wynik testu: {wynik}")
         except NotImplementedError as e:
             print(f">>> OK: Poprawnie przechwycono błąd STUB: {e}")
         except Exception as e:
-            print(f"XXX BŁĄD KRYTYCZNY: {e}")
+            print(f" BŁĄD KRYTYCZNY: {e}")
             import traceback
             traceback.print_exc()
 
 
     testuj_przypadek_uzycia("PU01: Stworzenie konta",
-                            #przekazujemy 2 argumenty: haslo, email
                             lambda: fasada_kontroli.stworzKonto(haslo_test, email_test))
 
     testuj_przypadek_uzycia("PU02: Logowanie klienta",
-                            # Argumenty: haslo, email (zgodnie z IKsiegarniaKontrola)
                             lambda: fasada_kontroli.zalogujKlienta(haslo_test, email_test))
 
     testuj_przypadek_uzycia("PU14: Logowanie administratora",
                             lambda: fasada_kontroli.zalogujAdministratora("admin123", "admin@test.pl"))
 
     testuj_przypadek_uzycia("PU07: Złożenie zamówienia",
-                            # przekazujemy ID klienta i listę ID książek
                             lambda: fasada_kontroli.zlozZamowienie(id_klienta_test, koszyk_ISBN_ksiazek))
 
     testuj_przypadek_uzycia("PU03: Usunięcie konta",
-                            # Metoda wymaga ID klienta
                             lambda: fasada_kontroli.usunKonto(id_klienta_test))
 
     testuj_przypadek_uzycia("PU13: Przeglądanie raportu",
@@ -88,7 +84,6 @@ def main():
                             lambda: fasada_kontroli.przegladajKsiazki())
 
     testuj_przypadek_uzycia("PU06: Przeglądanie historii",
-                            # Metoda wymaga ID klienta
                             lambda: fasada_kontroli.przegladajHistorie(id_klienta_test))
 
     print("\n ZAKOŃCZONO TESTY 'Main.py'")
