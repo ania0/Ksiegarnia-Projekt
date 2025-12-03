@@ -57,7 +57,7 @@ class KontekstUwierzytelniania:
         """
         self._strategia = strategia
 
-    def wykonajUwierzytelnianie(self, email: str, hashHasla: str) -> Optional[Uzytkownik]:
+    def wykonajUwierzytelnianie(self, email: str, haslo: str) -> Optional[Uzytkownik]:
         """
         Wykonuje uwierzytelnianie przy użyciu aktualnej strategii.
         """
@@ -65,7 +65,7 @@ class KontekstUwierzytelniania:
             raise ValueError("Nie ustawiono strategii uwierzytelniania.")
 
         # Strategia zwraca użytkownika jeśli dane są poprawne, w przeciwnym wypadku None
-        uzytkownik = self._strategia.uwierz(email, hashHasla)
+        uzytkownik = self._strategia.uwierz(email, haslo)
         self._zalogowanyUzytkownik = uzytkownik
         return uzytkownik
 

@@ -14,12 +14,12 @@ class IKsiegarniaKontrola(ABC):
         pass
 
     @abstractmethod
-    def zalogujKlienta(self, hashHasla: str, email: str) -> None:
+    def zalogujKlienta(self, haslo: str, email: str) -> None:
         """Zwraca obiekt użytkownika jeśli logowanie przebiegło pomyślnie."""
         pass
 
     @abstractmethod
-    def zalogujAdministratora(self, hashHasla : str, email : str) -> None:
+    def zalogujAdministratora(self, haslo : str, email : str) -> None:
         """Loguje administratora i zwraca jego encję."""
         pass
 

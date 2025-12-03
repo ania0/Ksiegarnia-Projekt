@@ -2,11 +2,6 @@ from typing import Optional
 
 
 class Uzytkownik:
-    def weryfikujHaslo(self, podaneHaslo: str) -> bool:
-        pass
-
-    def pobierzId(self) -> int:
-        pass
 
     def __init__(self, imie: str,
                  nazwisko: str,
@@ -27,3 +22,6 @@ class Uzytkownik:
 
     def pobierzId(self) -> Optional[int]:
         return self._id
+
+    def pobierzEmail(self) -> Optional[str]:
+        return self._email
