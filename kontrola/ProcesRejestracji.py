@@ -6,18 +6,15 @@ from encje.Klient import Klient  # Klient dziedziczy z Uzytkownik, więc używam
 
 class ProcesRejestracji:
 
-    # KOREKTA 1: Konstruktor musi przyjąć Fasade Encji, zgodnie z diagramem
     def __init__(self, fasada_encji: IEncjeFasada):
         self._fasada_encji = fasada_encji
-        # Usunięcie zbędnych i błędnych atrybutów: self.___fasada_encji__IEncjeFasada, self._uzytkownik
 
-    # KOREKTA 2: Sygnatura musi przyjąć email i haslo, aby usunąć błąd TypeError
     def wykonajRejestracje(self, email: str, haslo: str) -> None:
         """
         Tworzy obiekt Klient z podanych danych i rejestruje go poprzez Fasade Encji.
         """
 
-        # 1. Walidacja (opcjonalnie)
+
         if self._fasada_encji.czyIstnieje(email):
             raise ValueError("Konto o podanym adresie email już istnieje.")
 

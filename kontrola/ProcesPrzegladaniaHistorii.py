@@ -9,10 +9,6 @@ class ProcesPrzegladaniaHistorii:
     Proces przeglądania historii zamówień dla klienta.
     """
 
-    def __init__(self, fasada_encji: IEncjeFasada, uzytkownik: Klient):
-        self._fasada_encji = fasada_encji
-        self._uzytkownik = uzytkownik
-
     def __init__(self, fasada_encji: IEncjeFasada, uzytkownik: Optional[Klient]):  # Uzytkownik może być None
         self._fasada_encji = fasada_encji
         self._uzytkownik = uzytkownik

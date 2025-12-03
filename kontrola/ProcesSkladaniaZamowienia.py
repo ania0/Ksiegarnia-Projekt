@@ -6,5 +6,5 @@ class ProcesSkladaniaZamowienia:
         self._fasada_encji = fasada_encji
         self._uzytkownik = uzytkownik
 
-    def wykonajSkladanieZamowienia(self, id_klienta, lista_id_ksiazek) -> None:
+    def wykonajSkladanieZamowienia(self, id_klienta, lista_ISBN) -> None:
         pass

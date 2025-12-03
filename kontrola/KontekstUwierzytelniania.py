@@ -49,7 +49,7 @@ class KontekstUwierzytelniania:
         # Asocjacja z fasadą (warstwa kontroli)
         from kontrola.KsiegarniaKontrolaFacade import KsiegarniaKontrolaFacade  # tu żeby zapobiec cross import
         self._fasadaKontroli: KsiegarniaKontrolaFacade = None # tu nie jestem pewwna czy jest wystarczajaca ilosc atrybutow
-        self._zalogowanyUzytkownik = None
+        #self._zalogowanyUzytkownik = None
 
     def ustawStrategie(self, strategia: IStrategiaUwierzytelniania) -> None:
         """

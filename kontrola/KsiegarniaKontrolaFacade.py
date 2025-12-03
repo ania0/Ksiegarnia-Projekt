@@ -41,10 +41,10 @@ class KsiegarniaKontrolaFacade(IKsiegarniaKontrola):
         self._kontekst_auth.ustawStrategie(self._strategia_admina)
         self._kontekst_auth.wykonajUwierzytelnianie(email, haslo)
 
-    def zarzadzajKatalogiem(self, polecenie=None) -> None:
+    def zarzadzajKatalogiem(self) -> None:
         uzytkownik = self._kontekst_auth.getZalogowanyUzytkownik()
         proces = ZarzadzanieKsiazkami(self._encje_fasada, uzytkownik)
-        proces.zarzadzajKsiazkami(polecenie)
+        proces.zarzadzajKsiazkami()
 
     def zarzadzajUzytkownikami(self) -> None:
         uzytkownik = self._kontekst_auth.getZalogowanyUzytkownik()
