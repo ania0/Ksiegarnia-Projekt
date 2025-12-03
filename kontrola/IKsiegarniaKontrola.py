@@ -1,4 +1,4 @@
-from abc import ABC, abstractmethod
+from abc import ABC, abstractmethod, abstractproperty
 from typing import List, Optional
 from encje.Uzytkownik import Uzytkownik
 from encje.KsiazkaPapierowa import KsiazkaPapierowa
@@ -9,7 +9,7 @@ from encje.Uzytkownik import Uzytkownik
 class IKsiegarniaKontrola(ABC):
 
     @abstractmethod
-    def stworzKonto(self, uzytkownik: Uzytkownik) -> None:
+    def stworzKonto(self, haslo: str, email: str) -> None:
         """Tworzy nowe konto użytkownika."""
         pass
 
@@ -22,8 +22,6 @@ class IKsiegarniaKontrola(ABC):
     def zalogujAdministratora(self, haslo : str, email : str) -> None:
         """Loguje administratora i zwraca jego encję."""
         pass
-
-
 
     @abstractmethod
     def przegladajKsiazki(self) -> None:
@@ -42,13 +40,6 @@ class IKsiegarniaKontrola(ABC):
         operacja może być: 'dodaj', 'usun', 'aktualizuj'.
         """
         pass
-
-
-    # @abstractmethod
-    # def zlozZamowienie(self, id_klienta: int, lista_id_ksiazek: List[int]) -> bool:
-    #     """Składa zamówienie dla danego klienta."""
-    #     pass
-    #
 
     @abstractmethod
     def przegladajHistorie(self, id_klienta: int) -> None:

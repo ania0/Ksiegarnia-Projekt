@@ -1,7 +1,4 @@
 from typing import Optional, List
-
-# TU
-
 from kontrola.IKsiegarniaKontrola import IKsiegarniaKontrola
 from encje.IEncjeFasada import IEncjeFasada
 
@@ -66,10 +63,10 @@ class KsiegarniaKontrolaFacade(IKsiegarniaKontrola):
     def wybierzKsiazke(self, ISBN: int) -> None:
         return None
 
-    def zlozZamowienie(self, id_klienta: int, lista_id_ksiazek: List[int]) -> None:
+    def zlozZamowienie(self, id_klienta: int, lista_ISBN: List[int]) -> None:
         uzytkownik = self._kontekst_auth.getZalogowanyUzytkownik()
         proces = ProcesSkladaniaZamowienia(self._encje_fasada, uzytkownik)
-        proces.wykonajSkladanieZamowienia(id_klienta, lista_id_ksiazek)
+        proces.wykonajSkladanieZamowienia(id_klienta, lista_ISBN)
 
     def przegladajHistorie(self, id_klienta: int) -> None:
         uzytkownik = self._kontekst_auth.getZalogowanyUzytkownik()
