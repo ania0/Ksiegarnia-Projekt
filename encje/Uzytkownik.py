@@ -21,7 +21,7 @@ class Uzytkownik:
         return podaneHaslo == self.hashHasla  # testowa wersja
 
     def pobierzId(self) -> Optional[int]:
-        return self._id
+        return self.id
 
     def pobierzEmail(self) -> Optional[str]:
-        return self._email
+        return self.email

@@ -81,8 +81,7 @@
 #         if klient.klientLojalny:
 #             komponent_ceny = DekoratorRabatuLojalnosciowego(komponent_ceny)
 #         return komponent_ceny.obliczCene()
-
-
+from encje.ICena import ICena
 from encje.IEncjeFasada import IEncjeFasada
 from encje.Uzytkownik import Uzytkownik
 from encje.Klient import Klient
@@ -111,10 +110,10 @@ class FasadaEncji(IEncjeFasada):
 
     # UŻYTKOWNICY
     def rejestrujUzytkownika(self, uzytkownik: Uzytkownik) -> None:
-        self.repoUzytkownika.rejestrujUzytkownika(uzytkownik)
+        self._repoUzytkownika.rejestrujUzytkownika(uzytkownik)
 
     def znajdzUzytkownikaPoEmailu(self, email: str) -> Uzytkownik:
-        return self._repoUzytkownika.znajdzPoEmailu(email)
+        return self._repoUzytkownika.znajdzUzytkownikaPoEmailu(email)
 
     def czyIstnieje(self, email: str) -> bool:
         return self._repoUzytkownika.czyIstnieje(email)

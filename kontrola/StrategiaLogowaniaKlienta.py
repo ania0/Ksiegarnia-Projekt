@@ -10,9 +10,16 @@ class StrategiaLogowanieKlienta(IStrategiaUwierzytelniania):
         self._fasada_encji = fasada_encji
 
     def uwierzytelnij(self, email: str, haslo: str) -> Optional[Uzytkownik]:
-        # Tymczasowa logika: szukamy użytkownika po emailu w fasadzie
+        # 1.1: znajdzUzytkownikaPoEmailu
         uzytkownik = self._fasada_encji.znajdzUzytkownikaPoEmailu(email)
+
         if uzytkownik is not None:
-            # Na tym etapie możemy przyjąć, że hasło pasuje (testowe PU)
-            return uzytkownik
+            # 1.2: weryfikujHaslo(haslo)
+            if uzytkownik.weryfikujHaslo(haslo):
+                # 1.r: uzytkownik
+                return uzytkownik
+            # else weryfikujHaslo == false -> 1.r: null
+            return None
+
+            # [uzytkownik == null] -> 1.r: null
         return None

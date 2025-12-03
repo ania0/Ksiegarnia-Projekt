@@ -31,7 +31,7 @@
 #                 self._ksiazki[i] = ksiazka
 #                 return
 
-from typing import List
+from typing import List, Optional
 from encje.IKsiazka import IKsiazka
 
 class MagazynKsiazek:

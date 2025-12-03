@@ -14,8 +14,9 @@
 #         return [z for z in self._zamowienia if getattr(z.uzytkownik, 'id', None) == id_klienta]
 
 
-from typing import List
+from typing import List, Optional
 from encje.Zamowienie import Zamowienie
+
 
 class MagazynZamowien:
 

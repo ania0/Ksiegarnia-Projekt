@@ -65,7 +65,7 @@ class KontekstUwierzytelniania:
             raise ValueError("Nie ustawiono strategii uwierzytelniania.")
 
         # Strategia zwraca użytkownika jeśli dane są poprawne, w przeciwnym wypadku None
-        uzytkownik = self._strategia.uwierz(email, haslo)
+        uzytkownik = self._strategia.uwierzytelnij(email, haslo)
         self._zalogowanyUzytkownik = uzytkownik
         return uzytkownik
 

@@ -12,5 +12,5 @@ class ProcesUsuwaniaKonta:
         self._fasada_encji = fasada_encji
         self._uzytkownik = uzytkownik
 
-    def wykonajUsuwanie(self) -> None:
+    def wykonajUsuwanie(self, id_klienta) -> None:
         pass

@@ -18,7 +18,7 @@ class IRepozytoriumKsiazek(ABC):
         pass
 
     @abstractmethod
-    def AktualizujDane(self, Ksiazka: IKsiazka) -> None:
+    def aktualizujDane(self, Ksiazka: IKsiazka) -> None:
         pass
 
     @abstractmethod

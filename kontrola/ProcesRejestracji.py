@@ -8,7 +8,7 @@ class ProcesRejestracji:
         self.___fasada_encji__IEncjeFasada = None
         self._uzytkownik = Klient
 
-    def wykonajRejestracje(self) -> None:
+    def wykonajRejestracje(self, email, haslo) -> None:
         pass
 
 

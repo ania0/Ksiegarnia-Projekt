@@ -1,5 +1,7 @@
 from encje.IEncjeFasada import IEncjeFasada
 from encje.Administrator import Administrator
+from typing import List
+from encje.Zamowienie import Zamowienie
 
 
 class ProcesPrzegladaniaRaportu:

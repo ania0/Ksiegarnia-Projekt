@@ -33,7 +33,7 @@
 #     def pobierzDaneUzytkownika(self, login: str) -> Optional[Uzytkownik]:
 #         return self.znajdzUzytkownikaPoEmail(login)
 
-from typing import List # TU
+from typing import List, Optional  # TU
 from encje.IRepozytoriumUzytkownika import IRepozytoriumUzytkownika
 from encje.Uzytkownik import Uzytkownik
 
@@ -41,11 +41,12 @@ class UzytkownikDAO(IRepozytoriumUzytkownika):
 
     def __init__(self):
         # referencja do magazynu (agregacja)
-        self._magazyn = None  # w pełnej implementacji: MagazynUzytkownikow
+        self._magazyn: List[Uzytkownik] = [] # w pełnej implementacji: MagazynUzytkownikow
 
     def rejestrujUzytkownika(self, uzytkownik: Uzytkownik) -> None:
         """Dodaje użytkownika do magazynu."""
         self._magazyn.append(uzytkownik)
+        uzytkownik.id = len(self._magazyn)
 
     def znajdzUzytkownikaPoEmailu(self, email: str) -> Optional[Uzytkownik]:
         """Zwraca użytkownika o podanym emailu lub None jeśli nie istnieje."""

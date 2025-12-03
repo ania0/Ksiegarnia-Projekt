@@ -1,5 +1,6 @@
 from encje.IEncjeFasada import IEncjeFasada
-
+from typing import List
+from encje.IKsiazka import IKsiazka
 class ProcesPrzegladaniaKsiazek:
     def __init__(self, fasada_encji: IEncjeFasada):
         self._fasada_encji = fasada_encji
