@@ -4,7 +4,7 @@ from typing import Optional
 
 
 class ProcesUsuwaniaKonta:
-    def __init__(self, fasada_encji: IEncjeFasada, uzytkownik: Optional[Klient] = None):
+    def __init__(self, fasada_encji: IEncjeFasada, uzytkownik: Optional[Klient]):
         """
         :param fasada_encji: Fasada encji do operacji CRUD
         :param uzytkownik: obiekt Uzytkownik do usunięcia; jeśli None, można wprowadzić logikę pobrania aktualnie zalogowanego

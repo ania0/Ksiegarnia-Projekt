@@ -32,7 +32,7 @@ class KsiegarniaKontrolaFacade(IKsiegarniaKontrola):
         self._strategia_admina = StrategiaLogowanieAdministratora(encje_fasada)
 
     def stworzKonto(self, haslo: str, email: str) -> None:
-        proces = ProcesRejestracji()
+        proces = ProcesRejestracji(self._encje_fasada)
         proces.wykonajRejestracje(email, haslo)
 
 
