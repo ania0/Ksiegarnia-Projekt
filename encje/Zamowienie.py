@@ -71,7 +71,6 @@ class Zamowienie(ICena):
         # Atrybuty podstawowe
         self._data: Optional[date] = None
         self._cenaRazem: Optional[float] = None
-        self._pozycje: List[PozycjaZamowienia] = []
         self._status: Optional[str] = None
         self._metodaPlatnosci: Optional[str] = None
         self._id: Optional[int] = None

@@ -22,7 +22,7 @@ from encje.Ebook import Ebook
 from encje.IKsiazka import IKsiazka
 
 class FabrykaKsiazek:
-	def utworzKsiazke(self, typ: str, tytul: str, autor: str, cena: float) -> IKsiazka:
+	def utworzKsiazke(self, typ: str, tytul: str, autor: str, cena: float, ISBN:int, gatunek: str, stanMagazynowy:int, opis: str) -> IKsiazka:
 		"""
         Tworzy książkę w zależności od typu:
         - "papierowa" → KsiazkaPapierowa

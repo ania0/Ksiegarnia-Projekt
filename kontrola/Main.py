@@ -36,7 +36,7 @@ def main():
         dekoratorRabatu=dekorator_rabatu
     )
     admin_uzytkownik = Administrator(
-        imie="Jan",
+        imie="Admin",
         nazwisko="Admin",
         email="admin@test.pl",
         hashHasla="admin123",
