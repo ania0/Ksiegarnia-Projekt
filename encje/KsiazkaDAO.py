@@ -79,6 +79,7 @@
 from typing import List, Optional
 from encje.IRepozytoriumKsiazek import IRepozytoriumKsiazek
 from encje.IKsiazka import IKsiazka
+from encje.KsiazkaPapierowa import KsiazkaPapierowa
 from encje.MagazynKsiazek import MagazynKsiazek
 
 
@@ -116,5 +117,8 @@ class KsiazkaDAO(IRepozytoriumKsiazek):
 
     def aktualizujStan(self, ISBN: int, nowyStan: int) -> None:
         ksiazka = self.pobierzPoISBN(ISBN)
-        if ksiazka is not None:
-            ksiazka.stan = nowyStan
+        if isinstance(ksiazka, KsiazkaPapierowa):
+            ksiazka.stanMagazynowy = nowyStan
+        else:
+            raise TypeError(
+                f"Ksiażka o ISBN {ISBN} jest typu {type(ksiazka).__name__}, nie można zmienić stanu magazynowego.")
