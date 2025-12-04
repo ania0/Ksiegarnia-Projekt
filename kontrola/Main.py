@@ -7,6 +7,7 @@ from encje.UzytkownikDAO import UzytkownikDAO
 from encje.KsiazkaDAO import KsiazkaDAO
 from encje.ZamowienieDAO import ZamowienieDAO
 
+#głównie trzeba będzie zaimplementować w jakiś sposób zarządzanie katalogiem, bo teraz to w ogóle nie jest testowane
 
 def main():
     print("START")
@@ -62,11 +63,21 @@ def main():
             traceback.print_exc()
 
 
+
     testuj_przypadek_uzycia("PU01: Stworzenie konta",
                             lambda: fasada_kontroli.stworzKonto(haslo_test, email_test))
 
-    testuj_przypadek_uzycia("PU02: Logowanie klienta",
+    testuj_przypadek_uzycia("PU02: Logowanie klienta do systemu",
                             lambda: fasada_kontroli.zalogujKlienta(haslo_test, email_test))
+
+    testuj_przypadek_uzycia("PU04: Przeglądanie książek",
+                            lambda: fasada_kontroli.przegladajKsiazki())
+
+    testuj_przypadek_uzycia("PU06: Przeglądanie historii",
+                            lambda: fasada_kontroli.przegladajHistorie(id_klienta_test))
+
+    testuj_przypadek_uzycia("PU07: Złożenie zamówienia",
+                            lambda: fasada_kontroli.zlozZamowienie(id_klienta_test, koszyk_ISBN_ksiazek))
 
     testuj_przypadek_uzycia("PU14: Logowanie administratora",
                             lambda: fasada_kontroli.zalogujAdministratora("admin123", "admin@test.pl"))
@@ -74,17 +85,27 @@ def main():
     testuj_przypadek_uzycia("PU07: Złożenie zamówienia",
                             lambda: fasada_kontroli.zlozZamowienie(id_klienta_test, koszyk_ISBN_ksiazek))
 
-    testuj_przypadek_uzycia("PU03: Usunięcie konta",
-                            lambda: fasada_kontroli.usunKonto(id_klienta_test))
 
-    testuj_przypadek_uzycia("PU13: Przeglądanie raportu",
-                            lambda: fasada_kontroli.przegladajRaporty())
+
+    testuj_przypadek_uzycia("PU05: Wybranie książki",
+                            lambda: fasada_kontroli.wybierzKsiazke(koszyk_ISBN_ksiazek[0]))
+
+
+    testuj_przypadek_uzycia("PU08: Zarządzanie katalogiem",
+                             lambda: fasada_kontroli.zarzadzajKatalogiem())
+    #opcje PU09-P12
 
     testuj_przypadek_uzycia("PU04: Przeglądanie książek",
                             lambda: fasada_kontroli.przegladajKsiazki())
 
-    testuj_przypadek_uzycia("PU06: Przeglądanie historii",
-                            lambda: fasada_kontroli.przegladajHistorie(id_klienta_test))
+
+
+    testuj_przypadek_uzycia("PU03: Usunięcie konta",
+                            lambda: fasada_kontroli.usunKonto(id_klienta_test))
+
+    testuj_przypadek_uzycia("PU13: Przeglądanie raportów sprzedażowych",
+                            lambda: fasada_kontroli.przegladajRaporty())
+
 
     print("\n ZAKOŃCZONO TESTY 'Main.py'")
 

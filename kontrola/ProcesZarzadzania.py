@@ -60,15 +60,3 @@ class ProcesZarzadzania(ABC):
         # Asocjacja z administratorem wykonującym operację
         self._uzytkownik: Administrator = uzytkownik
 
-    # def wykonajZarzadzanie(self) -> None:
-    #     """
-    #     Szablon operacji zarządzania – tylko sygnatura.
-    #     """
-    #     raise NotImplementedError("wykonajZarzadzanie() nie jest jeszcze zaimplementowane.")
-    #
-    # @abstractmethod
-    # def _wykonajOperacjeNaEncji(self) -> None:
-    #     """
-    #     Operacja abstrakcyjna, którą mają nadpisywać klasy potomne.
-    #     """
-    #     pass

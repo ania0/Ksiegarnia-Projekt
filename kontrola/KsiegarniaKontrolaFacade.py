@@ -61,7 +61,12 @@ class KsiegarniaKontrolaFacade(IKsiegarniaKontrola):
         proces.wykonajPrzegladanieRaportu()
 
     def wybierzKsiazke(self, ISBN: int) -> None:
-        return None
+        ksiazka = self._encje_fasada.pobierzPoISBN(ISBN)
+        # CZY TAK MOŻE BYĆ?
+        if ksiazka:
+            print(f"Wybrano książkę: [{ksiazka.id}] {ksiazka.tytul} – {ksiazka.autor} – {ksiazka.cena} zł")
+        else:
+            print(f"Nie znaleziono książki o ISBN: {ISBN}")
 
     def zlozZamowienie(self, id_klienta: int, lista_ISBN: List[int]) -> None:
         uzytkownik = self._kontekst_auth.getZalogowanyUzytkownik()

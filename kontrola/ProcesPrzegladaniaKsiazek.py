@@ -12,7 +12,7 @@ class ProcesPrzegladaniaKsiazek:
         lista_ksiazek = self._fasada_encji.pobierzWszystkie()
 
         print("Lista dostępnych książek:")
-        for ksiazka in lista_ksiazek:
-            print(f"- {ksiazka.pobierzTytul()} autor: {ksiazka.pobierzAutora()} cena: {ksiazka.pobierzCene()} zł")
+        for ksiazka in lista_ksiazek: # tu zmienilam bo byl blad
+            print(f"tytuł: {ksiazka.tytul} autor: {ksiazka.autor} cena: {ksiazka.cena} zł")
 
         return lista_ksiazek
