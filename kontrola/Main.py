@@ -6,6 +6,7 @@ from encje.FasadaEncji import FasadaEncji
 from encje.UzytkownikDAO import UzytkownikDAO
 from encje.KsiazkaDAO import KsiazkaDAO
 from encje.ZamowienieDAO import ZamowienieDAO
+from encje.Klient import Klient
 
 #głównie trzeba będzie zaimplementować w jakiś sposób zarządzanie katalogiem, bo teraz to w ogóle nie jest testowane
 
@@ -45,6 +46,18 @@ def main():
     )
     encje_fasada.rejestrujUzytkownika(admin_uzytkownik)
     print("Zarejestrowano administratora testowego: admin@test.pl")
+
+    # Tworzenie klienta z pełnymi danymi w main.py
+    nowy_klient = Klient(
+        imie="Anna",
+        nazwisko="Testowa",
+        email=email_test,
+        hashHasla=haslo_test,
+        adresWysylki="ul. Testowa 2",
+        klientLojalny=False
+    )
+    encje_fasada.rejestrujUzytkownika(nowy_klient)
+    print(f"Pomyślnie zarejestrowano nowego klienta: {email_test}")
 
     fasada_kontroli = KsiegarniaKontrolaFacade(encje_fasada=encje_fasada)
 
