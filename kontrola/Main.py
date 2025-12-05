@@ -6,6 +6,7 @@ from encje.FasadaEncji import FasadaEncji
 from encje.UzytkownikDAO import UzytkownikDAO
 from encje.KsiazkaDAO import KsiazkaDAO
 from encje.ZamowienieDAO import ZamowienieDAO
+from encje.Klient import Klient
 
 #głównie trzeba będzie zaimplementować w jakiś sposób zarządzanie katalogiem, bo teraz to w ogóle nie jest testowane
 
@@ -46,6 +47,18 @@ def main():
     encje_fasada.rejestrujUzytkownika(admin_uzytkownik)
     print("Zarejestrowano administratora testowego: admin@test.pl")
 
+    # Tworzenie klienta z pełnymi danymi w main.py
+    nowy_klient = Klient(
+        imie="Anna",
+        nazwisko="Testowa",
+        email=email_test,
+        hashHasla=haslo_test,
+        adresWysylki="ul. Testowa 2",
+        klientLojalny=False
+    )
+    encje_fasada.rejestrujUzytkownika(nowy_klient)
+    print(f"Pomyślnie zarejestrowano nowego klienta: {email_test}")
+
     fasada_kontroli = KsiegarniaKontrolaFacade(encje_fasada=encje_fasada)
 
     print("\nRozpoczęcie testów")
@@ -82,11 +95,58 @@ def main():
             import traceback
             traceback.print_exc()
 
-    testuj_przypadek_uzycia("PU01: Stworzenie konta",
-                            lambda: fasada_kontroli.stworzKonto(haslo_test, email_test))
 
-    testuj_przypadek_uzycia("PU02: Logowanie klienta do systemu",
-                            lambda: fasada_kontroli.zalogujKlienta(haslo_test, email_test))
+    while True:
+        print("1. PU01: Stworzenie konta")
+        print("2. PU02: Logowanie klienta do systemu")
+        print("3. PU14: Logowanie administratora")
+        print("4. Wyjście z logowania/stworzenia konta")
+
+        wybor = input("Wybierz opcję: ")
+
+        if wybor == "1":
+            imie = input("Podaj imię: ")
+            nazwisko = input("Podaj nazwisko: ")
+            email = input("Podaj email: ")
+            haslo = input("Podaj hasło: ")
+            adres = input("Podaj adres wysyłki: ")
+            klient = Klient(imie, nazwisko, email, haslo, adres, False)
+            encje_fasada.rejestrujUzytkownika(klient)
+            print(f"Pomyślnie zarejestrowano klienta: {imie} {nazwisko}")
+
+        elif wybor == "2":
+            email = input("Email klienta: ")
+            haslo = input("Hasło klienta: ")
+            klient = fasada_kontroli.zalogujKlienta(haslo, email)
+            if klient:
+                print(f"Zalogowano klienta: {klient.imie} {klient.nazwisko}")
+            else:
+                print("Nieprawidłowy login lub hasło klienta.")
+
+        elif wybor == "3":
+            email = input("Email admina: ")
+            haslo = input("Hasło admina: ")
+            admin = fasada_kontroli.zalogujAdministratora(haslo, email)
+            if admin:
+                print(f"Zalogowano administratora: {admin.imie} {admin.nazwisko}")
+            else:
+                print("Nieprawidłowy login lub hasło administratora.")
+
+        elif wybor == "4":
+            print("Koniec pętli logowania/stworzenia konta.")
+            break
+
+        else:
+            print("Niepoprawny wybór. Spróbuj ponownie.")
+
+    # testuj_przypadek_uzycia("PU01: Stworzenie konta",
+    #                         lambda: fasada_kontroli.stworzKonto(haslo_test, email_test))
+    #
+    # testuj_przypadek_uzycia("PU02: Logowanie klienta do systemu",
+    #                         lambda: fasada_kontroli.zalogujKlienta(haslo_test, email_test))
+    #
+    # testuj_przypadek_uzycia("PU14: Logowanie administratora",
+    #                         lambda: fasada_kontroli.zalogujAdministratora("admin123", "admin@test.pl"))
 
     testuj_przypadek_uzycia("PU04: Przeglądanie książek",
                             lambda: fasada_kontroli.przegladajKsiazki())
@@ -96,14 +156,6 @@ def main():
 
     testuj_przypadek_uzycia("PU07: Złożenie zamówienia",
                             lambda: fasada_kontroli.zlozZamowienie(id_klienta_test, koszyk_ISBN_ksiazek))
-
-    testuj_przypadek_uzycia("PU14: Logowanie administratora",
-                            lambda: fasada_kontroli.zalogujAdministratora("admin123", "admin@test.pl"))
-
-    testuj_przypadek_uzycia("PU07: Złożenie zamówienia",
-                            lambda: fasada_kontroli.zlozZamowienie(id_klienta_test, koszyk_ISBN_ksiazek))
-
-
 
     testuj_przypadek_uzycia("PU05: Wybranie książki",
                             lambda: fasada_kontroli.wybierzKsiazke(koszyk_ISBN_ksiazek[0]))
@@ -115,8 +167,6 @@ def main():
 
     testuj_przypadek_uzycia("PU04: Przeglądanie książek",
                             lambda: fasada_kontroli.przegladajKsiazki())
-
-
 
     testuj_przypadek_uzycia("PU03: Usunięcie konta",
                             lambda: fasada_kontroli.usunKonto(id_klienta_test))
