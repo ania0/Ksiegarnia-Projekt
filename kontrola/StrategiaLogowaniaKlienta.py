@@ -10,16 +10,14 @@ class StrategiaLogowanieKlienta(IStrategiaUwierzytelniania):
     def __init__(self, fasada_encji: IEncjeFasada):
         self._fasada_encji = fasada_encji
 
-    def uwierzytelnij(self, email: str, haslo: str) -> Optional[Uzytkownik]:
-        # 1. Pobierz użytkownika po emailu
+    def uwierzytelnij(self, email: str, haslo: str):
+        # 1.1 – znajdź użytkownika po e-mailu
         uzytkownik = self._fasada_encji.znajdzUzytkownikaPoEmailu(email)
 
-        if uzytkownik is not None:
-            # 1. SPRAWDZENIE TYPU: Logowanie Klienta powinno działać tylko dla Klientów
-            if isinstance(uzytkownik, Klient):
-                # 2. WERYFIKACJA HASŁA: Zakładamy, że ta metoda jest poprawna
-                if uzytkownik.weryfikujHaslo(haslo):
-                    return uzytkownik
+        if uzytkownik is None:
+            return None
 
-        # Zwraca None, jeśli użytkownik nie istnieje lub hasło jest złe
-        return None
+        if uzytkownik.weryfikujHaslo(haslo):
+            return uzytkownik
+        else:
+            return None

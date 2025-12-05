@@ -50,19 +50,37 @@ def main():
 
     print("\nRozpoczęcie testów")
 
+    # def testuj_przypadek_uzycia(nazwa_pu, funkcja_do_wywolania):
+    #     print(f"\nTestowanie {nazwa_pu}")
+    #     try:
+    #         wynik = funkcja_do_wywolania()
+    #         print(f"Wynik testu: {wynik}")
+    #     except NotImplementedError as e:
+    #         print(f">>> OK: Poprawnie przechwycono błąd STUB: {e}")
+    #     except Exception as e:
+    #         print(f" BŁĄD KRYTYCZNY: {e}")
+    #         import traceback
+    #         traceback.print_exc()
+
     def testuj_przypadek_uzycia(nazwa_pu, funkcja_do_wywolania):
         print(f"\nTestowanie {nazwa_pu}")
         try:
             wynik = funkcja_do_wywolania()
-            print(f"Wynik testu: {wynik}")
+
+            # 🔥✨ UNIWERSALNY PIĘKNY PRINT OBIEKTÓW ✨🔥
+            if hasattr(wynik, "__dict__"):
+                print(f"Wynik testu ({wynik.__class__.__name__}):")
+                for pole, wartosc in wynik.__dict__.items():
+                    print(f"  - {pole}: {wartosc}")
+            else:
+                print(f"Wynik testu: {wynik}")
+
         except NotImplementedError as e:
             print(f">>> OK: Poprawnie przechwycono błąd STUB: {e}")
         except Exception as e:
             print(f" BŁĄD KRYTYCZNY: {e}")
             import traceback
             traceback.print_exc()
-
-
 
     testuj_przypadek_uzycia("PU01: Stworzenie konta",
                             lambda: fasada_kontroli.stworzKonto(haslo_test, email_test))
