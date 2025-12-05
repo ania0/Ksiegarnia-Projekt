@@ -20,7 +20,11 @@ class ZarzadzanieKsiazkami(ProcesZarzadzania):
         """PU08 – Zarządzanie katalogiem interaktywnie."""
 
         if not self._uzytkownik:
-            print("Brak zalogowanego administratora!")
+            print("Brak uprawnień! Użytkownik nie jest zalogowany.")
+            return
+
+        if not isinstance(self._uzytkownik, Administrator):
+            print(f"Brak uprawnień! Użytkownik '{self._uzytkownik.email}' nie jest Administratorem.")
             return
 
         while True:

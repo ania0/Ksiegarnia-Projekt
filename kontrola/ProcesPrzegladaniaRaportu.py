@@ -15,9 +15,18 @@ class ProcesPrzegladaniaRaportu:
         """
         Pobiera listę wszystkich zamówień i wyświetla je w terminalu.
         """
-        if not self._uzytkownik or not isinstance(self._uzytkownik, Administrator):
+
+        if not self._uzytkownik:
+            print("Brak uprawnień! Użytkownik nie jest zalogowany.")
+            return
+
+        if not isinstance(self._uzytkownik, Administrator):
+            print(f"Brak uprawnień! Użytkownik '{self._uzytkownik.email}' nie jest Administratorem.")
+            return
+
+        #if not self._uzytkownik or not isinstance(self._uzytkownik, Administrator):
             # Zmieniono z ValueError na PermissionError i dodano weryfikację typu
-            raise PermissionError("Tylko administrator może przeglądać raporty.")
+            #raise PermissionError("Tylko administrator może przeglądać raporty.")
         lista_zamowien: List[Zamowienie] = self._fasada_encji.pobierzWszystkieZamowienia()
 
         print("Raport wszystkich zamówień:")

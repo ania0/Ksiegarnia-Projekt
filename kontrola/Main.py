@@ -8,7 +8,6 @@ from encje.KsiazkaDAO import KsiazkaDAO
 from encje.ZamowienieDAO import ZamowienieDAO
 from encje.Klient import Klient
 
-#głównie trzeba będzie zaimplementować w jakiś sposób zarządzanie katalogiem, bo teraz to w ogóle nie jest testowane
 
 def main():
     print("START")
@@ -80,7 +79,6 @@ def main():
         try:
             wynik = funkcja_do_wywolania()
 
-            # 🔥✨ UNIWERSALNY PIĘKNY PRINT OBIEKTÓW ✨🔥
             if hasattr(wynik, "__dict__"):
                 print(f"Wynik testu ({wynik.__class__.__name__}):")
                 for pole, wartosc in wynik.__dict__.items():
