@@ -32,14 +32,13 @@ class KsiegarniaKontrolaFacade(IKsiegarniaKontrola):
         proces = ProcesRejestracji(self._encje_fasada)
         proces.wykonajRejestracje(email, haslo)
 
-
-    def zalogujKlienta(self, haslo: str, email: str) -> None:
+    def zalogujKlienta(self, haslo: str, email: str):
         self._kontekst_auth.ustawStrategie(self._strategia_klienta)
-        self._kontekst_auth.wykonajUwierzytelnianie(email, haslo)
+        return self._kontekst_auth.wykonajUwierzytelnianie(email, haslo)
 
-    def zalogujAdministratora(self, haslo: str, email: str) -> None:
+    def zalogujAdministratora(self, haslo: str, email: str):
         self._kontekst_auth.ustawStrategie(self._strategia_admina)
-        self._kontekst_auth.wykonajUwierzytelnianie(email, haslo)
+        return self._kontekst_auth.wykonajUwierzytelnianie(email, haslo)
 
     def zarzadzajKatalogiem(self) -> None:
         uzytkownik = self._kontekst_auth.getZalogowanyUzytkownik()
