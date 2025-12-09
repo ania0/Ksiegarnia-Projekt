@@ -26,7 +26,8 @@ class ProcesPrzegladaniaHistorii:
             # Użytkownik musi być zalogowany, żeby przeglądać (chyba że to admin)
             # Jeśli chcemy, by klient przeglądał tylko swoją historię:
             if self._uzytkownik is None or self._uzytkownik.pobierzId() != id_klienta:
-                raise PermissionError("Brak autoryzacji do przeglądania tej historii.")
+               print("Brak autoryzacji do przegladania historii")
+               return
 
         historia = self._fasada_encji.pobierzHistorieDlaKlienta(id_klienta)  # Używamy ID z argumentu
         # W trybie testowym można dodatkowo wyświetlić historię w terminalu
