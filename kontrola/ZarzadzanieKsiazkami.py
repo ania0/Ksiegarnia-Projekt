@@ -83,7 +83,7 @@ class ZarzadzanieKsiazkami(ProcesZarzadzania):
                 ksiazka = self._fasada_encji.pobierzPoISBN(isbn)
                 if ksiazka and isinstance(ksiazka, KsiazkaPapierowa):
                     nowy_stan = int(input(f"Podaj nowy stan dla '{ksiazka.tytul}': "))
-                    self._fasada_encji.aktualizujStan(isbn, nowy_stan) # nowy stan sie nie chce nadpisać - nie wiem za bardzo jak to poprawić
+                    self._fasada_encji.aktualizujStan(isbn, nowy_stan)
                     print(f"Zaktualizowano stan książki '{ksiazka.tytul}' na {nowy_stan}")
                 elif ksiazka:
                     print(f"Nie można zmienić stanu ebooka '{ksiazka.tytul}' – tylko książki papierowe mają stan magazynowy.")
