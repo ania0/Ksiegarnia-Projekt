@@ -88,100 +88,68 @@ class ZarzadzanieKsiazkami(ProcesZarzadzania):
 
     def edycja_ksiazki_menu(self, ksiazka: IKsiazka) -> None:
         """
-        Menu do edycji szczegółów wybranej książki z walidacją danych.
+        Menu do edycji szczegółów wybranej książki.
+        Dostosowane do diagramu: przekazuje dane do Fasady, nie ustawia ich tu.
         """
         while True:
             print(f"\n--- Edycja Książki: {ksiazka.tytul} [ISBN: {ksiazka.ISBN}] ---")
             print("1. Zmień szczegóły książki (PU10)")
             print("2. Zmień stan magazynowy (tylko dla papierowych) (PU11)")
             print("3. Usuń książkę (PU12)")
-            print("4. Powrót do Zarządzania Katalogiem")
+            print("4. Powrót")
 
             opcja = input("Wybierz opcję: ").strip()
 
-            if opcja == "1":  # PU10 – Edytuj szczegóły z walidacją ceny
-                print("\n[Modyfikacja szczegółów. Pomiń, aby zachować starą wartość.]")
+            if opcja == "1":  # PU10 – Zgodne z Diagramem
+                print("\n[Modyfikacja szczegółów. Wciśnij Enter, aby pominąć.]")
 
-                # Zbieranie nowych danych
-                nowy_tytul = input(f"Tytuł [{ksiazka.tytul}]: ") or ksiazka.tytul
-                nowy_autor = input(f"Autor [{ksiazka.autor}]: ") or ksiazka.autor
+                # Zbieramy dane (jako stringi lub None)
+                nowy_tytul = input(f"Tytuł [{ksiazka.tytul}]: ") or None
+                nowy_autor = input(f"Autor [{ksiazka.autor}]: ") or None
+                nowy_gatunek = input(f"Gatunek [{ksiazka.gatunek}]: ") or None
+                nowy_opis = input(f"Opis [{ksiazka.opis}]: ") or None
 
-                # Walidacja Ceny
-                nowa_cena_input = input(f"Cena [{ksiazka.cena}]: ")
-                nowa_cena = ksiazka.cena
-                if nowa_cena_input:
-                    try:
-                        nowa_cena = float(nowa_cena_input)
-                        if nowa_cena < 0:
-                            print("Błąd: Cena musi być nieujemna. Anulowano modyfikację.")
-                            continue  # Powrót do menu edycji
-                    except ValueError:
-                        print("Błąd: Wprowadzono niepoprawny format dla ceny. Anulowano modyfikację.")
-                        continue  # Powrót do menu edycji
+                nowa_cena_str = input(f"Cena [{ksiazka.cena}]: ")
+                nowa_cena = float(nowa_cena_str) if nowa_cena_str else None
 
-                nowy_gatunek = input(f"Gatunek [{ksiazka.gatunek}]: ") or ksiazka.gatunek
-                nowy_opis = input(f"Opis [{ksiazka.opis}]: ") or ksiazka.opis
+                # Specjalne pola (poza diagramem, ale potrzebne dla spójności)
+                if isinstance(ksiazka, Ebook):
+                    sciezka = input(f"Ścieżka [{ksiazka.sciezkaDoPliku}]: ")
+                    if sciezka: ksiazka.sciezkaDoPliku = sciezka  # To poza diagramem, zostawiamy tutaj
 
-                # Aktualizacja pól specyficznych
-                if isinstance(ksiazka, KsiazkaPapierowa):
-                    nowy_stan_input = input(f"Stan magazynowy [{ksiazka.stanMagazynowy}]: ")
-                    if nowy_stan_input:
-                        try:
-                            temp_stan = int(nowy_stan_input)
-                            if temp_stan < 0:
-                                print("Błąd: Stan magazynowy musi być nieujemny. Anulowano modyfikację.")
-                                continue  # Powrót do menu edycji
-                            ksiazka.stanMagazynowy = temp_stan
-                        except ValueError:
-                            print("Błąd: Niepoprawny format dla stanu magazynowego. Anulowano modyfikację.")
-                            continue  # Powrót do menu edycji
+                # Wywołanie Fasady zgodnie z diagramem
+                wynik = self._fasada_encji.aktualizujDane(
+                    ksiazka, nowy_tytul, nowy_autor, nowy_gatunek, nowa_cena, nowy_opis
+                )
 
-                elif isinstance(ksiazka, Ebook):
-                    nowa_sciezka_input = input(f"Ścieżka do pliku [{ksiazka.sciezkaDoPliku}]: ")
-                    if nowa_sciezka_input:
-                        ksiazka.sciezkaDoPliku = nowa_sciezka_input
-
-                # Aktualizacja pól wspólnych
-                ksiazka.tytul = nowy_tytul
-                ksiazka.autor = nowy_autor
-                ksiazka.cena = nowa_cena
-                ksiazka.gatunek = nowy_gatunek
-                ksiazka.opis = nowy_opis
-
-                self._fasada_encji.aktualizujDane(ksiazka)
-                print(f"Pomyślnie zaktualizowano szczegóły książki '{ksiazka.tytul}'")
-
-            elif opcja == "2":  # PU11 – Zmień stan magazynowy z walidacją
-                if isinstance(ksiazka, KsiazkaPapierowa):
-                    try:
-                        nowy_stan_input = input(f"Podaj nowy stan dla '{ksiazka.tytul}': ")
-                        nowy_stan = int(nowy_stan_input)
-
-                        if nowy_stan < 0:
-                            print("Błąd: Stan magazynowy musi być nieujemny. Powrót do menu edycji.")
-                            continue  # Powrót do menu edycji
-
-                        self._fasada_encji.aktualizujStan(ksiazka.ISBN, nowy_stan)
-                        ksiazka.stanMagazynowy = nowy_stan
-                        print(f"Zaktualizowano stan książki '{ksiazka.tytul}' na {nowy_stan}")
-                    except ValueError:
-                        print("Błąd: Niepoprawny format liczby dla stanu magazynowego. Powrót do menu edycji.")
-                        continue  # Powrót do menu edycji
+                if wynik == "UjemnaCena":
+                    print("❌ Błąd: Cena nie może być ujemna (zgodnie z walidacją w systemie).")
                 else:
-                    print("Błąd: Nie można zmienić stanu – tylko książki papierowe mają stan magazynowy.")
+                    print(f"Pomyślnie zaktualizowano szczegóły książki.")
 
-            elif opcja == "3":  # PU12 – Usuń książkę (bez zmian)
-                potwierdzenie = input(f"Czy na pewno chcesz usunąć książkę '{ksiazka.tytul}'? (t/n): ").lower()
-                if potwierdzenie == 't':
+            elif opcja == "2":  # PU11
+                # ... (Reszta bez zmian, bo to inny przypadek użycia)
+                if isinstance(ksiazka, KsiazkaPapierowa):
+                    try:
+                        stan = int(input(f"Nowy stan [{ksiazka.stanMagazynowy}]: "))
+                        if stan < 0: print("Błąd: Stan ujemny."); continue
+                        self._fasada_encji.aktualizujStan(ksiazka.ISBN, stan)
+                        ksiazka.stanMagazynowy = stan
+                        print("Zaktualizowano stan.")
+                    except ValueError:
+                        print("Błąd formatu.")
+                else:
+                    print("To nie jest książka papierowa.")
+
+            elif opcja == "3":  # PU12
+                if input("Potwierdzasz usunięcie? (t/n): ") == 't':
                     self._fasada_encji.usunKsiazke(ksiazka.ISBN)
-                    print(f"Usunięto książkę '{ksiazka.tytul}' o ISBN {ksiazka.ISBN}")
-                    return  # Wracamy do głównego menu Zarządzania Katalogiem
-
-            elif opcja == "4":  # Powrót (bez zmian)
+                    print("Usunięto.");
+                    return
+            elif opcja == "4":
                 return
-
             else:
-                print("Niepoprawna opcja, spróbuj ponownie.")
+                print("Niepoprawna opcja.")
 
     def zarzadzajKsiazkami(self) -> None:
         # ... (metoda zarzadzajKsiazkami bez zmian, poza zmianami w wywoływanych funkcjach)

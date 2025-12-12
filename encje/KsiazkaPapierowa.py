@@ -1,16 +1,22 @@
 from encje.IKsiazka import IKsiazka
 
-# dziedziczy po IKsiazka
 class KsiazkaPapierowa(IKsiazka):
     def __init__(self, tytul: str, autor: str, ISBN: int, gatunek: str,
                  cena: float, stanMagazynowy: int, opis: str):
-        self.tytul: str = tytul
-        self.autor: str = autor
-        self.ISBN: int = ISBN
-        self.gatunek: str = gatunek
-        self.cena: float = cena
+        super().__init__(tytul, autor, ISBN, gatunek, cena, opis)
         self.stanMagazynowy: int = stanMagazynowy
-        self.opis: str = opis
 
-    def pobierzCene(self) -> float:
-        return self.cena
+    def ustawTytul(self, tytul: str) -> None:
+        self.tytul = tytul
+
+    def ustawAutora(self, autor: str) -> None:
+        self.autor = autor
+
+    def ustawGatunek(self, gatunek: str) -> None:
+        self.gatunek = gatunek
+
+    def ustawCene(self, cena: float) -> None:
+        self.cena = cena
+
+    def ustawOpis(self, opis: str) -> None:
+        self.opis = opis

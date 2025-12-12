@@ -1,4 +1,4 @@
-
+from typing import List, Optional
 from encje.ICena import ICena
 from encje.IEncjeFasada import IEncjeFasada
 from encje.Uzytkownik import Uzytkownik
@@ -55,8 +55,42 @@ class FasadaEncji(IEncjeFasada):
     def pobierzWszystkie(self) -> List[IKsiazka]:
         return self._repoKsiazek.pobierzWszystkie()
 
-    def aktualizujDane(self, ksiazka: IKsiazka) -> None:
-        self._repoKsiazek.aktualizujStan(ksiazka)
+    def aktualizujDane(self, ksiazka: IKsiazka, nowyTytul: Optional[str], nowyAutor: Optional[str],
+                       nowyGatunek: Optional[str], nowaCena: Optional[float], nowyOpis: Optional[str]) -> Optional[str]:
+        """
+        Realizacja diagramu sekwencji: Sprawdza wartości i ustawia je przez settery IKsiazka.
+        """
+
+        # 1.1: [nowyTytul != Null] -> ustawTytul
+        if nowyTytul:
+            ksiazka.ustawTytul(nowyTytul)
+
+        # 1.3: [nowyAutor != Null] -> ustawAutora
+        if nowyAutor:
+            ksiazka.ustawAutora(nowyAutor)
+
+        # 1.5: [nowyGatunek != Null] -> ustawGatunek
+        if nowyGatunek:
+            ksiazka.ustawGatunek(nowyGatunek)
+
+        # Walidacja ceny z diagramu
+        if nowaCena is not None:
+            # 1.11: [nowaCena <= 0] -> return UjemnaCena
+            if nowaCena <= 0:
+                return "UjemnaCena"
+            # 1.7: [nowaCena > 0] -> ustawCene
+            else:
+                ksiazka.ustawCene(nowaCena)
+
+        # 1.9: [nowyOpis != Null] -> ustawOpis
+        if nowyOpis:
+            ksiazka.ustawOpis(nowyOpis)
+
+        # Persystencja (mimo że diagram kończy się na encji, w kodzie musimy upewnić się, że DAO "widzi" zmianę)
+        # Przekazujemy zaktualizowany obiekt do DAO
+        self._repoKsiazek.aktualizujDane(ksiazka)
+
+        return None  # 1.12: None (sukces)
 
     def pobierzPoISBN(self, ISBN: int) -> IKsiazka:
         return self._repoKsiazek.pobierzPoISBN(ISBN)

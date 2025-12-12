@@ -1,20 +1,26 @@
-from encje.IKsiazka import IKsiazka  # import interf książki, po którym dziedziczy Ebook
+from encje.IKsiazka import IKsiazka
 
-# kl implementująca interf IKsiazka
+
 class Ebook(IKsiazka):
-
-    # konstruktor Ebook
     def __init__(self, tytul: str, autor: str, ISBN: int, gatunek: str,
                  cena: float, sciezkaDoPliku: str, opis: str):
-        self.tytul: str = tytul
-        self.autor: str = autor
-        self.ISBN: int = ISBN
-        self.gatunek: str = gatunek
-        self.cena: float = cena
+        super().__init__(tytul, autor, ISBN, gatunek, cena, opis)
         self.sciezkaDoPliku: str = sciezkaDoPliku
-        self.opis: str = opis
 
+    # Ponieważ dziedziczymy, implementacja jest identyczna jak w papierowej dla pól wspólnych,
+    # ale musi być obecna, bo metody w IKsiazka są abstrakcyjne.
 
-    # implementacja met z interf IKsiazka - zwraca cenę e-booka
-    def pobierzCene(self) -> float:
-        return self.cena
+    def ustawTytul(self, tytul: str) -> None:
+        self.tytul = tytul
+
+    def ustawAutora(self, autor: str) -> None:
+        self.autor = autor
+
+    def ustawGatunek(self, gatunek: str) -> None:
+        self.gatunek = gatunek
+
+    def ustawCene(self, cena: float) -> None:
+        self.cena = cena
+
+    def ustawOpis(self, opis: str) -> None:
+        self.opis = opis

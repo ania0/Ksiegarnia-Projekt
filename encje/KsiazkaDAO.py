@@ -104,10 +104,7 @@ class KsiazkaDAO(IRepozytoriumKsiazek):
         return self._ksiazki.copy()
 
     def aktualizujDane(self, ksiazka: IKsiazka) -> None:
-        for i, k in enumerate(self._ksiazki):
-            if k.ISBN == ksiazka.ISBN:
-                self._ksiazki[i] = ksiazka
-                break
+        pass
 
     def pobierzPoISBN(self, ISBN: int) -> Optional[IKsiazka]:
         for k in self._ksiazki:
