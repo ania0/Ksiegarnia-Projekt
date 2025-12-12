@@ -9,17 +9,108 @@ from encje.ZamowienieDAO import ZamowienieDAO
 from encje.Klient import Klient
 
 
+def menu_klienta(fasada_kontroli: KsiegarniaKontrolaFacade, klient: Klient):
+    """
+    Wyświetla menu dla Klienta i obsługuje jego opcje (PU04, PU05, PU06, PU03, PU07).
+    """
+    while True:
+        print("\n--- Panel Klienta ---")
+        print(f"Zalogowano jako: {klient.imie} {klient.nazwisko}")
+        print("1. Przeglądaj katalog książek")  # PU04
+        print("2. Złóż nowe zamówienie")  # NOWA OPKJA PU07
+        print("3. Przeglądaj historię zakupów")  # PU06
+        print("4. Usuń konto (PU03)")
+        print("5. Wyloguj")
+
+        wybor = input("Wybierz opcję: ")
+
+        if wybor == "1":
+            fasada_kontroli.przegladajKsiazki()
+        elif wybor == "2":
+            # PU07: Złożenie zamówienia
+            isbn_list = []
+            print("\n--- Składanie Zamówienia ---")
+
+            # Wpierw wyświetlamy książki, żeby klient wiedział, co może kupić
+            fasada_kontroli.przegladajKsiazki()
+
+            while True:
+                isbn_input = input("Podaj ISBN książki do dodania do zamówienia (lub 'k' aby zakończyć): ").strip()
+                if isbn_input.lower() == 'k':
+                    break
+                try:
+                    isbn = int(isbn_input)
+                    ksiazka = fasada_kontroli._encje_fasada.pobierzPoISBN(isbn)
+                    if ksiazka:
+                        isbn_list.append(isbn)
+                        print(f"Dodano książkę '{ksiazka.tytul}' do zamówienia.")
+                    else:
+                        print(f"Nie znaleziono książki o ISBN: {isbn}")
+                except ValueError:
+                    print("Niepoprawny format ISBN. Wprowadź liczbę lub 'k'.")
+
+            if isbn_list:
+                print(f"\nPotwierdzanie zamówienia dla {len(isbn_list)} pozycji...")
+                fasada_kontroli.zlozZamowienie(klient.pobierzId(), isbn_list)
+            else:
+                print("Anulowano składanie zamówienia – nie dodano żadnych pozycji.")
+
+        elif wybor == "3":
+            # PU06: Pobiera historię zalogowanego klienta
+            fasada_kontroli.przegladajHistorie(klient.pobierzId())
+        elif wybor == "4":
+            # PU03: Usuwanie konta
+            fasada_kontroli.usunKonto(klient.pobierzId())
+            print("Konto usunięte. Wylogowywanie...")
+            return
+        elif wybor == "5":
+            fasada_kontroli.wylogujUzytkownika()
+            print("Wylogowano pomyślnie.")
+            return
+        else:
+            print("Niepoprawna opcja, spróbuj ponownie.")
+
+def menu_administratora(fasada_kontroli: KsiegarniaKontrolaFacade, administrator: Administrator):
+    """
+    Wyświetla menu dla Administratora i obsługuje jego opcje (PU04, PU05, PU13, PU08-PU12).
+    """
+    while True:
+        print("\n--- Panel Administratora ---")
+        print(f"Zalogowano jako: {administrator.imie} {administrator.nazwisko}")
+
+        # Opcje informacyjne i przeglądowe
+        print("1. Przeglądaj katalog książek")  # PU04
+        print("2. Przeglądaj raporty sprzedażowe (PU13)")
+
+        # Opcje Administracyjne
+        print("3. Zarządzaj katalogiem książek (PU08-PU12)")
+        print("4. Zarządzaj użytkownikami (PU03)")
+        print("5. Wyloguj")
+
+        wybor = input("Wybierz opcję: ")
+
+        if wybor == "1":
+            fasada_kontroli.przegladajKsiazki()
+        elif wybor == "2":
+            fasada_kontroli.przegladajRaporty()
+        elif wybor == "3":
+            fasada_kontroli.zarzadzajKatalogiem()
+        elif wybor == "4":
+            fasada_kontroli.zarzadzajUzytkownikami()
+        elif wybor == "5":
+            fasada_kontroli.wylogujUzytkownika()
+            print("Wylogowano pomyślnie.")
+            return
+        else:
+            print("Niepoprawna opcja, spróbuj ponownie.")
+
+
 def main():
     print("START")
 
     print("\nPrzygotowanie danych testowych")
-    # Dane testowe
     haslo_test = "haslo123"
-    email_test = "anna@test.pl"
-
-    # Symulacja koszyka (lista ID)
-    koszyk_ISBN_ksiazek = [1, 3]
-    id_klienta_test = 1
+    email_test = "uzytkownik@test.pl"
 
     print("\nBudowanie architektury")
 
@@ -41,14 +132,14 @@ def main():
         nazwisko="Admin",
         email="admin@test.pl",
         hashHasla="admin123",
-        id = 1
+        id=1
     )
     encje_fasada.rejestrujUzytkownika(admin_uzytkownik)
     print("Zarejestrowano administratora testowego: admin@test.pl")
 
-    # Tworzenie klienta z pełnymi danymi w main.py
+    # Tworzenie klienta z pełnymi danymi w main.py (Klient Lojalny - False)
     nowy_klient = Klient(
-        imie="Anna",
+        imie="TEST",
         nazwisko="Testowa",
         email=email_test,
         hashHasla=haslo_test,
@@ -58,51 +149,34 @@ def main():
     encje_fasada.rejestrujUzytkownika(nowy_klient)
     print(f"Pomyślnie zarejestrowano nowego klienta: {email_test}")
 
+    # Dodanie przykładowych książek do testowania katalogu
+    ksiazka1 = fabryka_ksiazek.utworzKsiazke(typ="papierowa", tytul="Wzorce Projektowe", autor="G.O.F", cena=100.0,
+                                             ISBN=1, gatunek="Programowanie", stanMagazynowy=5, opis="Opis 1")
+    ksiazka2 = fabryka_ksiazek.utworzKsiazke(typ="ebook", tytul="Czysty Kod", autor="Robert Martin", cena=50.0, ISBN=2,
+                                             gatunek="Programowanie", stanMagazynowy=0, opis="Opis 2",
+                                             sciezkaDoPliku="path/to/clean_code.pdf")
+    ksiazka3 = fabryka_ksiazek.utworzKsiazke(typ="papierowa", tytul="Zbrodnia i Kara", autor="Fiodor Dostojewski",
+                                             cena=35.0, ISBN=3, gatunek="Klasyka", stanMagazynowy=10, opis="Opis 3")
+    encje_fasada.dodajKsiazke(ksiazka1)
+    encje_fasada.dodajKsiazke(ksiazka2)
+    encje_fasada.dodajKsiazke(ksiazka3)
+    print("Dodano przykładowe książki do katalogu.")
+
     fasada_kontroli = KsiegarniaKontrolaFacade(encje_fasada=encje_fasada)
 
-    print("\nRozpoczęcie testów")
-
-    # def testuj_przypadek_uzycia(nazwa_pu, funkcja_do_wywolania):
-    #     print(f"\nTestowanie {nazwa_pu}")
-    #     try:
-    #         wynik = funkcja_do_wywolania()
-    #         print(f"Wynik testu: {wynik}")
-    #     except NotImplementedError as e:
-    #         print(f">>> OK: Poprawnie przechwycono błąd STUB: {e}")
-    #     except Exception as e:
-    #         print(f" BŁĄD KRYTYCZNY: {e}")
-    #         import traceback
-    #         traceback.print_exc()
-
-    def testuj_przypadek_uzycia(nazwa_pu, funkcja_do_wywolania):
-        print(f"\nTestowanie {nazwa_pu}")
-        try:
-            wynik = funkcja_do_wywolania()
-
-            if hasattr(wynik, "__dict__"):
-                print(f"Wynik testu ({wynik.__class__.__name__}):")
-                for pole, wartosc in wynik.__dict__.items():
-                    print(f"  - {pole}: {wartosc}")
-            else:
-                print(f"Wynik testu: {wynik}")
-
-        except NotImplementedError as e:
-            print(f">>> OK: Poprawnie przechwycono błąd STUB: {e}")
-        except Exception as e:
-            print(f" BŁĄD KRYTYCZNY: {e}")
-            import traceback
-            traceback.print_exc()
-
+    print("\nRozpoczęcie interakcji")
 
     while True:
-        print("1. PU01: Stworzenie konta")
-        print("2. PU02: Logowanie klienta do systemu")
-        print("3. PU14: Logowanie administratora")
-        print("4. Wyjście z logowania/stworzenia konta")
+        print("\n--- Menu Główne ---")
+        print("1. Stwórz konto")
+        print("2. Zaloguj jako Klient")
+        print("3. Zaloguj jako Administrator")
+        print("4. Wyjdź z programu")
 
         wybor = input("Wybierz opcję: ")
 
         if wybor == "1":
+            # Proces rejestracji (PU01)
             imie = input("Podaj imię: ")
             nazwisko = input("Podaj nazwisko: ")
             email = input("Podaj email: ")
@@ -110,70 +184,33 @@ def main():
             adres = input("Podaj adres wysyłki: ")
             klient = Klient(imie, nazwisko, email, haslo, adres, False)
             encje_fasada.rejestrujUzytkownika(klient)
-            print(f"Pomyślnie zarejestrowano klienta: {imie} {nazwisko}")
-
+            print(f"Pomyślnie zarejestrowano klienta: {imie} {nazwisko}. Możesz się zalogować.")
+            continue
         elif wybor == "2":
-            email = input("Email klienta: ")
-            haslo = input("Hasło klienta: ")
-            klient = fasada_kontroli.zalogujKlienta(haslo, email)
+            # Proces logowania klienta (PU02)
+            email_log = input("Email klienta: ")
+            haslo_log = input("Hasło klienta: ")
+            klient = fasada_kontroli.zalogujKlienta(haslo_log, email_log)
             if klient:
-                print(f"Zalogowano klienta: {klient.imie} {klient.nazwisko}")
+                print("--- Pomyślne logowanie ---")
+                menu_klienta(fasada_kontroli, klient)
             else:
                 print("Nieprawidłowy login lub hasło klienta.")
-
         elif wybor == "3":
-            email = input("Email admina: ")
-            haslo = input("Hasło admina: ")
-            admin = fasada_kontroli.zalogujAdministratora(haslo, email)
+            # Proces logowania administratora (PU14)
+            email_log = input("Email admina: ")
+            haslo_log = input("Hasło admina: ")
+            admin = fasada_kontroli.zalogujAdministratora(haslo_log, email_log)
             if admin:
-                print(f"Zalogowano administratora: {admin.imie} {admin.nazwisko}")
+                print("--- Pomyślne logowanie ---")
+                menu_administratora(fasada_kontroli, admin)
             else:
                 print("Nieprawidłowy login lub hasło administratora.")
-
         elif wybor == "4":
-            print("Koniec pętli logowania/stworzenia konta.")
+            print("Wyjście z programu.")
             break
-
         else:
             print("Niepoprawny wybór. Spróbuj ponownie.")
-
-    # testuj_przypadek_uzycia("PU01: Stworzenie konta",
-    #                         lambda: fasada_kontroli.stworzKonto(haslo_test, email_test))
-    #
-    # testuj_przypadek_uzycia("PU02: Logowanie klienta do systemu",
-    #                         lambda: fasada_kontroli.zalogujKlienta(haslo_test, email_test))
-    #
-    # testuj_przypadek_uzycia("PU14: Logowanie administratora",
-    #                         lambda: fasada_kontroli.zalogujAdministratora("admin123", "admin@test.pl"))
-
-    testuj_przypadek_uzycia("PU04: Przeglądanie książek",
-                            lambda: fasada_kontroli.przegladajKsiazki())
-
-    testuj_przypadek_uzycia("PU06: Przeglądanie historii",
-                            lambda: fasada_kontroli.przegladajHistorie(id_klienta_test))
-
-    testuj_przypadek_uzycia("PU07: Złożenie zamówienia",
-                            lambda: fasada_kontroli.zlozZamowienie(id_klienta_test, koszyk_ISBN_ksiazek))
-
-    testuj_przypadek_uzycia("PU05: Wybranie książki",
-                            lambda: fasada_kontroli.wybierzKsiazke(koszyk_ISBN_ksiazek[0]))
-
-
-    testuj_przypadek_uzycia("PU08: Zarządzanie katalogiem",
-                             lambda: fasada_kontroli.zarzadzajKatalogiem())
-    #opcje PU09-P12
-
-    testuj_przypadek_uzycia("PU04: Przeglądanie książek",
-                            lambda: fasada_kontroli.przegladajKsiazki())
-
-    testuj_przypadek_uzycia("PU03: Usunięcie konta",
-                            lambda: fasada_kontroli.usunKonto(id_klienta_test))
-
-    testuj_przypadek_uzycia("PU13: Przeglądanie raportów sprzedażowych",
-                            lambda: fasada_kontroli.przegladajRaporty())
-
-
-    print("\n ZAKOŃCZONO TESTY 'Main.py'")
 
 
 if __name__ == "__main__":

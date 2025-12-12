@@ -82,3 +82,9 @@ class KsiegarniaKontrolaFacade(IKsiegarniaKontrola):
         uzytkownik = self._kontekst_auth.getZalogowanyUzytkownik()
         proces = ProcesUsuwaniaKonta(self._encje_fasada, uzytkownik)
         proces.wykonajUsuwanie(id_klienta)
+
+    def wylogujUzytkownika(self) -> None:
+        """
+        Wylogowuje użytkownika poprzez wyczyszczenie kontekstu uwierzytelniania.
+        """
+        self._kontekst_auth.wyloguj()

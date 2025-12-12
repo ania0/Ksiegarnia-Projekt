@@ -69,6 +69,12 @@ class KontekstUwierzytelniania:
         self._zalogowanyUzytkownik = uzytkownik
         return uzytkownik
 
+    def wyloguj(self) -> None:
+        """
+        Wylogowuje użytkownika, czyszcząc pole zalogowanyUzytkownik.
+        """
+        self._zalogowanyUzytkownik = None
+
     def getZalogowanyUzytkownik(self) -> Optional[Uzytkownik]:
         """
         Zwraca aktualnie zalogowanego użytkownika.
