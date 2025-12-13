@@ -49,31 +49,62 @@ class ZarzadzanieUzytkownikami(ProcesZarzadzania):
                     print("Użytkownik o takim emailu już istnieje!")
                     continue
 
+                haslo = input("Hasło: ").strip()
+                adres = input("Adres do wysyłki: ").strip()
+
+                # Tworzymy obiekt Uzytkownik z wszystkimi danymi
                 nowy = Uzytkownik(imie=imie, nazwisko=nazwisko, email=email)
+                nowy.haslo = haslo
+                nowy.adres = adres
+
                 repo.rejestrujUzytkownika(nowy)
                 print(f"Użytkownik {imie} {nazwisko} dodany z ID: {nowy.pobierzId()}.")
 
+
             elif wybor == "2":
+
                 # Edycja użytkownika
+
                 numer = input("Podaj numer użytkownika do edycji: ").strip()
+
                 if not numer.isdigit() or int(numer) < 1 or int(numer) > len(uzytkownicy):
                     print("Nieprawidłowy numer użytkownika!")
+
                     continue
 
                 u = uzytkownicy[int(numer) - 1]
+
                 nowe_imie = input(f"Nowe imię ({u.imie}): ").strip()
+
                 nowe_nazwisko = input(f"Nowe nazwisko ({u.nazwisko}): ").strip()
+
                 nowe_email = input(f"Nowy email ({u.email}): ").strip()
+
+                nowe_haslo = input(f"Nowe hasło ({getattr(u, 'haslo', 'brak')}): ").strip()
+
+                nowy_adres = input(f"Nowy adres do wysyłki ({getattr(u, 'adres', 'brak')}): ").strip()
 
                 if nowe_imie:
                     u.imie = nowe_imie
+
                 if nowe_nazwisko:
                     u.nazwisko = nowe_nazwisko
+
                 if nowe_email:
+
                     if repo.czyIstnieje(nowe_email):
+
                         print("Email już istnieje, zmiana odrzucona!")
+
                     else:
+
                         u.email = nowe_email
+
+                if nowe_haslo:
+                    u.haslo = nowe_haslo
+
+                if nowy_adres:
+                    u.adres = nowy_adres
 
                 print("Dane użytkownika zaktualizowane.")
 
