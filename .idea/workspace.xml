@@ -6,12 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="23fa6adc-2cfa-408a-9f6d-0de1faceefa8" name="Changes" comment=".">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/encje/Ebook.py" beforeDir="false" afterPath="$PROJECT_DIR$/encje/Ebook.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/encje/FasadaEncji.py" beforeDir="false" afterPath="$PROJECT_DIR$/encje/FasadaEncji.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/encje/IKsiazka.py" beforeDir="false" afterPath="$PROJECT_DIR$/encje/IKsiazka.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/encje/KsiazkaDAO.py" beforeDir="false" afterPath="$PROJECT_DIR$/encje/KsiazkaDAO.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/encje/KsiazkaPapierowa.py" beforeDir="false" afterPath="$PROJECT_DIR$/encje/KsiazkaPapierowa.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kontrola/ZarzadzanieKsiazkami.py" beforeDir="false" afterPath="$PROJECT_DIR$/kontrola/ZarzadzanieKsiazkami.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -147,7 +141,7 @@
       <workItem from="1765320261847" duration="20000" />
       <workItem from="1765356467617" duration="1215000" />
       <workItem from="1765563042836" duration="101000" />
-      <workItem from="1765563160554" duration="5124000" />
+      <workItem from="1765563160554" duration="10922000" />
     </task>
     <task id="LOCAL-00001" summary=".">
       <option name="closed" value="true" />
@@ -157,7 +151,15 @@
       <option name="project" value="LOCAL" />
       <updated>1765566634084</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary=".">
+      <option name="closed" value="true" />
+      <created>1765568329852</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1765568329852</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -182,6 +184,6 @@
     <SUITE FILE_PATH="coverage/Ksiegarnia_Projekt$ZarzadzanieKsiazkami.coverage" NAME="ZarzadzanieKsiazkami Coverage Results" MODIFIED="1764853021415" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/kontrola" />
     <SUITE FILE_PATH="coverage/Ksiegarnia_Projekt$Main.coverage" NAME="Main Coverage Results" MODIFIED="1764932857400" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/kontrola" />
     <SUITE FILE_PATH="coverage/Ksiegarnia_Projekt3$IEncjeFasada.coverage" NAME="IEncjeFasada Coverage Results" MODIFIED="1765566857287" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/encje" />
-    <SUITE FILE_PATH="coverage/Ksiegarnia_Projekt3$Main.coverage" NAME="Main Coverage Results" MODIFIED="1765568187054" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/kontrola" />
+    <SUITE FILE_PATH="coverage/Ksiegarnia_Projekt3$Main.coverage" NAME="Main Coverage Results" MODIFIED="1765626887990" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/kontrola" />
   </component>
 </project>

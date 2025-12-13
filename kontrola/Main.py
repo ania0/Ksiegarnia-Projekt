@@ -7,6 +7,82 @@ from encje.UzytkownikDAO import UzytkownikDAO
 from encje.KsiazkaDAO import KsiazkaDAO
 from encje.ZamowienieDAO import ZamowienieDAO
 from encje.Klient import Klient
+import random  # Dodano do generowania hasła dla gościa
+
+
+def menu_goscia(fasada_kontroli: KsiegarniaKontrolaFacade, encje_fasada: FasadaEncji):
+    """
+    Menu dla niezalogowanego Gościa.
+    """
+    while True:
+        print("\n--- Panel Gościa ---")
+        print("1. Przeglądaj katalog książek")
+        print("2. Złóż zamówienie (jako Gość)")
+        print("3. Wróć do Menu Głównego")
+
+        wybor = input("Wybierz opcję: ")
+
+        if wybor == "1":
+            fasada_kontroli.przegladajKsiazki()
+
+        elif wybor == "2":
+            # Logika składania zamówienia przez Gościa
+            isbn_list = []
+            print("\n--- Składanie Zamówienia (Gość) ---")
+
+            # Wyświetlamy ofertę
+            fasada_kontroli.przegladajKsiazki()
+
+            while True:
+                isbn_input = input("Podaj ISBN książki do dodania (lub 'k' aby zakończyć): ").strip()
+                if isbn_input.lower() == 'k':
+                    break
+                try:
+                    isbn = int(isbn_input)
+                    ksiazka = encje_fasada.pobierzPoISBN(isbn)
+                    if ksiazka:
+                        isbn_list.append(isbn)
+                        print(f"Dodano książkę '{ksiazka.tytul}' do zamówienia.")
+                    else:
+                        print(f"Nie znaleziono książki o ISBN: {isbn}")
+                except ValueError:
+                    print("Niepoprawny format ISBN.")
+
+            if not isbn_list:
+                print("Koszyk pusty. Powrót do menu.")
+                continue
+
+            # FINALIZACJA ZAMÓWIENIA DLA GOŚCIA
+            print("\n--- Dane do wysyłki (Wymagane do realizacji) ---")
+            imie = input("Podaj imię: ")
+            nazwisko = input("Podaj nazwisko: ")
+            email = input("Podaj email: ")
+            adres = input("Podaj adres wysyłki: ")
+
+            # Tworzymy konto tymczasowe
+            haslo_tymczasowe = f"guest_{random.randint(1000, 9999)}"
+
+            gosc_klient = Klient(
+                imie=imie,
+                nazwisko=nazwisko,
+                email=email,
+                hashHasla=haslo_tymczasowe,
+                adresWysylki=adres,
+                klientLojalny=False
+            )
+
+            # Rejestrujemy go w systemie, aby uzyskał ID
+            encje_fasada.rejestrujUzytkownika(gosc_klient)
+
+            print(f"\nGenerowanie zamówienia dla: {imie} {nazwisko}...")
+            # Składamy zamówienie używając nowo nadanego ID
+            fasada_kontroli.zlozZamowienie(gosc_klient.pobierzId(), isbn_list)
+            print("Dziękujemy za zakupy!")
+
+        elif wybor == "3":
+            return
+        else:
+            print("Niepoprawna opcja.")
 
 
 def menu_klienta(fasada_kontroli: KsiegarniaKontrolaFacade, klient: Klient):
@@ -171,7 +247,8 @@ def main():
         print("1. Stwórz konto")
         print("2. Zaloguj jako Klient")
         print("3. Zaloguj jako Administrator")
-        print("4. Wyjdź z programu")
+        print("4. Kontynuuj jako Gość")  # <<< NOWA OPCJA
+        print("5. Wyjdź z programu")
 
         wybor = input("Wybierz opcję: ")
 
@@ -207,6 +284,9 @@ def main():
             else:
                 print("Nieprawidłowy login lub hasło administratora.")
         elif wybor == "4":
+            # Kontynuuj jako Gość
+            menu_goscia(fasada_kontroli, encje_fasada)
+        elif wybor == "5":
             print("Wyjście z programu.")
             break
         else:
