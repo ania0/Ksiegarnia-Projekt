@@ -103,6 +103,7 @@ def menu_klienta(fasada_kontroli: KsiegarniaKontrolaFacade, klient: Klient):
         if wybor == "1":
             fasada_kontroli.przegladajKsiazki()
         elif wybor == "2":
+            # dodac aktualizacje historii zamowien
             # PU07: Złożenie zamówienia
             isbn_list = []
             print("\n--- Składanie Zamówienia ---")
