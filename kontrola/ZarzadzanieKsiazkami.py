@@ -123,7 +123,7 @@ class ZarzadzanieKsiazkami(ProcesZarzadzania):
                 )
 
                 if wynik == "UjemnaCena":
-                    print("❌ Błąd: Cena nie może być ujemna (zgodnie z walidacją w systemie).")
+                    print("Błąd: Cena nie może być ujemna (zgodnie z walidacją w systemie).")
                 else:
                     print(f"Pomyślnie zaktualizowano szczegóły książki.")
 

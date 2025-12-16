@@ -43,6 +43,40 @@ class FasadaEncji(IEncjeFasada):
     def pobierzDaneUzytkownika(self, idUzytkownika: int) -> Uzytkownik:
         return self._repoUzytkownika.pobierzDaneUzytkownika(idUzytkownika)
 
+    def aktualizujDaneUzytkownika(
+            self,
+            uzytkownik: Uzytkownik,
+            noweImie: Optional[str],
+            noweNazwisko: Optional[str],
+            nowyEmail: Optional[str],
+            noweHaslo: Optional[str],
+            nowyAdres: Optional[str]
+    ) -> Optional[str]:
+
+        # 1.1: [noweImie != Null] -> ustawImie
+        if noweImie:
+            uzytkownik.ustawImie(noweImie)
+
+        # 1.3: [noweNazwisko != Null] -> ustawNazwisko
+        if noweNazwisko:
+            uzytkownik.ustawNazwisko(noweNazwisko)
+
+        # 1.5: [nowyEmail != Null] -> ustawEmail
+        if nowyEmail:
+            uzytkownik.ustawEmail(nowyEmail)
+
+        # 1.7: [noweHaslo != Null] -> ustawHaslo
+        if noweHaslo:
+            uzytkownik.ustawHaslo(noweHaslo)
+
+        # 1.9: [nowyAdres != Null] -> ustawAdres
+        if nowyAdres:
+            uzytkownik.ustawAdres(nowyAdres)
+
+        self._repoUzytkownika.aktualizujDaneUzytkownika(uzytkownik)
+
+        return None  # sukces
+
     # KSIĄŻKI
     def dodajKsiazke(self, ksiazka: IKsiazka) -> None:
         ksiazka.id = self._next_id # dodałam tu pole id do wyswietlania

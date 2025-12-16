@@ -4,6 +4,7 @@ from encje.Uzytkownik import Uzytkownik
 from encje.Klient import Klient
 from encje.Zamowienie import Zamowienie
 from encje.IKsiazka import IKsiazka
+from typing import List, Optional
 
 
 # Interf fasady dla encji – zestaw metod, które fasada musi udostępniać
@@ -31,6 +32,17 @@ class IEncjeFasada(ABC):
     def pobierzDaneUzytkownika(self, idUzytkownika: int) -> Uzytkownik:
         pass
 
+    @abstractmethod
+    def aktualizujDaneUzytkownika(
+            self,
+            uzytkownik: Uzytkownik,
+            noweImie: Optional[str],
+            noweNazwisko: Optional[str],
+            nowyEmail: Optional[str],
+            noweHaslo: Optional[str],
+            nowyAdres: Optional[str]
+    ) -> Optional[str]:
+        pass
 
     @abstractmethod
     def dodajKsiazke(self, ksiazka: IKsiazka):

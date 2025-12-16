@@ -60,53 +60,43 @@ class ZarzadzanieUzytkownikami(ProcesZarzadzania):
                 repo.rejestrujUzytkownika(nowy)
                 print(f"Użytkownik {imie} {nazwisko} dodany z ID: {nowy.pobierzId()}.")
 
-
             elif wybor == "2":
+                # --- Edycja użytkownika --
 
-                # Edycja użytkownika
-
+                # analogicznie do książki
                 numer = input("Podaj numer użytkownika do edycji: ").strip()
-
-                if not numer.isdigit() or int(numer) < 1 or int(numer) > len(uzytkownicy):
+                if not numer.isdigit() or not (1 <= int(numer) <= len(uzytkownicy)):
                     print("Nieprawidłowy numer użytkownika!")
-
                     continue
 
-                u = uzytkownicy[int(numer) - 1]
+                u: Uzytkownik = uzytkownicy[int(numer) - 1]
 
-                nowe_imie = input(f"Nowe imię ({u.imie}): ").strip()
+                print("\n[Modyfikacja danych – Enter = bez zmian]")
 
-                nowe_nazwisko = input(f"Nowe nazwisko ({u.nazwisko}): ").strip()
+                nowe_imie = input(f"Imię [{u.imie}]: ") or None
+                nowe_nazwisko = input(f"Nazwisko [{u.nazwisko}]: ") or None
+                nowy_email = input(f"Email [{u.email}]: ") or None
+                nowe_haslo = input("Nowe hasło: ") or None
+                nowy_adres = input("Adres wysyłki: ") or None
 
-                nowe_email = input(f"Nowy email ({u.email}): ").strip()
+                # Walidacja email przed aktualizacją
+                if nowy_email and repo.czyIstnieje(nowy_email):
+                    print("Email już istnieje – zmiana odrzucona.")
+                    continue
 
-                nowe_haslo = input(f"Nowe hasło ({getattr(u, 'haslo', 'brak')}): ").strip()
+                # Wywołanie fasady – analogicznie do ksiazki
+                self._fasada_encji.aktualizujDaneUzytkownika(
+                    uzytkownik=u,
+                    noweImie=nowe_imie,
+                    noweNazwisko=nowe_nazwisko,
+                    nowyEmail=nowy_email,
+                    noweHaslo=nowe_haslo,
+                    nowyAdres=nowy_adres
+                )
 
-                nowy_adres = input(f"Nowy adres do wysyłki ({getattr(u, 'adres', 'brak')}): ").strip()
+                print("Dane użytkownika zostały zaktualizowane.")
 
-                if nowe_imie:
-                    u.imie = nowe_imie
 
-                if nowe_nazwisko:
-                    u.nazwisko = nowe_nazwisko
-
-                if nowe_email:
-
-                    if repo.czyIstnieje(nowe_email):
-
-                        print("Email już istnieje, zmiana odrzucona!")
-
-                    else:
-
-                        u.email = nowe_email
-
-                if nowe_haslo:
-                    u.haslo = nowe_haslo
-
-                if nowy_adres:
-                    u.adres = nowy_adres
-
-                print("Dane użytkownika zaktualizowane.")
 
             elif wybor == "3":
                 # Usuwanie użytkownika

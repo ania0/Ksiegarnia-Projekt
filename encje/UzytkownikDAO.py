@@ -35,3 +35,14 @@ class UzytkownikDAO(IRepozytoriumUzytkownika):
             if u.pobierzId() == idUzytkownika:
                 return u
         return None
+
+    def aktualizujDaneUzytkownika(
+            self,
+            uzytkownik: Uzytkownik,
+            noweImie: Optional[str] = None,
+            noweNazwisko: Optional[str] = None,
+            nowyEmail: Optional[str] = None,
+            noweHaslo: Optional[str] = None,
+            nowyAdres: Optional[str] = None
+    ) -> None:
+        pass
