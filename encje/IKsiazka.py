@@ -13,6 +13,9 @@ class IKsiazka(ABC):
     def pobierzCene(self) -> float:
         return self.cena
 
+    def pobierzISBN(self) -> int:
+        return self.ISBN
+
     # --- Metody wymagane przez diagram (Settery) ---
     @abstractmethod
     def ustawTytul(self, tytul: str) -> None:
@@ -33,3 +36,4 @@ class IKsiazka(ABC):
     @abstractmethod
     def ustawOpis(self, opis: str) -> None:
         pass
+

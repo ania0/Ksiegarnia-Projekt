@@ -24,3 +24,9 @@ class Ebook(IKsiazka):
 
     def ustawOpis(self, opis: str) -> None:
         self.opis = opis
+
+    def pobierzCene(self) -> float:
+       return self.cena
+
+    def pobierzISBN(self) -> int:
+       return self.ISBN

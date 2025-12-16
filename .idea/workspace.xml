@@ -6,14 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="23fa6adc-2cfa-408a-9f6d-0de1faceefa8" name="Changes" comment=".">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/encje/FasadaEncji.py" beforeDir="false" afterPath="$PROJECT_DIR$/encje/FasadaEncji.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/encje/IEncjeFasada.py" beforeDir="false" afterPath="$PROJECT_DIR$/encje/IEncjeFasada.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/encje/IRepozytoriumUzytkownika.py" beforeDir="false" afterPath="$PROJECT_DIR$/encje/IRepozytoriumUzytkownika.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/encje/Uzytkownik.py" beforeDir="false" afterPath="$PROJECT_DIR$/encje/Uzytkownik.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/encje/UzytkownikDAO.py" beforeDir="false" afterPath="$PROJECT_DIR$/encje/UzytkownikDAO.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kontrola/StrategiaLogowaniaAdministratora.py" beforeDir="false" afterPath="$PROJECT_DIR$/kontrola/StrategiaLogowaniaAdministratora.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kontrola/ZarzadzanieKsiazkami.py" beforeDir="false" afterPath="$PROJECT_DIR$/kontrola/ZarzadzanieKsiazkami.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kontrola/ZarzadzanieUzytkownikami.py" beforeDir="false" afterPath="$PROJECT_DIR$/kontrola/ZarzadzanieUzytkownikami.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/encje/Ebook.py" beforeDir="false" afterPath="$PROJECT_DIR$/encje/Ebook.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -182,6 +175,7 @@
       <workItem from="1765563042836" duration="101000" />
       <workItem from="1765563160554" duration="10922000" />
       <workItem from="1765637442658" duration="362000" />
+      <workItem from="1765893242659" duration="323000" />
     </task>
     <task id="LOCAL-00001" summary=".">
       <option name="closed" value="true" />
@@ -223,7 +217,7 @@
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Ksiegarnia_Projekt$Main.coverage" NAME="Main Coverage Results" MODIFIED="1764932857400" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/kontrola" />
     <SUITE FILE_PATH="coverage/Ksiegarnia_Projekt3$Main.coverage" NAME="Main Coverage Results" MODIFIED="1765626887990" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/kontrola" />
-    <SUITE FILE_PATH="coverage/Ksiegarnia_Projekt$Main__2_.coverage" NAME="Main (2) Coverage Results" MODIFIED="1765892461551" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/kontrola" />
+    <SUITE FILE_PATH="coverage/Ksiegarnia_Projekt$Main__2_.coverage" NAME="Main (2) Coverage Results" MODIFIED="1765892898985" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/kontrola" />
     <SUITE FILE_PATH="coverage/Ksiegarnia_Projekt3$IEncjeFasada.coverage" NAME="IEncjeFasada Coverage Results" MODIFIED="1765566857287" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/encje" />
     <SUITE FILE_PATH="coverage/Ksiegarnia_Projekt$ZarzadzanieKsiazkami.coverage" NAME="ZarzadzanieKsiazkami Coverage Results" MODIFIED="1764853021415" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/kontrola" />
   </component>
