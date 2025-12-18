@@ -1,17 +1,3 @@
-# from encje.DekoratorCenyZamowienia__klasa_Abstrakcyjna import DekoratorCenyZamowienia  # import abstrakcyjnego dekoratora
-# from encje.Klient import Klient  # import klasy Klient – potrzebne do sprawdzenia lojalności
-#
-#
-#
-# # dziedziczy po DekoratorCenyZamowienia, musi zaimplementować obliczCene()
-# class DekoratorRabatuLojalnosciowego(DekoratorCenyZamowienia):
-#
-#     def obliczCene(self) -> float:
-#         # cena = self._komponent.obliczCene()
-#         # klient = self.pobierzKlienta()
-#         # if klient.klientLojalny: cena *= 0.9
-#         return cena
-
 from encje.DekoratorCenyZamowienia import DekoratorCenyZamowienia
 from encje.Klient import Klient
 

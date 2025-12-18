@@ -1,42 +1,6 @@
-# from kontrola.IStrategiaUwierzytelniania import IStrategiaUwierzytelniania
-# from encje.Uzytkownik import Uzytkownik
-# from typing import Optional
-#
-#
-# class KontekstUwierzytelniania:
-#     def __init__(self):
-#         self._strategia = None
-#         self._zalogowanyUzytkownik = None
-#
-#     def ustawStrategie(self, strategia: IStrategiaUwierzytelniania):
-#         self._strategia = strategia
-#
-#     def wykonajUwierzytelnianie(self, login: str, haslo: str):
-#         if not self._strategia:
-#             print("Błąd: Nie ustawiono strategii logowania.")
-#             return None
-#
-#     def getZalogowanyUzytkownik(self) -> Optional[Uzytkownik]:
-#         return self._zalogowanyUzytkownik
-#
-#         self._zalogowanyUzytkownik = self._strategia.uwierzytelnij(login, haslo)
-#
-#         if self._zalogowanyUzytkownik:
-#             print(f"Kontekst: Zalogowano użytkownika: {self._zalogowanyUzytkownik.login}")
-#         else:
-#             print("Kontekst: Nieudane logowanie.")
-#
-#         return self._zalogowanyUzytkownik
-#
-#
 from typing import Optional
 from encje.Uzytkownik import Uzytkownik
 from kontrola.IStrategiaUwierzytelniania import IStrategiaUwierzytelniania
-#from kontrola.KsiegarniaKontrolaFacade import KsiegarniaKontrolaFacade
-
-
-#from kontrola.KsiegarniaKontrolaFacade import KsiegarniaKontrolaFacade
-
 
 class KontekstUwierzytelniania:
 

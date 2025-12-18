@@ -22,16 +22,3 @@ class MagazynZamowien:
                 return z
         return None
 
-#    def usun(self, id: int) -> None:   # po co nam usuwanie zamówień??
-#        raise NotImplementedError("usun - niezaimplementowane.")
-
-
-    # metody z interfejsu IRepozytoriumZamowien
-#   def zapiszZamowienie(self, zamowienie: Zamowienie) -> None:
-#        raise NotImplementedError("zapiszZamowienie - niezaimplementowane.")
-#
-#    def pobierzHistorieDlaKlienta(self, id: int) -> List[Zamowienie]:
-#        return []
-#
-#    def pobierzWszystkieZamowienia(self) -> List[Zamowienie]:
-#        return []

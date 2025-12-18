@@ -1,4 +1,3 @@
-
 from typing import List, Optional  # TU
 from encje.IRepozytoriumUzytkownika import IRepozytoriumUzytkownika
 from encje.Uzytkownik import Uzytkownik
