@@ -1,0 +1,118 @@
+# from encje.IKsiazka import IKsiazka
+#
+# class KsiazkaPapierowa(IKsiazka):
+#     def __init__(self, tytul: str, autor: str, ISBN: int, gatunek: str,
+#                  cena: float, stanMagazynowy: int, opis: str):
+#         super().__init__(tytul, autor, ISBN, gatunek, cena, opis)
+#         self.stanMagazynowy: int = stanMagazynowy
+#
+#     def ustawTytul(self, tytul: str) -> None:
+#         self.tytul = tytul
+#
+#     def ustawAutora(self, autor: str) -> None:
+#         self.autor = autor
+#
+#     def ustawGatunek(self, gatunek: str) -> None:
+#         self.gatunek = gatunek
+#
+#     def ustawCene(self, cena: float) -> None:
+#         self.cena = cena
+#
+#     def ustawOpis(self, opis: str) -> None:
+#         self.opis = opis
+
+
+import unittest
+from encje.KsiazkaPapierowa import KsiazkaPapierowa
+
+class TestKsiazkaPapierowa(unittest.TestCase):
+
+    def setUp(self):
+        # GIVEN – przygotowanie danych wejściowych testu
+        self.ksiazka = KsiazkaPapierowa(
+            tytul="Test",
+            autor="Autor",
+            ISBN=123,
+            gatunek="SF",
+            cena=50.0,
+            stanMagazynowy=10,
+            opis="Opis"
+        )
+
+    def tearDown(self):
+        # THEN – sprzątanie po teście
+        self.ksiazka = None
+
+    def test_pobierz_cene(self):
+        # WHEN – pobranie ceny
+        cena = self.ksiazka.pobierzCene()
+        # THEN – sprawdzenie wyniku
+        self.assertEqual(cena, 50.0)  # assertEqual
+
+    def test_ustaw_cene_parametryzowany(self):
+        # GIVEN – różne ceny do ustawienia
+        ceny = [10.0, 0.0, 100.5]
+        for nowa_cena in ceny:
+            with self.subTest(cena=nowa_cena):
+                # WHEN – ustawienie ceny
+                self.ksiazka.ustawCene(nowa_cena)
+                # THEN – sprawdzenie, czy cena została poprawnie ustawiona
+                self.assertEqual(self.ksiazka.cena, nowa_cena)
+                self.assertIsNotNone(self.ksiazka.cena)
+                self.assertTrue(self.ksiazka.cena >= 0)
+
+    # def test_ustaw_cene_bledna(self):
+    #     # WHEN / THEN – ustawienie ujemnej ceny powinno zgłosić wyjątek
+    #     with self.assertRaises(ValueError):
+    #         self.ksiazka.ustawCene(-10.0)
+
+    def test_ustaw_tytul_autora_gatunek_opis(self):
+        # WHEN – zmiana tytułu, autora, gatunku i opisu
+        self.ksiazka.ustawTytul("Nowy tytul")
+        self.ksiazka.ustawAutora("Nowy autor")
+        self.ksiazka.ustawGatunek("Nowy gatunek")
+        self.ksiazka.ustawOpis("Nowy opis")
+        # THEN – sprawdzenie poprawności zmian
+        self.assertEqual(self.ksiazka.tytul, "Nowy tytul")
+        self.assertEqual(self.ksiazka.autor, "Nowy autor")
+        self.assertEqual(self.ksiazka.gatunek, "Nowy gatunek")
+        self.assertEqual(self.ksiazka.opis, "Nowy opis")
+        self.assertIsNotNone(self.ksiazka.tytul)
+        self.assertIsNotNone(self.ksiazka.autor)
+
+    def test_stan_magazynowy_parametryzowany(self):
+        # GIVEN – różne wartości stanu magazynowego
+        stany = [0, 5, 100]
+        for stan in stany:
+            with self.subTest(stan=stan):
+                ks = KsiazkaPapierowa(
+                    tytul="Test",
+                    autor="Autor",
+                    ISBN=123,
+                    gatunek="SF",
+                    cena=50.0,
+                    stanMagazynowy=stan,
+                    opis="Opis"
+                )
+                # THEN – sprawdzenie poprawności stanu magazynowego
+                self.assertEqual(ks.stanMagazynowy, stan)
+                if stan > 0:
+                    self.assertTrue(ks.stanMagazynowy > 0)
+                else:
+                    self.assertFalse(ks.stanMagazynowy > 0)
+
+    # def test_stan_magazynowy_bledny(self):
+    #     # WHEN / THEN – ujemny stan magazynowy powinien zgłosić wyjątek
+    #     with self.assertRaises(ValueError):
+    #         KsiazkaPapierowa(
+    #             tytul="Test",
+    #             autor="Autor",
+    #             ISBN=123,
+    #             gatunek="SF",
+    #             cena=50.0,
+    #             stanMagazynowy=-5,
+    #             opis="Opis"
+    #         )
+
+if __name__ == "__main__":
+    unittest.main()
