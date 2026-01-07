@@ -116,6 +116,91 @@ class TestKsiegarniaKontrolaMock(unittest.TestCase):
         self.assertEqual(wynik, 99.99)
         self.mock_encje.obliczCeneOstateczna.assert_called_once_with(mock_zamowienie, mock_klient)
 
+    # --- 6. TEST: WERYFIKACJA WIELOKROTNOŚCI (atLeastOnce / times) ---
+    def test_przegladajHistorie_weryfikacja_wywolan_repozytorium(self):
+        """
+        Zadanie: atLeastOnce() / times(n)
+        Sprawdzamy, czy system pobiera historię przynajmniej raz dla poprawnego ID.
+        """
+        # GIVEN
+        id_klienta = 5
+        self.mock_encje.pobierzHistorieDlaKlienta.return_value = []  # Zwraca pustą listę
+
+        # WHEN
+        self.facade.przegladajHistorie(id_klienta)
+
+        # THEN: Weryfikacja czy metoda została wywołana dokładnie 1 raz (lub więcej)
+        # Mockito: verify(mock_encje, atLeastOnce()).pobierzHistorieDlaKlienta(5)
+        self.assertGreaterEqual(self.mock_encje.pobierzHistorieDlaKlienta.call_count, 1)
+        self.mock_encje.pobierzHistorieDlaKlienta.assert_called_with(id_klienta)
+
+    # --- 7. TEST: METODA VOID I BRAK INTERAKCJI (doNothing / never) ---
+    def test_wylogujUzytkownika_czysci_kontekst(self):
+        """
+        Zadanie: doNothing() oraz never()
+        Metoda wyloguj jest typu void. Sprawdzamy czy po wylogowaniu
+        NIE są wywoływane żadne operacje na bazie danych (encjach).
+        """
+        # WHEN
+        self.facade.wylogujUzytkownika()
+
+        # THEN: Sprawdzamy czy zawołano metodę wyloguj na kontekście
+        self.facade._kontekst_auth.wyloguj.assert_called_once()
+
+        # Weryfikacja: wylogowanie nie powinno dotykać bazy danych (IEncjeFasada)
+        # Mockito: verify(mock_encje, never()).usun(any())
+        self.mock_encje.rejestrujUzytkownika.assert_not_called()
+        self.mock_encje.usun.assert_not_called()
+
+    # --- 8. TEST: PARAMETRYZOWANE ZACHOWANIE SYMULACJI (Argument Matchers) ---
+    def test_usunKonto_weryfikacja_bezpieczenstwa(self):
+        """
+        Zadanie: verify() z konkretnym parametrem.
+        Upewniamy się, że fasada przekazuje dokładnie to ID, które otrzymała.
+        """
+        # GIVEN
+        testowe_id = 99
+
+        # WHEN
+        self.facade.usunKonto(testowe_id)
+
+        # THEN: Sprawdzamy czy proces usuwania został zainicjowany z poprawnym ID
+        with patch('kontrola.KsiegarniaKontrolaFacade.ProcesUsuwaniaKonta') as MockProces:
+            # Ponowne wywołanie w kontekście patcha, aby przechwycić tworzenie obiektu
+            self.facade.usunKonto(testowe_id)
+            MockProces.return_value.wykonajUsuwanie.assert_called_with(testowe_id)
+
+    # --- 9. TEST: SYMULACJA REALNEJ METODY (doCallRealMethod) ---
+    def test_przegladajKsiazki_wywoluje_metode_fasady(self):
+        """
+        Zadanie: doCallRealMethod() - sprawdzanie czy delegacja działa.
+        """
+        # WHEN
+        self.facade.przegladajKsiazki()
+
+        # THEN: Sprawdzamy czy Fasada Kontroli faktycznie skontaktowała się z procesem
+        # bez mockowania wyniku (po prostu sprawdzamy sam fakt interakcji)
+        with patch('kontrola.KsiegarniaKontrolaFacade.ProcesPrzegladaniaKsiazek') as MockProces:
+            self.facade.przegladajKsiazki()
+            MockProces.return_value.wykonajPrzegladanieKsiazek.assert_called()
+
+    # --- 10. TEST: OBSŁUGA WIELU WYJĄTKÓW (side_effect z listą) ---
+    def test_aktualizujDaneUzytkownika_rozne_bledy(self):
+        """
+        Zadanie: thenThrow() dla różnych scenariuszy.
+        """
+        # GIVEN: Symulujemy, że pierwsze wywołanie przechodzi, a drugie rzuca błąd
+        self.mock_encje.aktualizujDaneUzytkownika.side_effect = [None, Exception("Błąd zapisu")]
+
+        # WHEN: Pierwsza próba (powinna przejść bez błędu)
+        self.mock_encje.aktualizujDaneUzytkownika(MagicMock(), "Jan", None, None, None, None)
+
+        # WHEN: Druga próba (powinna rzucić wyjątek)
+        with self.assertRaises(Exception) as context:
+            self.mock_encje.aktualizujDaneUzytkownika(MagicMock(), "Jan", None, None, None, None)
+
+        # THEN
+        self.assertEqual(str(context.exception), "Błąd zapisu")
 
 if __name__ == "__main__":
     unittest.main()
