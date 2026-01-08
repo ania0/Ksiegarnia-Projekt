@@ -2,7 +2,6 @@ import unittest
 from unittest.mock import MagicMock, patch, call
 from typing import List
 
-# Importy Twoich klas
 from kontrola.KsiegarniaKontrolaFacade import KsiegarniaKontrolaFacade
 from encje.IEncjeFasada import IEncjeFasada
 from encje.Klient import Klient
@@ -16,16 +15,16 @@ class TestKsiegarniaKontrolaMock(unittest.TestCase):
         """
         GIVEN: Inicjalizacja symulacji (Mockito: @Mock i @InjectMocks)
         """
-        # Tworzymy symulację interfejsu (mock())
+        #Tworzenie symulacji interfejsu
         self.mock_encje = MagicMock(spec=IEncjeFasada)
 
-        # Wstrzykujemy symulację do fasady kontroli (InjectMocks)
+        # umieszczenie symulacji w fasadzie kontroli
         self.facade = KsiegarniaKontrolaFacade(self.mock_encje)
 
-        # Nadpisujemy kontekst auth, aby móc go kontrolować w testach
+        #nadpisanie kontekstu uwierzytelniania, aby móc go kontrolować w testach
         self.facade._kontekst_auth = MagicMock()
 
-    # --- 1. TEST: WYBÓR KSIĄŻKI (when().thenReturn() + verify()) ---
+    #WYBÓR KSIĄŻKI (when().thenReturn() + verify()) ---
     def test_wybierzKsiazke_sukces(self):
         """
         Zadanie: Zachowanie symulacji zwracającej wartość oraz weryfikacja parametrów.
@@ -49,13 +48,13 @@ class TestKsiegarniaKontrolaMock(unittest.TestCase):
             # Sprawdzamy czy komunikat na ekranie był poprawny
             mock_print.assert_called_with("Wybrano książkę: [10] Wiedźmin – A. Sapkowski – 45.0 zł")
 
-    # --- 2. TEST: OBSŁUGA BŁĘDU REJESTRACJI (when().thenThrow()) ---
+    #OBSŁUGA BŁĘDU REJESTRACJI (when().thenThrow()) ---
     @patch('kontrola.KsiegarniaKontrolaFacade.ProcesRejestracji')
     def test_stworzKonto_blad_walidacji(self, MockProces):
         """
         Zadanie: Symulacja wyrzucania wyjątku (side_effect).
         """
-        # GIVEN: Symulujemy, że proces rejestracji rzuca błąd (np. niepoprawny email)
+        # GIVEN: Symulacja, że proces rejestracji rzuca błąd (np. niepoprawny email)
         instancja_procesu = MockProces.return_value
         instancja_procesu.wykonajRejestracje.side_effect = ValueError("Niepoprawny format email")
 
@@ -65,7 +64,7 @@ class TestKsiegarniaKontrolaMock(unittest.TestCase):
 
         self.assertEqual(str(cm.exception), "Niepoprawny format email")
 
-    # --- 3. TEST: KOLEJNOŚĆ LOGOWANIA ADMINA (InOrder) ---
+    #KOLEJNOŚĆ LOGOWANIA ADMINA (InOrder) ---
     def test_zalogujAdministratora_kolejnosc_operacji(self):
         """
         Zadanie: Weryfikacja kolejności (InOrder).
@@ -83,7 +82,7 @@ class TestKsiegarniaKontrolaMock(unittest.TestCase):
         ]
         self.facade._kontekst_auth.assert_has_calls(oczekiwane_wywolania, any_order=False)
 
-    # --- 4. TEST: WERYFIKACJA NEGATYWNA (never() / times()) ---
+    #WERYFIKACJA NEGATYWNA (never() / times()) ---
     def test_zarzadzajUzytkownikami_tylko_raz_pobiera_uzytkownika(self):
         """
         Zadanie: verify(times(1)) oraz never().
@@ -99,7 +98,7 @@ class TestKsiegarniaKontrolaMock(unittest.TestCase):
             # Weryfikacja negatywna: upewniamy się, że NIE usunięto nic z bazy przy samym wejściu w panel
             self.mock_encje.usun.assert_not_called()
 
-    # --- 5. TEST: OBLICZANIE CENY OSTATECZNEJ (Złożona współpraca) ---
+    #OBLICZANIE CENY OSTATECZNEJ (współpraca) ---
     def test_oblicz_cene_ostateczna_delegacja(self):
         """
         Zadanie: Weryfikacja interakcji między dwoma różnymi mockami (Zamowienie i Klient).
@@ -116,7 +115,7 @@ class TestKsiegarniaKontrolaMock(unittest.TestCase):
         self.assertEqual(wynik, 99.99)
         self.mock_encje.obliczCeneOstateczna.assert_called_once_with(mock_zamowienie, mock_klient)
 
-    # --- 6. TEST: WERYFIKACJA WIELOKROTNOŚCI (atLeastOnce / times) ---
+    # WERYFIKACJA WIELOKROTNOŚCI (atLeastOnce / times) ---
     def test_przegladajHistorie_weryfikacja_wywolan_repozytorium(self):
         """
         Zadanie: atLeastOnce() / times(n)
@@ -134,12 +133,12 @@ class TestKsiegarniaKontrolaMock(unittest.TestCase):
         self.assertGreaterEqual(self.mock_encje.pobierzHistorieDlaKlienta.call_count, 1)
         self.mock_encje.pobierzHistorieDlaKlienta.assert_called_with(id_klienta)
 
-    # --- 7. TEST: METODA VOID I BRAK INTERAKCJI (doNothing / never) ---
+    #METODA VOID I BRAK INTERAKCJI  ---
     def test_wylogujUzytkownika_czysci_kontekst(self):
         """
         Zadanie: doNothing() oraz never()
         Metoda wyloguj jest typu void. Sprawdzamy czy po wylogowaniu
-        NIE są wywoływane żadne operacje na bazie danych (encjach).
+        nie są wywoływane żadne operacje na encjach.
         """
         # WHEN
         self.facade.wylogujUzytkownika()
@@ -147,12 +146,11 @@ class TestKsiegarniaKontrolaMock(unittest.TestCase):
         # THEN: Sprawdzamy czy zawołano metodę wyloguj na kontekście
         self.facade._kontekst_auth.wyloguj.assert_called_once()
 
-        # Weryfikacja: wylogowanie nie powinno dotykać bazy danych (IEncjeFasada)
-        # Mockito: verify(mock_encje, never()).usun(any())
+        # Weryfikacja: wylogowanie nie powinno wykonywać operacji na IEncjeFasada
         self.mock_encje.rejestrujUzytkownika.assert_not_called()
         self.mock_encje.usun.assert_not_called()
 
-    # --- 8. TEST: PARAMETRYZOWANE ZACHOWANIE SYMULACJI (Argument Matchers) ---
+    #PARAMETRYZOWANE ZACHOWANIE SYMULACJI
     def test_usunKonto_weryfikacja_bezpieczenstwa(self):
         """
         Zadanie: verify() z konkretnym parametrem.
@@ -170,7 +168,7 @@ class TestKsiegarniaKontrolaMock(unittest.TestCase):
             self.facade.usunKonto(testowe_id)
             MockProces.return_value.wykonajUsuwanie.assert_called_with(testowe_id)
 
-    # --- 9. TEST: SYMULACJA REALNEJ METODY (doCallRealMethod) ---
+    #SYMULACJA REALNEJ METODY (doCallRealMethod) ---
     def test_przegladajKsiazki_wywoluje_metode_fasady(self):
         """
         Zadanie: doCallRealMethod() - sprawdzanie czy delegacja działa.
@@ -184,7 +182,7 @@ class TestKsiegarniaKontrolaMock(unittest.TestCase):
             self.facade.przegladajKsiazki()
             MockProces.return_value.wykonajPrzegladanieKsiazek.assert_called()
 
-    # --- 10. TEST: OBSŁUGA WIELU WYJĄTKÓW (side_effect z listą) ---
+    #OBSŁUGA WIELU WYJĄTKÓW (side_effect z listą) ---
     def test_aktualizujDaneUzytkownika_rozne_bledy(self):
         """
         Zadanie: thenThrow() dla różnych scenariuszy.
