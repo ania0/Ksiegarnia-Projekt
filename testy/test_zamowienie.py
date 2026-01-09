@@ -46,6 +46,11 @@ from encje.PozycjaZamowienia import PozycjaZamowienia
 from encje.KsiazkaPapierowa import KsiazkaPapierowa
 from encje.Uzytkownik import Uzytkownik  # użyjemy jako klienta
 
+def tag(*tags):
+    def decorator(func):
+        func.tags = set(tags)
+        return func
+    return decorator
 
 class TestZamowienie(unittest.TestCase):
 
@@ -69,7 +74,7 @@ class TestZamowienie(unittest.TestCase):
         self.klient = None
 
     # TESTY NIEZALEŻNE
-
+    @tag("encje", "zamowienie", "podstawowe")
     def test_pobierz_klienta_id(self):
         # WHEN – pobieramy klienta i id zamówienia
         klient = self.zamowienie.pobierzKlienta()
@@ -81,7 +86,7 @@ class TestZamowienie(unittest.TestCase):
         self.assertIsInstance(klient, Uzytkownik) # klient jest instancją klasy Uzytkownik
 
     # TESTY ZALEŻNE
-
+    @tag("encje", "zamowienie", "podstawowe")
     def test_oblicz_cene_pojedyncza_pozycja(self):
         # GIVEN – dodanie jednej pozycji do zamówienia
         self.zamowienie.dodajPozycje(self.pozycja1)
@@ -93,6 +98,7 @@ class TestZamowienie(unittest.TestCase):
         self.assertEqual(cena, 40.0)  # 2 * 20
         self.assertGreater(cena, 0)  # cena powinna być większa niż 0
 
+    @tag("encje", "zamowienie", "zaawansowane", "krytyczne")
     def test_oblicz_cene_wiele_pozycji(self):
         # GIVEN – dodanie wielu pozycji
         self.zamowienie.dodajPozycje(self.pozycja1)
@@ -105,6 +111,7 @@ class TestZamowienie(unittest.TestCase):
         self.assertEqual(cena, 70.0)  # 40 + 30
         self.assertIsInstance(cena, float)
 
+    @tag("encje", "zamowienie", "parametryzowane")
     def test_oblicz_cene_parametryzowane(self):
         # Parametryzacja – różne ilości i ceny
         przypadki = [
@@ -136,6 +143,7 @@ class TestZamowienie(unittest.TestCase):
     #     self.assertEqual(cena, 0.0)
     #     self.assertIsInstance(cena, float)
 
+    @tag("encje", "zamowienie", "krytyczne")
     def test_dodaj_wiele_pozycji(self):
         # GIVEN – tworzymy kilka pozycji
         pozycje = [

@@ -37,6 +37,11 @@ from encje.Ebook import Ebook
 # w odpowiedniej kolejności,
 # różne asercje i parametryzacje
 
+def tag(*tags):
+    def decorator(func):
+        func.tags = set(tags)
+        return func
+    return decorator
 
 class TestEbook(unittest.TestCase):
 
@@ -57,9 +62,7 @@ class TestEbook(unittest.TestCase):
         # THEN – sprzątanie po każdym teście
         self.ebook = None
 
-
-
-
+    @tag("encje", "ebook", "podstawowe")
     def test_sciezka_do_pliku_nie_jest_pusta(self):
         # WHEN - wykonujemy operację, którą testujemy
         sciezka = self.ebook.sciezkaDoPliku
@@ -68,6 +71,7 @@ class TestEbook(unittest.TestCase):
         self.assertIsNotNone(sciezka)  # sprawdzamy, że ścieżka istnieje (nie jest None)
         self.assertTrue(sciezka.endswith(".pdf"))
 
+    @tag("encje", "ebook", "parametryzowane", "krytyczne")
     def test_pobierz_isbn_parametryzowany(self):
         # Test parametryzowany – sprawdzamy kilka wartości ISBN
         # GIVEN - przygotowanie danych
@@ -92,6 +96,7 @@ class TestEbook(unittest.TestCase):
                 # THEN – sprawdzamy wynik
                 self.assertEqual(wynik, isbn)
 
+    @tag("encje", "ebook", "parametryzowane", "podstawowe")
     def test_ustaw_cene_parametryzowany(self):
         # Parametryzowany test ceny
         ceny = [10.0, 0.0, 100.5]
@@ -107,7 +112,7 @@ class TestEbook(unittest.TestCase):
     #     with self.assertRaises(ValueError):
     #         self.ebook.ustawCene(-10.0)
 
-
+    @tag("encje", "ebook", "podstawowe")
     def test_ustaw_tytul_autora_gatunek_opis(self):
         # WHEN – ustawiamy tytuł, autora, gatunek, opis
         self.ebook.ustawTytul("Nowy tytul")
@@ -122,6 +127,7 @@ class TestEbook(unittest.TestCase):
         self.assertIsNotNone(self.ebook.tytul)
         self.assertIsNotNone(self.ebook.autor)
 
+    @tag("encje", "ebook", "parametryzowane", "podstawowe")
     def test_sciezka_do_pliku_parametryzowany(self):
         # GIVEN – różne ścieżki do pliku
         sciezki = ["/tmp/a.pdf", "/tmp/b.epub", "/tmp/c.mobi"]

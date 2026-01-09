@@ -8,6 +8,11 @@ from encje.Klient import Klient
 from encje.IKsiazka import IKsiazka
 from encje.Zamowienie import Zamowienie
 
+def tag(*tags):
+    def decorator(func):
+        func.tags = set(tags)
+        return func
+    return decorator
 
 class TestKsiegarniaKontrolaMock(unittest.TestCase):
 
@@ -25,6 +30,7 @@ class TestKsiegarniaKontrolaMock(unittest.TestCase):
         self.facade._kontekst_auth = MagicMock()
 
     #WYBÓR KSIĄŻKI (when().thenReturn() + verify()) ---
+    @tag("kontrola", "mock", "krytyczne")
     def test_wybierzKsiazke_sukces(self):
         """
         Zadanie: Zachowanie symulacji zwracającej wartość oraz weryfikacja parametrów.
@@ -49,6 +55,7 @@ class TestKsiegarniaKontrolaMock(unittest.TestCase):
             mock_print.assert_called_with("Wybrano książkę: [10] Wiedźmin – A. Sapkowski – 45.0 zł")
 
     #OBSŁUGA BŁĘDU REJESTRACJI (when().thenThrow()) ---
+    @tag("kontrola", "mock", "bledy")
     @patch('kontrola.KsiegarniaKontrolaFacade.ProcesRejestracji')
     def test_stworzKonto_blad_walidacji(self, MockProces):
         """
@@ -65,6 +72,7 @@ class TestKsiegarniaKontrolaMock(unittest.TestCase):
         self.assertEqual(str(cm.exception), "Niepoprawny format email")
 
     #KOLEJNOŚĆ LOGOWANIA ADMINA (InOrder) ---
+    @tag("kontrola", "mock", "kolejnosc")
     def test_zalogujAdministratora_kolejnosc_operacji(self):
         """
         Zadanie: Weryfikacja kolejności (InOrder).
@@ -83,6 +91,7 @@ class TestKsiegarniaKontrolaMock(unittest.TestCase):
         self.facade._kontekst_auth.assert_has_calls(oczekiwane_wywolania, any_order=False)
 
     #WERYFIKACJA NEGATYWNA (never() / times()) ---
+    @tag("kontrola", "mock", "zaawansowane")
     def test_zarzadzajUzytkownikami_tylko_raz_pobiera_uzytkownika(self):
         """
         Zadanie: verify(times(1)) oraz never().
@@ -99,6 +108,7 @@ class TestKsiegarniaKontrolaMock(unittest.TestCase):
             self.mock_encje.usun.assert_not_called()
 
     #OBLICZANIE CENY OSTATECZNEJ (współpraca) ---
+    @tag("kontrola", "mock", "krytyczne")
     def test_oblicz_cene_ostateczna_delegacja(self):
         """
         Zadanie: Weryfikacja interakcji między dwoma różnymi mockami (Zamowienie i Klient).
@@ -116,6 +126,7 @@ class TestKsiegarniaKontrolaMock(unittest.TestCase):
         self.mock_encje.obliczCeneOstateczna.assert_called_once_with(mock_zamowienie, mock_klient)
 
     # WERYFIKACJA WIELOKROTNOŚCI (atLeastOnce / times) ---
+    @tag("kontrola", "mock", "podstawowe")
     def test_przegladajHistorie_weryfikacja_wywolan_repozytorium(self):
         """
         Zadanie: atLeastOnce() / times(n)
@@ -134,6 +145,7 @@ class TestKsiegarniaKontrolaMock(unittest.TestCase):
         self.mock_encje.pobierzHistorieDlaKlienta.assert_called_with(id_klienta)
 
     #METODA VOID I BRAK INTERAKCJI  ---
+    @tag("kontrola", "mock", "podstawowe")
     def test_wylogujUzytkownika_czysci_kontekst(self):
         """
         Zadanie: doNothing() oraz never()
@@ -151,6 +163,7 @@ class TestKsiegarniaKontrolaMock(unittest.TestCase):
         self.mock_encje.usun.assert_not_called()
 
     #PARAMETRYZOWANE ZACHOWANIE SYMULACJI
+    @tag("kontrola", "mock", "krytyczne")
     def test_usunKonto_weryfikacja_bezpieczenstwa(self):
         """
         Zadanie: verify() z konkretnym parametrem.
@@ -169,6 +182,7 @@ class TestKsiegarniaKontrolaMock(unittest.TestCase):
             MockProces.return_value.wykonajUsuwanie.assert_called_with(testowe_id)
 
     #SYMULACJA REALNEJ METODY (doCallRealMethod) ---
+    @tag("kontrola", "mock", "podstawowe")
     def test_przegladajKsiazki_wywoluje_metode_fasady(self):
         """
         Zadanie: doCallRealMethod() - sprawdzanie czy delegacja działa.
@@ -183,6 +197,7 @@ class TestKsiegarniaKontrolaMock(unittest.TestCase):
             MockProces.return_value.wykonajPrzegladanieKsiazek.assert_called()
 
     #OBSŁUGA WIELU WYJĄTKÓW (side_effect z listą) ---
+    @tag("kontrola", "mock", "bledy")
     def test_aktualizujDaneUzytkownika_rozne_bledy(self):
         """
         Zadanie: thenThrow() dla różnych scenariuszy.

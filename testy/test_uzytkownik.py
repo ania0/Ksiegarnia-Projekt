@@ -52,8 +52,14 @@ import unittest
 from typing import Optional
 from encje.Uzytkownik import Uzytkownik
 
-class TestUzytkownik(unittest.TestCase):
+def tag(*tags):
+    def decorator(func):
+        func.tags = set(tags)
+        return func
+    return decorator
 
+
+class TestUzytkownik(unittest.TestCase):
     def setUp(self):
         # GIVEN – przygotowanie danych przed każdym testem
         self.uzytkownik = Uzytkownik(
@@ -70,7 +76,7 @@ class TestUzytkownik(unittest.TestCase):
         self.uzytkownik = None
 
     # TESTY NIEZALEŻNE
-
+    @tag("encje", "uzytkownik", "podstawowe")
     def test_gettery(self):
         # WHEN – pobieramy dane użytkownika
         identyfikator = self.uzytkownik.pobierzId()
@@ -83,6 +89,7 @@ class TestUzytkownik(unittest.TestCase):
         self.assertIsInstance(identyfikator, int)
         self.assertIsInstance(email, str)
 
+    @tag("encje", "uzytkownik", "podstawowe")
     def test_settery_parametryzowane(self):
         # Parametryzacja dla różnych wartości imienia i nazwiska
         imiona = ["Adam", "Ewa", "Marek"]
@@ -99,6 +106,7 @@ class TestUzytkownik(unittest.TestCase):
                 self.assertIsNotNone(self.uzytkownik.imie)
                 self.assertIsNotNone(self.uzytkownik.nazwisko)
 
+    @tag("encje", "uzytkownik", "parametryzowane", "podstawowe")
     def test_parametryzacja_email(self):
         # GIVEN – różne maile do testu
         maile = ["a@b.com", "x@y.pl", "test@test.com"]
@@ -112,7 +120,7 @@ class TestUzytkownik(unittest.TestCase):
                 self.assertTrue("@" in self.uzytkownik.email)
 
     # TESTY ZALEŻNE
-
+    @tag("encje", "uzytkownik", "krytyczne")
     def test_set_email_haslo_adres(self):
         # WHEN – zmiana email, hasła i adresu
         self.uzytkownik.ustawEmail("nowy.email@example.com")
@@ -126,6 +134,7 @@ class TestUzytkownik(unittest.TestCase):
         self.assertIsNotNone(self.uzytkownik.hashHasla)
         self.assertIsNotNone(self.uzytkownik.adres)
 
+    @tag("encje", "uzytkownik", "krytyczne")
     def test_weryfikuj_haslo(self):
         # WHEN / THEN – poprawne hasło
         self.assertTrue(self.uzytkownik.weryfikujHaslo("tajne123"))
@@ -135,6 +144,7 @@ class TestUzytkownik(unittest.TestCase):
         self.uzytkownik.ustawHaslo(None)
         self.assertFalse(self.uzytkownik.weryfikujHaslo("tajne123"))
 
+    @tag("encje", "uzytkownik","parametryzowane", "krytyczne")
     def test_weryfikuj_haslo_parametryzowane(self):
         # GIVEN – różne scenariusze haseł
         hasla = [("tajne123", True), ("zleHaslo", False), (None, False)]
@@ -145,6 +155,7 @@ class TestUzytkownik(unittest.TestCase):
                 # THEN
                 self.assertEqual(wynik, oczekiwany)
 
+    @tag("encje", "uzytkownik", "opcjonalne")
     def test_none_opcjonalne_pola(self):
         # GIVEN – tworzymy użytkownika z brakującymi opcjonalnymi polami
         uzytk = Uzytkownik(imie="Anna", nazwisko="Nowak", email="anna@example.com")

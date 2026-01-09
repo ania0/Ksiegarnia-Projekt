@@ -21,6 +21,11 @@
 #     def ustawOpis(self, opis: str) -> None:
 #         self.opis = opis
 
+def tag(*tags):
+    def decorator(func):
+        func.tags = set(tags)
+        return func
+    return decorator
 
 import unittest
 from encje.KsiazkaPapierowa import KsiazkaPapierowa
@@ -43,12 +48,14 @@ class TestKsiazkaPapierowa(unittest.TestCase):
         # THEN – sprzątanie po teście
         self.ksiazka = None
 
+    @tag("encje", "papierowa", "podstawowe")
     def test_pobierz_cene(self):
         # WHEN – pobranie ceny
         cena = self.ksiazka.pobierzCene()
         # THEN – sprawdzenie wyniku
         self.assertEqual(cena, 50.0)  # assertEqual
 
+    @tag("encje", "papierowa", "parametryzowane", "krytyczne")
     def test_ustaw_cene_parametryzowany(self):
         # GIVEN – różne ceny do ustawienia
         ceny = [10.0, 0.0, 100.5]
@@ -66,6 +73,7 @@ class TestKsiazkaPapierowa(unittest.TestCase):
     #     with self.assertRaises(ValueError):
     #         self.ksiazka.ustawCene(-10.0)
 
+    @tag("encje", "papierowa", "podstawowe")
     def test_ustaw_tytul_autora_gatunek_opis(self):
         # WHEN – zmiana tytułu, autora, gatunku i opisu
         self.ksiazka.ustawTytul("Nowy tytul")
@@ -80,6 +88,7 @@ class TestKsiazkaPapierowa(unittest.TestCase):
         self.assertIsNotNone(self.ksiazka.tytul)
         self.assertIsNotNone(self.ksiazka.autor)
 
+    @tag("encje", "papierowa", "parametryzowane", "podstawowe")
     def test_stan_magazynowy_parametryzowany(self):
         # GIVEN – różne wartości stanu magazynowego
         stany = [0, 5, 100]
