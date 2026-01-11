@@ -7,7 +7,7 @@ from test_zamowienie import TestZamowienie
 from testy_zad2 import TestKsiegarniaKontrolaMock
 
 
-# --- POMOCNIK FILTROWANIA (Symulacja @IncludeTags / @ExcludeTags) ---
+#WSPOMAGANIE FILTROWANIA (Symulacja @IncludeTags / @ExcludeTags) ---
 class SuiteHelper:
     @staticmethod
     def filtruj_testy(zestaw_wejsciowy, include=None, exclude=None):
@@ -35,7 +35,7 @@ class SuiteHelper:
         return nowy_zestaw
 
 
-# --- ZESTAWY TESTÓW (SUITES) ---
+#ZESTAWY TESTÓW
 
 class SuiteEncje:
     """Odpowiednik @Suite + @SelectClasses (Warstwa Encji)"""
@@ -95,7 +95,7 @@ class SuitePodstawowe:
         return SuiteHelper.filtruj_testy(wszystkie, exclude=["zaawansowane", "bledy"])
 
 
-# --- URUCHAMIANIE WSZYSTKIEGO ---
+#URUCHAMIANIE WSZYSTKIEGO
 
 if __name__ == "__main__":
     runner = unittest.TextTestRunner(verbosity=2)
