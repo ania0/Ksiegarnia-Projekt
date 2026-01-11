@@ -29,7 +29,7 @@ class TestKsiegarniaKontrolaMock(unittest.TestCase):
         #nadpisanie kontekstu uwierzytelniania, aby móc go kontrolować w testach
         self.facade._kontekst_auth = MagicMock()
 
-    #WYBÓR KSIĄŻKI (when().thenReturn() + verify()) ---
+    #wybór ksiazki
     @tag("kontrola", "mock", "krytyczne")
     def test_wybierzKsiazke_sukces(self):
         """
@@ -54,13 +54,12 @@ class TestKsiegarniaKontrolaMock(unittest.TestCase):
             # Sprawdzamy czy komunikat na ekranie był poprawny
             mock_print.assert_called_with("Wybrano książkę: [10] Wiedźmin – A. Sapkowski – 45.0 zł")
 
-    #OBSŁUGA BŁĘDU REJESTRACJI (when().thenThrow()) ---
+    #obsluga bledu rejestracji
     @tag("kontrola", "mock", "bledy")
     @patch('kontrola.KsiegarniaKontrolaFacade.ProcesRejestracji')
     def test_stworzKonto_blad_walidacji(self, MockProces):
-        """
-        Zadanie: Symulacja wyrzucania wyjątku (side_effect).
-        """
+        #Symulacja wyrzucania wyjątku (side_effect).
+
         # GIVEN: Symulacja, że proces rejestracji rzuca błąd (np. niepoprawny email)
         instancja_procesu = MockProces.return_value
         instancja_procesu.wykonajRejestracje.side_effect = ValueError("Niepoprawny format email")
@@ -71,12 +70,10 @@ class TestKsiegarniaKontrolaMock(unittest.TestCase):
 
         self.assertEqual(str(cm.exception), "Niepoprawny format email")
 
-    #KOLEJNOŚĆ LOGOWANIA ADMINA (InOrder) ---
+    #Czy poprawna kolejnosc logowania administratora
     @tag("kontrola", "mock", "kolejnosc")
     def test_zalogujAdministratora_kolejnosc_operacji(self):
-        """
-        Zadanie: Weryfikacja kolejności (InOrder).
-        """
+
         # GIVEN: Dane logowania
         email, haslo = "admin@ksiegarnia.pl", "admin1"
 
@@ -90,7 +87,7 @@ class TestKsiegarniaKontrolaMock(unittest.TestCase):
         ]
         self.facade._kontekst_auth.assert_has_calls(oczekiwane_wywolania, any_order=False)
 
-    #WERYFIKACJA NEGATYWNA (never() / times()) ---
+    #WERYFIKACJA NEGATYWNA (never() / times())
     @tag("kontrola", "mock", "zaawansowane")
     def test_zarzadzajUzytkownikami_tylko_raz_pobiera_uzytkownika(self):
         """
@@ -98,16 +95,16 @@ class TestKsiegarniaKontrolaMock(unittest.TestCase):
         """
         # GIVEN: Przygotowanie mocka procesu
         with patch('kontrola.KsiegarniaKontrolaFacade.ZarzadzanieUzytkownikami') as MockProces:
-            # WHEN: Wywołujemy zarządzanie
+            # WHEN: Wywołanie zarządzania
             self.facade.zarzadzajUzytkownikami()
 
-            # THEN: Upewniamy się, że użytkownik z kontekstu został pobrany dokładnie RAZ
+            # THEN: Czy użytkownik został pobrany z kontekstu tylko raz
             self.assertEqual(self.facade._kontekst_auth.getZalogowanyUzytkownik.call_count, 1)
 
-            # Weryfikacja negatywna: upewniamy się, że NIE usunięto nic z bazy przy samym wejściu w panel
+            # Weryfikacja negatywna: upewniamy się, że nie usunięto nic z bazy przy samym wejściu w panel
             self.mock_encje.usun.assert_not_called()
 
-    #OBLICZANIE CENY OSTATECZNEJ (współpraca) ---
+    #obliczanie ceny ostatecznej
     @tag("kontrola", "mock", "krytyczne")
     def test_oblicz_cene_ostateczna_delegacja(self):
         """
@@ -118,20 +115,17 @@ class TestKsiegarniaKontrolaMock(unittest.TestCase):
         mock_klient = MagicMock(spec=Klient)
         self.mock_encje.obliczCeneOstateczna.return_value = 99.99
 
-        # WHEN: Wywołujemy metodę w fasadzie encji (poprzez mocka w fasadzie kontroli)
+        # WHEN: Wywołanie metody w fasadzie encji (poprzez mocka w fasadzie kontroli)
         wynik = self.mock_encje.obliczCeneOstateczna(mock_zamowienie, mock_klient)
 
-        # THEN: Sprawdzamy czy wynik się zgadza i czy zawołano metodę (verify)
+        # THEN: Sprawdzanie czy wynik się zgadza i czy wywołano metodę (verify)
         self.assertEqual(wynik, 99.99)
         self.mock_encje.obliczCeneOstateczna.assert_called_once_with(mock_zamowienie, mock_klient)
 
-    # WERYFIKACJA WIELOKROTNOŚCI (atLeastOnce / times) ---
+    #weryfikacja liczby wywołan - czy pobieramy historie przynajmniej raz dla poprawnego ID
     @tag("kontrola", "mock", "podstawowe")
     def test_przegladajHistorie_weryfikacja_wywolan_repozytorium(self):
-        """
-        Zadanie: atLeastOnce() / times(n)
-        Sprawdzamy, czy system pobiera historię przynajmniej raz dla poprawnego ID.
-        """
+
         # GIVEN
         id_klienta = 5
         self.mock_encje.pobierzHistorieDlaKlienta.return_value = []  # Zwraca pustą listę
@@ -144,7 +138,7 @@ class TestKsiegarniaKontrolaMock(unittest.TestCase):
         self.assertGreaterEqual(self.mock_encje.pobierzHistorieDlaKlienta.call_count, 1)
         self.mock_encje.pobierzHistorieDlaKlienta.assert_called_with(id_klienta)
 
-    #METODA VOID I BRAK INTERAKCJI  ---
+    #metoda void, brak interakcji
     @tag("kontrola", "mock", "podstawowe")
     def test_wylogujUzytkownika_czysci_kontekst(self):
         """
@@ -162,7 +156,7 @@ class TestKsiegarniaKontrolaMock(unittest.TestCase):
         self.mock_encje.rejestrujUzytkownika.assert_not_called()
         self.mock_encje.usun.assert_not_called()
 
-    #PARAMETRYZOWANE ZACHOWANIE SYMULACJI
+    #czy fasada przekazuje poprawne ID
     @tag("kontrola", "mock", "krytyczne")
     def test_usunKonto_weryfikacja_bezpieczenstwa(self):
         """
@@ -181,7 +175,7 @@ class TestKsiegarniaKontrolaMock(unittest.TestCase):
             self.facade.usunKonto(testowe_id)
             MockProces.return_value.wykonajUsuwanie.assert_called_with(testowe_id)
 
-    #SYMULACJA REALNEJ METODY (doCallRealMethod) ---
+    #symulacja prawdziwej metody (doCallRealMethod)
     @tag("kontrola", "mock", "podstawowe")
     def test_przegladajKsiazki_wywoluje_metode_fasady(self):
         """
@@ -196,13 +190,13 @@ class TestKsiegarniaKontrolaMock(unittest.TestCase):
             self.facade.przegladajKsiazki()
             MockProces.return_value.wykonajPrzegladanieKsiazek.assert_called()
 
-    #OBSŁUGA WIELU WYJĄTKÓW (side_effect z listą) ---
+    #obsluga kilku wyjatkow
     @tag("kontrola", "mock", "bledy")
     def test_aktualizujDaneUzytkownika_rozne_bledy(self):
         """
         Zadanie: thenThrow() dla różnych scenariuszy.
         """
-        # GIVEN: Symulujemy, że pierwsze wywołanie przechodzi, a drugie rzuca błąd
+        # GIVEN: Symulacja, że pierwsze wywołanie przechodzi, a drugie rzuca błąd
         self.mock_encje.aktualizujDaneUzytkownika.side_effect = [None, Exception("Błąd zapisu")]
 
         # WHEN: Pierwsza próba (powinna przejść bez błędu)
