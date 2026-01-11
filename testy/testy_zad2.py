@@ -115,10 +115,10 @@ class TestKsiegarniaKontrolaMock(unittest.TestCase):
         mock_klient = MagicMock(spec=Klient)
         self.mock_encje.obliczCeneOstateczna.return_value = 99.99
 
-        # WHEN: Wywołanie metody w fasadzie encji (poprzez mocka w fasadzie kontroli)
+        # WHEN: Wywołanie metody w fasadzie encji
         wynik = self.mock_encje.obliczCeneOstateczna(mock_zamowienie, mock_klient)
 
-        # THEN: Sprawdzanie czy wynik się zgadza i czy wywołano metodę (verify)
+        # THEN: Sprawdzanie czy wynik się zgadza i czy wywołano metodę
         self.assertEqual(wynik, 99.99)
         self.mock_encje.obliczCeneOstateczna.assert_called_once_with(mock_zamowienie, mock_klient)
 
@@ -142,8 +142,7 @@ class TestKsiegarniaKontrolaMock(unittest.TestCase):
     @tag("kontrola", "mock", "podstawowe")
     def test_wylogujUzytkownika_czysci_kontekst(self):
         """
-        Zadanie: doNothing() oraz never()
-        Metoda wyloguj jest typu void. Sprawdzamy czy po wylogowaniu
+        Zadanie: doNothing() oraz never() Metoda wyloguj jest typu void. Sprawdzamy czy po wylogowaniu
         nie są wywoływane żadne operacje na encjach.
         """
         # WHEN
@@ -175,7 +174,7 @@ class TestKsiegarniaKontrolaMock(unittest.TestCase):
             self.facade.usunKonto(testowe_id)
             MockProces.return_value.wykonajUsuwanie.assert_called_with(testowe_id)
 
-    #symulacja prawdziwej metody (doCallRealMethod)
+    #symulacja prawdziwej metod
     @tag("kontrola", "mock", "podstawowe")
     def test_przegladajKsiazki_wywoluje_metode_fasady(self):
         """
@@ -185,7 +184,6 @@ class TestKsiegarniaKontrolaMock(unittest.TestCase):
         self.facade.przegladajKsiazki()
 
         # THEN: Sprawdzamy czy Fasada Kontroli faktycznie skontaktowała się z procesem
-        # bez mockowania wyniku (po prostu sprawdzamy sam fakt interakcji)
         with patch('kontrola.KsiegarniaKontrolaFacade.ProcesPrzegladaniaKsiazek') as MockProces:
             self.facade.przegladajKsiazki()
             MockProces.return_value.wykonajPrzegladanieKsiazek.assert_called()
