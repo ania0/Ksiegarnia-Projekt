@@ -5,13 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="23fa6adc-2cfa-408a-9f6d-0de1faceefa8" name="Changes" comment=".">
-      <change afterPath="$PROJECT_DIR$/testy/testy_zad3.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/testy/test_ebook.py" beforeDir="false" afterPath="$PROJECT_DIR$/testy/test_ebook.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/testy/test_ksiazka_papierowa.py" beforeDir="false" afterPath="$PROJECT_DIR$/testy/test_ksiazka_papierowa.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/testy/test_uzytkownik.py" beforeDir="false" afterPath="$PROJECT_DIR$/testy/test_uzytkownik.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/testy/test_zamowienie.py" beforeDir="false" afterPath="$PROJECT_DIR$/testy/test_zamowienie.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/testy/testy_zad2.py" beforeDir="false" afterPath="$PROJECT_DIR$/testy/testy_zad2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/testy/testy_zad3.py" beforeDir="false" afterPath="$PROJECT_DIR$/testy/testy_zad3.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,44 +44,44 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python tests.Python tests for test_ksiazka_papierowa.TestKsiazkaPapierowa.test_pobierz_cene.executor": "Run",
-    "Python tests.Python tests for test_ksiazka_papierowa.TestKsiazkaPapierowa.test_stan_magazynowy.executor": "Run",
-    "Python tests.Python tests for test_ksiazka_papierowa.TestKsiazkaPapierowa.test_ustaw_cene.executor": "Run",
-    "Python tests.Python tests for test_uzytkownik.TestUzytkownik.test_ustaw_email.executor": "Run",
-    "Python tests.Python tests for test_uzytkownik.TestUzytkownik.test_weryfikuj_haslo_bledne.executor": "Run",
-    "Python tests.Python tests for test_uzytkownik.TestUzytkownik.test_weryfikuj_haslo_poprawne.executor": "Run",
-    "Python tests.Python tests in test_ebook.py.executor": "Run",
-    "Python tests.Python tests in test_ksiazka_papierowa.py.executor": "Run",
-    "Python tests.Python tests in test_uzytkownik.py.executor": "Run",
-    "Python tests.Python tests in test_zamowienie.py.executor": "Run",
-    "Python tests.Python tests in testy_zad2.py.executor": "Run",
-    "Python.IEncjeFasada.executor": "Run",
-    "Python.Main (2).executor": "Run",
-    "Python.Main.executor": "Run",
-    "Python.ZarzadzanieKsiazkami.executor": "Run",
-    "Python.testy_zad3.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "com.codeium.enabled": "true",
-    "git-widget-placeholder": "main",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python tests.Python tests for test_ksiazka_papierowa.TestKsiazkaPapierowa.test_pobierz_cene.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests for test_ksiazka_papierowa.TestKsiazkaPapierowa.test_stan_magazynowy.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests for test_ksiazka_papierowa.TestKsiazkaPapierowa.test_ustaw_cene.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests for test_uzytkownik.TestUzytkownik.test_ustaw_email.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests for test_uzytkownik.TestUzytkownik.test_weryfikuj_haslo_bledne.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests for test_uzytkownik.TestUzytkownik.test_weryfikuj_haslo_poprawne.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests in test_ebook.py.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests in test_ksiazka_papierowa.py.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests in test_uzytkownik.py.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests in test_zamowienie.py.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests in testy_zad2.py.executor&quot;: &quot;Run&quot;,
+    &quot;Python.IEncjeFasada.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Main (2).executor&quot;: &quot;Run&quot;,
+    &quot;Python.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Python.ZarzadzanieKsiazkami.executor&quot;: &quot;Run&quot;,
+    &quot;Python.testy_zad3.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;com.codeium.enabled&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\wawrzyniec.michalczy\PycharmProjects\Ksiegarnia-Projekt\encje" />
       <recent name="C:\Users\wawrzyniec.michalczy\PycharmProjects\Ksiegarnia-Projekt\encje\Encje" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Python.Main">
     <configuration name="Main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -189,6 +185,14 @@
       <option name="_new_targetType" value="&quot;PATH&quot;" />
       <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="Python.Main" />
+      <item itemvalue="Python tests.Python tests for test_ksiazka_papierowa.TestKsiazkaPapierowa.test_pobierz_cene" />
+      <item itemvalue="Python tests.Python tests for test_ksiazka_papierowa.TestKsiazkaPapierowa.test_stan_magazynowy" />
+      <item itemvalue="Python tests.Python tests for test_ksiazka_papierowa.TestKsiazkaPapierowa.test_ustaw_cene" />
+      <item itemvalue="Python tests.Python tests for test_uzytkownik.TestUzytkownik.test_ustaw_email" />
+      <item itemvalue="Python tests.Python tests in test_uzytkownik.py" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python tests.Python tests for test_ksiazka_papierowa.TestKsiazkaPapierowa.test_stan_magazynowy" />

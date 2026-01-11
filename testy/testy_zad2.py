@@ -29,7 +29,7 @@ class TestKsiegarniaKontrolaMock(unittest.TestCase):
         #nadpisanie kontekstu uwierzytelniania, aby móc go kontrolować w testach
         self.facade._kontekst_auth = MagicMock()
 
-    #WYBÓR KSIĄŻKI (when().thenReturn() + verify()) ---
+    #wybór ksiazki
     @tag("kontrola", "mock", "krytyczne")
     def test_wybierzKsiazke_sukces(self):
         """
