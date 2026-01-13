@@ -1,53 +1,4 @@
 
-# class Uzytkownik:
-#
-#     def __init__(self, imie: str,
-#                  nazwisko: str,
-#                  email: str,
-#                  hashHasla: Optional[str] = None,
-#                  adres: Optional[str] = None,
-#                  id: Optional[int] = None):
-#         self.imie: str = imie
-#         self.nazwisko: str = nazwisko
-#         self.hashHasla: Optional[str] = hashHasla
-#         self.email: str = email
-#         self.adres: Optional[str] = adres
-#         self.id: Optional[int] = id
-#
-#     # GETTERY
-#     def pobierzId(self) -> Optional[int]:
-#         return self.id
-#
-#     def pobierzEmail(self) -> Optional[str]:
-#         return self.email
-#
-# # SETTERY
-#     def ustawImie(self, noweImie: str) -> None:
-#         """ustawImie(noweImie: String) : void"""
-#         self.imie = noweImie
-#
-#     def ustawNazwisko(self, noweNazwisko: str) -> None:
-#         """ustawNazwisko(noweNazwisko: String) : void"""
-#         self.nazwisko = noweNazwisko
-#
-#     def ustawEmail(self, nowyEmail: str) -> None:
-#         """ustawEmail(nowyEmail: String) : void"""
-#         self.email = nowyEmail
-#
-#     def ustawHaslo(self, noweHaslo: str) -> None:
-#         """ustawHaslo(noweHaslo: String) : void"""
-#         self.hashHasla = noweHaslo
-#
-#     def ustawAdres(self, nowyAdres: str) -> None:
-#         """ustawAdres(nowyAdres: String) : void"""
-#         self.adres = nowyAdres
-#
-#     # WERYFIKACJA HASŁA
-#     def weryfikujHaslo(self, podaneHaslo: str) -> bool:
-#         if self.hashHasla is None:
-#             return False
-#         return podaneHaslo == self.hashHasla  # testowa wersja
-
 import unittest
 from typing import Optional
 from encje.Uzytkownik import Uzytkownik
@@ -61,7 +12,7 @@ def tag(*tags):
 
 class TestUzytkownik(unittest.TestCase):
     def setUp(self):
-        # GIVEN – przygotowanie danych przed każdym testem
+        # GIVEN – przygotowanie danych
         self.uzytkownik = Uzytkownik(
             imie="Jan",
             nazwisko="Kowalski",
@@ -78,10 +29,10 @@ class TestUzytkownik(unittest.TestCase):
     # TESTY NIEZALEŻNE
     @tag("encje", "uzytkownik", "podstawowe")
     def test_gettery(self):
-        # WHEN – pobieramy dane użytkownika
+        # WHEN – pobiera dane użytkownika
         identyfikator = self.uzytkownik.pobierzId()
         email = self.uzytkownik.pobierzEmail()
-        # THEN – sprawdzamy poprawność wartości
+        # THEN – sprawdza poprawność wartości
         self.assertEqual(identyfikator, 1)
         self.assertEqual(email, "jan.kowalski@example.com")
         self.assertIsNotNone(email)
@@ -91,16 +42,16 @@ class TestUzytkownik(unittest.TestCase):
 
     @tag("encje", "uzytkownik", "podstawowe")
     def test_settery_parametryzowane(self):
-        # Parametryzacja dla różnych wartości imienia i nazwiska
+        # Parametryzacja
         imiona = ["Adam", "Ewa", "Marek"]
         nazwiska = ["Nowak", "Kowalczyk", "Wiśniewski"]
 
         for imie, nazwisko in zip(imiona, nazwiska):
             with self.subTest(imie=imie, nazwisko=nazwisko):
-                # WHEN – ustawiamy nowe dane
+                # WHEN – ustawia nowe dane
                 self.uzytkownik.ustawImie(imie)
                 self.uzytkownik.ustawNazwisko(nazwisko)
-                # THEN – sprawdzamy czy zmiany zostały zastosowane
+                # THEN – sprawdza czy zmiany zostały zastosowane
                 self.assertEqual(self.uzytkownik.imie, imie)
                 self.assertEqual(self.uzytkownik.nazwisko, nazwisko)
                 self.assertIsNotNone(self.uzytkownik.imie)
@@ -126,7 +77,7 @@ class TestUzytkownik(unittest.TestCase):
         self.uzytkownik.ustawEmail("nowy.email@example.com")
         self.uzytkownik.ustawHaslo("noweHaslo456")
         self.uzytkownik.ustawAdres("ul. Testowa 2")
-        # THEN – sprawdzamy czy wartości zostały poprawnie zmienione
+        # THEN – sprawdza czy wartości zostały poprawnie zmienione
         self.assertEqual(self.uzytkownik.email, "nowy.email@example.com")
         self.assertEqual(self.uzytkownik.hashHasla, "noweHaslo456")
         self.assertEqual(self.uzytkownik.adres, "ul. Testowa 2")
@@ -157,7 +108,7 @@ class TestUzytkownik(unittest.TestCase):
 
     @tag("encje", "uzytkownik", "opcjonalne")
     def test_none_opcjonalne_pola(self):
-        # GIVEN – tworzymy użytkownika z brakującymi opcjonalnymi polami
+        # GIVEN – tworzy użytkownika z brakującymi opcjonalnymi polami
         uzytk = Uzytkownik(imie="Anna", nazwisko="Nowak", email="anna@example.com")
         # THEN – pola opcjonalne powinny być None
         self.assertIsNone(uzytk.id)

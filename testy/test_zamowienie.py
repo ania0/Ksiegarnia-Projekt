@@ -1,42 +1,3 @@
-#
-# class Zamowienie(ICena):
-#     """
-#     Klasa domenowa Zamowienie – na tym etapie zawiera tylko strukturę,
-#     deklarację atrybutów i sygnatury operacji bez implementacji.
-#     """
-#
-#     def __init__(self):
-#         # Atrybuty podstawowe
-#         self._data: Optional[date] = None
-#         self._cenaRazem: Optional[float] = None
-#         self._status: Optional[str] = None
-#         self._metodaPlatnosci: Optional[str] = None
-#         self._id: Optional[int] = None
-#
-#         # Asocjacja 1..1 z Klientem
-#         self._klient: Klient = None
-#
-#         # Kompozycja: * PozycjaZamowienia
-#         self._pozycjeZamowienia: List[PozycjaZamowienia] = []
-#         # @AssociationMultiplicity *
-#         # @AssociationKind Composition
-#
-#
-#     def dodajPozycje(self, pozycja: PozycjaZamowienia) -> None:
-#         """Dodaje pozycję do zamówienia i przelicza cenę."""
-#         self._pozycjeZamowienia.append(pozycja)
-#
-#     def obliczCene(self) -> float:
-#         """Oblicza sumaryczną cenę zamówienia na podstawie pozycji."""
-#         return sum(p.ilosc * p.cenaJednostkowa for p in self._pozycjeZamowienia)
-#
-#     def pobierzId(self) -> int:
-#         """Zwraca ID zamówienia."""
-#         return self._id
-#
-#     def pobierzKlienta(self) -> Optional[Klient]:
-#         """Zwraca klienta powiązanego z zamówieniem."""
-#         return self._klient
 
 import unittest
 from datetime import date
@@ -44,7 +5,7 @@ from typing import Optional
 from encje.Zamowienie import Zamowienie
 from encje.PozycjaZamowienia import PozycjaZamowienia
 from encje.KsiazkaPapierowa import KsiazkaPapierowa
-from encje.Uzytkownik import Uzytkownik  # użyjemy jako klienta
+from encje.Uzytkownik import Uzytkownik  #  jako klienta
 
 def tag(*tags):
     def decorator(func):
@@ -76,13 +37,13 @@ class TestZamowienie(unittest.TestCase):
     # TESTY NIEZALEŻNE
     @tag("encje", "zamowienie", "podstawowe")
     def test_pobierz_klienta_id(self):
-        # WHEN – pobieramy klienta i id zamówienia
+        # WHEN – pobiera klienta i id zamówienia
         klient = self.zamowienie.pobierzKlienta()
         id_zam = self.zamowienie.pobierzId()
-        # THEN – sprawdzamy poprawność
+        # THEN – sprawdza poprawność
         self.assertIsNotNone(klient)
         self.assertIs(klient, self.klient)
-        self.assertIsNone(id_zam)  # na tym etapie id nie jest ustawione, wiec None
+        self.assertIsNone(id_zam)  # id nie jest ustawione, wiec None
         self.assertIsInstance(klient, Uzytkownik) # klient jest instancją klasy Uzytkownik
 
     # TESTY ZALEŻNE
@@ -91,10 +52,10 @@ class TestZamowienie(unittest.TestCase):
         # GIVEN – dodanie jednej pozycji do zamówienia
         self.zamowienie.dodajPozycje(self.pozycja1)
 
-        # WHEN – obliczamy cenę
+        # WHEN – oblicza cenę
         cena = self.zamowienie.obliczCene()
 
-        # THEN – sprawdzamy wynik
+        # THEN – sprawdza wynik
         self.assertEqual(cena, 40.0)  # 2 * 20
         self.assertGreater(cena, 0)  # cena powinna być większa niż 0
 
@@ -107,13 +68,13 @@ class TestZamowienie(unittest.TestCase):
         # WHEN
         cena = self.zamowienie.obliczCene()
 
-        # THEN - sprawdzamy sumę cen
+        # THEN - sprawdza sumę cen
         self.assertEqual(cena, 70.0)  # 40 + 30
         self.assertIsInstance(cena, float)
 
     @tag("encje", "zamowienie", "parametryzowane")
     def test_oblicz_cene_parametryzowane(self):
-        # Parametryzacja – różne ilości i ceny
+        # Parametryzacja
         przypadki = [
             (1, 20.0),  # 1 sztuka po 20
             (2, 40.0),  # 2 sztuki po 20
@@ -145,7 +106,7 @@ class TestZamowienie(unittest.TestCase):
 
     @tag("encje", "zamowienie", "krytyczne")
     def test_dodaj_wiele_pozycji(self):
-        # GIVEN – tworzymy kilka pozycji
+        # GIVEN – tworzy kilka pozycji
         pozycje = [
             PozycjaZamowienia(self.ksiazka1, 1, 20.0),
             PozycjaZamowienia(self.ksiazka2, 2, 30.0)
@@ -156,7 +117,7 @@ class TestZamowienie(unittest.TestCase):
         # WHEN
         cena = self.zamowienie.obliczCene()
 
-        # THEN - sprawdzamy sumę i poprawność listy pozycji
+        # THEN - sprawdza sumę i poprawność listy pozycji
         self.assertEqual(cena, 80.0)  # 1*20 + 2*30
         self.assertIsNotNone(self.zamowienie._pozycjeZamowienia)
         self.assertEqual(len(self.zamowienie._pozycjeZamowienia), 2)
