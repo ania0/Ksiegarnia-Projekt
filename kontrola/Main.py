@@ -228,12 +228,12 @@ def main():
 
     # Dodanie przykładowych książek do testowania katalogu
     ksiazka1 = fabryka_ksiazek.utworzKsiazke(typ="papierowa", tytul="Wzorce Projektowe", autor="G.O.F", cena=100.0,
-                                             ISBN=1, gatunek="Programowanie", stanMagazynowy=5, opis="Opis 1")
-    ksiazka2 = fabryka_ksiazek.utworzKsiazke(typ="ebook", tytul="Czysty Kod", autor="Robert Martin", cena=50.0, ISBN=2,
+                                             ISBN=1000000000000, gatunek="Programowanie", stanMagazynowy=5, opis="Opis 1")
+    ksiazka2 = fabryka_ksiazek.utworzKsiazke(typ="ebook", tytul="Czysty Kod", autor="Robert Martin", cena=50.0, ISBN=2000000000000,
                                              gatunek="Programowanie", stanMagazynowy=0, opis="Opis 2",
                                              sciezkaDoPliku="path/to/clean_code.pdf")
     ksiazka3 = fabryka_ksiazek.utworzKsiazke(typ="papierowa", tytul="Zbrodnia i Kara", autor="Fiodor Dostojewski",
-                                             cena=35.0, ISBN=3, gatunek="Klasyka", stanMagazynowy=10, opis="Opis 3")
+                                             cena=35.0, ISBN=3000000000000, gatunek="Klasyka", stanMagazynowy=10, opis="Opis 3")
     encje_fasada.dodajKsiazke(ksiazka1)
     encje_fasada.dodajKsiazke(ksiazka2)
     encje_fasada.dodajKsiazke(ksiazka3)
@@ -260,10 +260,40 @@ def main():
             email = input("Podaj email: ")
             haslo = input("Podaj hasło: ")
             adres = input("Podaj adres wysyłki: ")
-            klient = Klient(imie, nazwisko, email, haslo, adres, False)
-            encje_fasada.rejestrujUzytkownika(klient)
-            print(f"Pomyślnie zarejestrowano klienta: {imie} {nazwisko}. Możesz się zalogować.")
+
+            lista_bledow = []
+
+            if not imie or not imie[0].isupper():
+                lista_bledow.append("Imię musi zaczynać się od wielkiej litery i nie może być puste.")
+
+            if not nazwisko or not nazwisko[0].isupper():
+                lista_bledow.append("Nazwisko musi zaczynać się od wielkiej litery i nie może być puste.")
+
+            if not email or "@" not in email or "." not in email:
+                lista_bledow.append("Email musi mieć poprawny format (musi zawierać @ oraz .).")
+
+            if not haslo:
+                lista_bledow.append("Hasło nie może być puste.")
+
+            if not adres:
+                lista_bledow.append("Adres nie może być puste.")
+
+            if lista_bledow:
+                print("BŁĘDY: ")
+                for i, blad in enumerate(lista_bledow, 1):
+                    print(f" {i}. {blad}")
+                continue
+
+            try:
+                klient = Klient(imie, nazwisko, email, haslo, adres, False)
+                encje_fasada.rejestrujUzytkownika(klient)
+                print(f"Pomyślnie zarejestrowano klienta: {imie} {nazwisko}. Możesz się zalogować.")
+
+            except ValueError as e:
+                print(f"\nBŁĄD : {e}")
+
             continue
+
         elif wybor == "2":
             # Proces logowania klienta (PU02)
             email_log = input("Email klienta: ")

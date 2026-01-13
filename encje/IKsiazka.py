@@ -16,7 +16,6 @@ class IKsiazka(ABC):
     def pobierzISBN(self) -> int:
         return self.ISBN
 
-    # --- Metody wymagane przez diagram (Settery) ---
     @abstractmethod
     def ustawTytul(self, tytul: str) -> None:
         pass

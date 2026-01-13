@@ -29,8 +29,11 @@ class KsiegarniaKontrolaFacade(IKsiegarniaKontrola):
         self._strategia_admina = StrategiaLogowanieAdministratora(encje_fasada)
 
     def stworzKonto(self, haslo: str, email: str) -> None:
-        proces = ProcesRejestracji(self._encje_fasada)
-        proces.wykonajRejestracje(email, haslo)
+        try:
+            proces = ProcesRejestracji(self._encje_fasada)
+            proces.wykonajRejestracje(email, haslo)
+        except ValueError as e:
+            print(f"[BŁĄD REJESTRACJI]: {e}")
 
     def zalogujKlienta(self, haslo: str, email: str):
         self._kontekst_auth.ustawStrategie(self._strategia_klienta)
@@ -61,7 +64,8 @@ class KsiegarniaKontrolaFacade(IKsiegarniaKontrola):
 
     def wybierzKsiazke(self, ISBN: int) -> None:
         ksiazka = self._encje_fasada.pobierzPoISBN(ISBN)
-        # CZY TAK MOŻE BYĆ?
+        if not isinstance(ISBN, int) or len(str(ISBN)) != 13:
+            raise ValueError("Wyszukiwany ISBN musi być 13-cyfrową liczbą.")
         if ksiazka:
             print(f"Wybrano książkę: [{ksiazka.id}] {ksiazka.tytul} – {ksiazka.autor} – {ksiazka.cena} zł")
         else:

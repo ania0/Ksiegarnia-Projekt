@@ -52,34 +52,37 @@ class FasadaEncji(IEncjeFasada):
             noweHaslo: Optional[str],
             nowyAdres: Optional[str]
     ) -> Optional[str]:
+        try:
+            # 1.1: [noweImie != Null] -> ustawImie
+            if noweImie:
+                uzytkownik.ustawImie(noweImie)
 
-        # 1.1: [noweImie != Null] -> ustawImie
-        if noweImie:
-            uzytkownik.ustawImie(noweImie)
+            # 1.3: [noweNazwisko != Null] -> ustawNazwisko
+            if noweNazwisko:
+                uzytkownik.ustawNazwisko(noweNazwisko)
 
-        # 1.3: [noweNazwisko != Null] -> ustawNazwisko
-        if noweNazwisko:
-            uzytkownik.ustawNazwisko(noweNazwisko)
+            # 1.5: [nowyEmail != Null] -> ustawEmail
+            if nowyEmail:
+                uzytkownik.ustawEmail(nowyEmail)
 
-        # 1.5: [nowyEmail != Null] -> ustawEmail
-        if nowyEmail:
-            uzytkownik.ustawEmail(nowyEmail)
+            # 1.7: [noweHaslo != Null] -> ustawHaslo
+            if noweHaslo:
+                uzytkownik.ustawHaslo(noweHaslo)
 
-        # 1.7: [noweHaslo != Null] -> ustawHaslo
-        if noweHaslo:
-            uzytkownik.ustawHaslo(noweHaslo)
+            # 1.9: [nowyAdres != Null] -> ustawAdres
+            if nowyAdres:
+                uzytkownik.ustawAdres(nowyAdres)
 
-        # 1.9: [nowyAdres != Null] -> ustawAdres
-        if nowyAdres:
-            uzytkownik.ustawAdres(nowyAdres)
+            self._repoUzytkownika.aktualizujDaneUzytkownika(uzytkownik)
 
-        self._repoUzytkownika.aktualizujDaneUzytkownika(uzytkownik)
+            return None  # sukces
 
-        return None  # sukces
+        except ValueError as e:
+            return str(e)
 
     # KSIĄŻKI
     def dodajKsiazke(self, ksiazka: IKsiazka) -> None:
-        ksiazka.id = self._next_id # dodałam tu pole id do wyswietlania
+        ksiazka.id = self._next_id
         self._next_id += 1
         self._repoKsiazek.dodajKsiazke(ksiazka)
 
@@ -91,40 +94,37 @@ class FasadaEncji(IEncjeFasada):
 
     def aktualizujDane(self, ksiazka: IKsiazka, nowyTytul: Optional[str], nowyAutor: Optional[str],
                        nowyGatunek: Optional[str], nowaCena: Optional[float], nowyOpis: Optional[str]) -> Optional[str]:
-        """
-        Realizacja diagramu sekwencji: Sprawdza wartości i ustawia je przez settery IKsiazka.
-        """
+        try:
+            # 1.1: [nowyTytul != Null] -> ustawTytul
+            if nowyTytul:
+                ksiazka.ustawTytul(nowyTytul)
 
-        # 1.1: [nowyTytul != Null] -> ustawTytul
-        if nowyTytul:
-            ksiazka.ustawTytul(nowyTytul)
+            # 1.3: [nowyAutor != Null] -> ustawAutora
+            if nowyAutor:
+                ksiazka.ustawAutora(nowyAutor)
 
-        # 1.3: [nowyAutor != Null] -> ustawAutora
-        if nowyAutor:
-            ksiazka.ustawAutora(nowyAutor)
+            # 1.5: [nowyGatunek != Null] -> ustawGatunek
+            if nowyGatunek:
+                ksiazka.ustawGatunek(nowyGatunek)
 
-        # 1.5: [nowyGatunek != Null] -> ustawGatunek
-        if nowyGatunek:
-            ksiazka.ustawGatunek(nowyGatunek)
+            # Walidacja ceny z diagramu
+            if nowaCena is not None:
+                # 1.11: [nowaCena <= 0] -> return UjemnaCena
+                if nowaCena <= 0:
+                    return "UjemnaCena"
+                # 1.7: [nowaCena > 0] -> ustawCene
+                else:
+                    ksiazka.ustawCene(nowaCena)
 
-        # Walidacja ceny z diagramu
-        if nowaCena is not None:
-            # 1.11: [nowaCena <= 0] -> return UjemnaCena
-            if nowaCena <= 0:
-                return "UjemnaCena"
-            # 1.7: [nowaCena > 0] -> ustawCene
-            else:
-                ksiazka.ustawCene(nowaCena)
+            # 1.9: [nowyOpis != Null] -> ustawOpis
+            if nowyOpis:
+                ksiazka.ustawOpis(nowyOpis)
 
-        # 1.9: [nowyOpis != Null] -> ustawOpis
-        if nowyOpis:
-            ksiazka.ustawOpis(nowyOpis)
+            self._repoKsiazek.aktualizujDane(ksiazka)
 
-        # Persystencja (mimo że diagram kończy się na encji, w kodzie musimy upewnić się, że DAO "widzi" zmianę)
-        # Przekazujemy zaktualizowany obiekt do DAO
-        self._repoKsiazek.aktualizujDane(ksiazka)
-
-        return None  # 1.12: None (sukces)
+            return None  # 1.12: None (sukces)
+        except ValueError as e:
+            return str(e)
 
     def pobierzPoISBN(self, ISBN: int) -> IKsiazka:
         return self._repoKsiazek.pobierzPoISBN(ISBN)
@@ -142,7 +142,7 @@ class FasadaEncji(IEncjeFasada):
     def pobierzWszystkieZamowienia(self) -> List[Zamowienie]:
         return self._repoZamowien.pobierzWszystkieZamowienia()
 
-    # DEKORATORY / CENA
+    # DEKORATORY
     def obliczCeneOstateczna(self, zamowienie: Zamowienie, klient: Klient) -> float:
         komponent: ICena = zamowienie  # Zamowienie implementuje ICena
 

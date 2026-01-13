@@ -52,18 +52,43 @@ class ZarzadzanieUzytkownikami(ProcesZarzadzania):
                 haslo = input("Hasło: ").strip()
                 adres = input("Adres do wysyłki: ").strip()
 
-                # Tworzymy obiekt Uzytkownik z wszystkimi danymi
-                nowy = Uzytkownik(imie=imie, nazwisko=nazwisko, email=email)
-                nowy.haslo = haslo
-                nowy.adres = adres
+                lista_bledow = []
 
-                repo.rejestrujUzytkownika(nowy)
-                print(f"Użytkownik {imie} {nazwisko} dodany z ID: {nowy.pobierzId()}.")
+                if not imie: lista_bledow.append("Imię nie może być puste.")
+                if not nazwisko: lista_bledow.append("Nazwisko nie może być puste.")
+                if not email: lista_bledow.append("Email nie może być pusty.")
+                if not haslo: lista_bledow.append("Haslo nie może być puste.")
+                if not adres: lista_bledow.append("Adres nie może być pusty.")
+
+                if imie and not imie[0].isupper():
+                    lista_bledow.append("Imię musi zaczynać się od wielkiej litery.")
+
+                if nazwisko and not nazwisko[0].isupper():
+                    lista_bledow.append("Nazwisko musi zaczynać się od wielkiej litery.")
+
+                if email and ("@" not in email or "." not in email):
+                    lista_bledow.append("Email ma niepoprawny format (musi być @ oraz . ).")
+
+                if lista_bledow:
+                    print("\nBŁĘDY :")
+                    for i, blad in enumerate(lista_bledow, 1):
+                        print(f" {i}. {blad}")
+                    continue
+
+                try:
+                    # Tworzymy obiekt Uzytkownik z wszystkimi danymi
+                    nowy = Uzytkownik(imie=imie, nazwisko=nazwisko, email=email)
+                    nowy.haslo = haslo
+                    nowy.adres = adres
+
+                    repo.rejestrujUzytkownika(nowy)
+                    print(f"Użytkownik {imie} {nazwisko} dodany z ID: {nowy.pobierzId()}.")
+
+                except Exception as e:
+                    print(f"Wystąpił nieoczekiwany błąd przy zapisie: {e}")
 
             elif wybor == "2":
-                # --- Edycja użytkownika --
-
-                # analogicznie do książki
+                # Edycja użytkownika
                 numer = input("Podaj numer użytkownika do edycji: ").strip()
                 if not numer.isdigit() or not (1 <= int(numer) <= len(uzytkownicy)):
                     print("Nieprawidłowy numer użytkownika!")
@@ -79,23 +104,38 @@ class ZarzadzanieUzytkownikami(ProcesZarzadzania):
                 nowe_haslo = input("Nowe hasło: ") or None
                 nowy_adres = input("Adres wysyłki: ") or None
 
-                # Walidacja email przed aktualizacją
+                lista_bledow = []
+
+                if nowe_imie and not nowe_imie[0].isupper():
+                    lista_bledow.append("Nowe imię musi zaczynać się od wielkiej litery.")
+
+                if nowe_nazwisko and not nowe_nazwisko[0].isupper():
+                    lista_bledow.append("Nowe nazwisko musi zaczynać się od wielkiej litery.")
+
+                if nowy_email and ("@" not in nowy_email or "." not in nowy_email):
+                    lista_bledow.append("nowy email ma niepoprawny format (musi być @ oraz . ).")
+
                 if nowy_email and repo.czyIstnieje(nowy_email):
-                    print("Email już istnieje – zmiana odrzucona.")
+                    lista_bledow.append("Email już istnieje – zmiana odrzucona.")
+
+                if lista_bledow:
+                    print("\nBŁĘDY :")
+                    for i, blad in enumerate(lista_bledow, 1):
+                        print(f" {i}. {blad}")
                     continue
+                try:
+                    self._fasada_encji.aktualizujDaneUzytkownika(
+                        uzytkownik=u,
+                        noweImie=nowe_imie,
+                        noweNazwisko=nowe_nazwisko,
+                        nowyEmail=nowy_email,
+                        noweHaslo=nowe_haslo,
+                        nowyAdres=nowy_adres
+                    )
 
-                # Wywołanie fasady – analogicznie do ksiazki
-                self._fasada_encji.aktualizujDaneUzytkownika(
-                    uzytkownik=u,
-                    noweImie=nowe_imie,
-                    noweNazwisko=nowe_nazwisko,
-                    nowyEmail=nowy_email,
-                    noweHaslo=nowe_haslo,
-                    nowyAdres=nowy_adres
-                )
-
-                print("Dane użytkownika zostały zaktualizowane.")
-
+                    print("Dane użytkownika zostały zaktualizowane.")
+                except Exception as e:
+                    print(f"Wystąpił nieoczekiwany błąd: {e}")
 
 
             elif wybor == "3":

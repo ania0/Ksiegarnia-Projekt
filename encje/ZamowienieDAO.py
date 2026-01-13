@@ -8,9 +8,7 @@ from encje.MagazynZamowien import MagazynZamowien
 class ZamowienieDAO(IRepozytoriumZamowien):
         """
         DAO odpowiedzialne za dostęp do danych Zamowien.
-        W tej fazie projektu zawiera tylko strukturę, a operacje nie mają implementacji.
         """
-
         def __init__(self):
             # Asocjacja z MagazynZamowien (warstwa danych)
             self._magazyn = MagazynZamowien()
@@ -18,14 +16,12 @@ class ZamowienieDAO(IRepozytoriumZamowien):
         def zapiszZamowienie(self, zamowienie: Zamowienie) -> None:
             """
             Zapisuje zamówienie do repozytorium.
-            Tymczasowa implementacja — metoda niezaimplementowana.
             """
             self._magazyn._listaZamowien.append(zamowienie)
 
         def pobierzHistorieDlaKlienta(self, idKlienta: int) -> List[Zamowienie]:
             """
             Zwraca historię zamówień klienta.
-            Tymczasowa implementacja — zwraca pustą listę.
             """
             historia = [
                 z for z in self._magazyn._listaZamowien
@@ -36,6 +32,5 @@ class ZamowienieDAO(IRepozytoriumZamowien):
         def pobierzWszystkieZamowienia(self) -> List[Zamowienie]:
             """
             Zwraca wszystkie zamówienia.
-            Tymczasowa implementacja — metoda niezaimplementowana.
             """
             return list(self._magazyn._listaZamowien)

@@ -6,10 +6,6 @@ from encje.MagazynKsiazek import MagazynKsiazek
 
 
 class KsiazkaDAO(IRepozytoriumKsiazek):
-    """
-    DAO ksiązek – w tej fazie projektu zawiera jedynie strukturę i sygnatury metod.
-    Logika dostępu do danych zostanie zaimplementowana w późniejszych etapach.
-    """
 
     def __init__(self):
         # Asocjacja z MagazynKsiazek (warstwa danych)
@@ -22,7 +18,6 @@ class KsiazkaDAO(IRepozytoriumKsiazek):
         self._ksiazki = [k for k in self._ksiazki if k.ISBN != ISBN]
 
     def pobierzWszystkie(self) -> List[IKsiazka]:
-        # Ta linia teraz zadziała, ponieważ _ksiazki jest zainicjalizowane jako []
         return self._ksiazki.copy()
 
     def aktualizujDane(self, ksiazka: IKsiazka) -> None:

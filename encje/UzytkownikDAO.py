@@ -6,7 +6,7 @@ class UzytkownikDAO(IRepozytoriumUzytkownika):
 
     def __init__(self):
         # referencja do magazynu (agregacja)
-        self._magazyn: List[Uzytkownik] = [] # w pełnej implementacji: MagazynUzytkownikow
+        self._magazyn: List[Uzytkownik] = []
 
     def rejestrujUzytkownika(self, uzytkownik: Uzytkownik) -> None:
         """Dodaje użytkownika do magazynu."""

@@ -11,7 +11,6 @@ class DekoratorCenyZamowienia(ICena, ABC):
     """
 
     def __init__(self, komponent: ICena):
-        # Obiekt, którego działanie rozszerzamy
         self._komponent: ICena = komponent
 
     @abstractmethod

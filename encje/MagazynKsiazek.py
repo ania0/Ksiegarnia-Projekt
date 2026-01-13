@@ -41,7 +41,7 @@ class MagazynKsiazek:
         # lista przechowująca książki w magazynie
         self._listaKsiazek: List[IKsiazka] = []
 
-    # dodatkowe metody pomocnicze (tymczasowo – same sygnatury)
+    # dodatkowe metody pomocnicze
     def pobierzListeKsiazek(self) -> List[IKsiazka]:
         # Zwracamy kopię listy, aby nie pozwolić na bezpośrednią modyfikację
         return self._listaKsiazek.copy()

@@ -83,22 +83,14 @@ class SuitePodstawowe:
 if __name__ == "__main__":
     runner = unittest.TextTestRunner(verbosity=2)
 
-    print("\n" + "=" * 50)
     print("URUCHAMIANIE ZESTAWU: WARSTWA ENCJI")
-    print("=" * 50)
     runner.run(SuiteEncje.pobierz())
 
-    print("\n" + "=" * 50)
     print("URUCHAMIANIE ZESTAWU: WARSTWA KONTROLI")
-    print("=" * 50)
     runner.run(SuiteKontrola.pobierz())
 
-    print("\n" + "=" * 50)
     print("URUCHAMIANIE ZESTAWU: KRYTYCZNE ")
-    print("=" * 50)
     runner.run(SuiteKrytyczne.pobierz())
 
-    print("\n" + "=" * 50)
     print("URUCHAMIANIE ZESTAWU: PODSTAWOWE ")
-    print("=" * 50)
     runner.run(SuitePodstawowe.pobierz())

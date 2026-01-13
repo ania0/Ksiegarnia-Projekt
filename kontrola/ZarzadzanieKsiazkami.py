@@ -5,7 +5,7 @@ from kontrola.ProcesZarzadzania import ProcesZarzadzania
 from encje.IKsiazka import IKsiazka
 from encje.KsiazkaPapierowa import KsiazkaPapierowa
 from encje.Ebook import Ebook
-import sys  # Dodatkowy import do obsługi błędu
+import sys
 
 
 class ZarzadzanieKsiazkami(ProcesZarzadzania):
@@ -32,64 +32,71 @@ class ZarzadzanieKsiazkami(ProcesZarzadzania):
     def dodaj_ksiazke(self):
         """Logika dodawania książki (PU09) z walidacją ceny i stanu magazynowego."""
         print("\n--- Dodawanie nowej książki (PU09) ---")
+
+        tytul = input("Tytuł: ").strip()
+        autor = input("Autor: ").strip()
+        cena_str = input("Cena: ").strip()
+        isbn_str = input("ISBN: ").strip()
+        typ = input("Typ (papierowa/ebook): ").strip().lower()
+        gatunek = input("Gatunek: ").strip()
+        opis = input("Opis książki: ").strip()
+
+        # Lista na błędy
+        lista_bledow = []
+
+        # WALIDACJA PUSTYCH PÓL
+        if not tytul: lista_bledow.append("Tytuł nie może być pusty.")
+        if not autor: lista_bledow.append("Autor nie może być pusty.")
+        if not gatunek: lista_bledow.append("Gatunek nie może być pusty.")
+        if not opis: lista_bledow.append("Opis nie może być pusty.")
+
+
+        # WALIDACJA WIELKICH LITER
+        if tytul and not tytul[0].isupper():
+            lista_bledow.append("Tytuł musi zaczynać się od wielkiej litery.")
+
+        if autor:
+            czlony = autor.replace('-', ' ').split()
+            for czlon in czlony:
+                if not czlon[0].isupper():
+                    lista_bledow.append(f"Człon autora '{czlon}' musi zaczynać się od wielkiej litery.")
+
+        # WALIDACJA LICZB
+        cena = 0.0
         try:
-            tytul = input("Tytuł: ")
-            autor = input("Autor: ")
-
-            # Walidacja Ceny
-            cena = float(input("Cena: "))
-            if cena < 0:
-                print("Błąd: Cena musi być nieujemna.")
-                return  # Powrót do głównego menu Zarządzania Katalogiem
-
-            ISBN = int(input("ISBN: "))
-            typ = input("Typ książki (papierowa/ebook): ").strip().lower()
-            gatunek = input("Gatunek: ")
-            opis = input("Opis książki: ")
-
-            stanMagazynowy = 0
-            sciezkaDoPliku = ""
-
-            if typ == "papierowa":
-                # Walidacja Stanu Magazynowego
-                stanMagazynowy_input = input("Stan magazynowy książki papierowej: ")
-                stanMagazynowy = int(stanMagazynowy_input)
-                if stanMagazynowy < 0:
-                    print("Błąd: Stan magazynowy musi być nieujemny.")
-                    return  # Powrót do głównego menu Zarządzania Katalogiem
-            elif typ == "ebook":
-                sciezkaDoPliku = input("Ścieżka do pliku ebooka: ")
-
+            cena = float(cena_str)
+            if cena < 0: lista_bledow.append("Cena nie może być ujemna.")
         except ValueError:
-            print("Błąd: Wprowadzono niepoprawny format dla ceny lub stanu magazynowego (oczekiwano liczby).")
+            lista_bledow.append("Cena musi być liczbą (np. 29.99).")
+
+        ISBN = 0
+        try:
+            ISBN = int(isbn_str)
+            if len(str(ISBN)) != 13:
+                lista_bledow.append(f"ISBN musi mieć 13 cyfr (wpisano {len(str(ISBN))}).")
+        except ValueError:
+            lista_bledow.append("ISBN musi składać się wyłącznie z cyfr.")
+
+        # SPRAWDZENIE CZY SĄ JAKIEKOLWIEK BŁĘDY
+        if lista_bledow:
+            print("BŁĘDY: ")
+            for i, blad in enumerate(lista_bledow, 1):
+                print(f" {i}. {blad}")
             return
 
-        if typ not in ["papierowa", "ebook"]:
-            print("Błąd: Nieznany typ książki. Możliwe typy: papierowa, ebook.")
-            return
-
-        # Tworzenie i dodawanie książki
-        ksiazka: IKsiazka = self._fasada_encji._fabrykaKsiazek.utworzKsiazke(
-            typ=typ,
-            tytul=tytul,
-            autor=autor,
-            cena=cena,
-            ISBN=ISBN,
-            gatunek=gatunek,
-            stanMagazynowy=stanMagazynowy,
-            opis=opis,
-            sciezkaDoPliku=sciezkaDoPliku
-        )
-        self._fasada_encji.dodajKsiazke(ksiazka)
-        print(f"Pomyślnie dodano książkę: {tytul}")
-
-        # Po dodaniu nowej książki przechodzi do menu edycji tej książki
-        self.edycja_ksiazki_menu(ksiazka)
+        try:
+            ksiazka = self._fasada_encji._fabrykaKsiazek.utworzKsiazke(
+                typ=typ, tytul=tytul, autor=autor, cena=cena, ISBN=ISBN,
+                gatunek=gatunek, stanMagazynowy=0, opis=opis, sciezkaDoPliku=""
+            )
+            self._fasada_encji.dodajKsiazke(ksiazka)
+            print(f"\n[SUKCES] Pomyślnie dodano książkę: {tytul}")
+        except Exception as e:
+            print(f"Wystąpił nieoczekiwany błąd przy zapisie: {e}")
 
     def edycja_ksiazki_menu(self, ksiazka: IKsiazka) -> None:
         """
         Menu do edycji szczegółów wybranej książki.
-        Dostosowane do diagramu: przekazuje dane do Fasady, nie ustawia ich tu.
         """
         while True:
             print(f"\n--- Edycja Książki: {ksiazka.tytul} [ISBN: {ksiazka.ISBN}] ---")
@@ -100,10 +107,9 @@ class ZarzadzanieKsiazkami(ProcesZarzadzania):
 
             opcja = input("Wybierz opcję: ").strip()
 
-            if opcja == "1":  # PU10 – Zgodne z Diagramem
+            if opcja == "1":  # PU10
                 print("\n[Modyfikacja szczegółów. Wciśnij Enter, aby pominąć.]")
 
-                # Zbieramy dane (jako stringi lub None)
                 nowy_tytul = input(f"Tytuł [{ksiazka.tytul}]: ") or None
                 nowy_autor = input(f"Autor [{ksiazka.autor}]: ") or None
                 nowy_gatunek = input(f"Gatunek [{ksiazka.gatunek}]: ") or None
@@ -112,14 +118,38 @@ class ZarzadzanieKsiazkami(ProcesZarzadzania):
                 nowa_cena_str = input(f"Cena [{ksiazka.cena}]: ")
                 nowa_cena = float(nowa_cena_str) if nowa_cena_str else None
 
-                # Specjalne pola (poza diagramem, ale potrzebne dla spójności)
+
                 if isinstance(ksiazka, Ebook):
                     sciezka = input(f"Ścieżka [{ksiazka.sciezkaDoPliku}]: ")
                     if sciezka: ksiazka.sciezkaDoPliku = sciezka  # To poza diagramem, zostawiamy tutaj
 
-                # Wywołanie Fasady zgodnie z diagramem
+                lista_bledow = []
+
+                if nowy_tytul and not nowy_tytul[0].isupper()  :
+                    lista_bledow.append("Tytuł musi zaczynać się od wielkiej litery.")
+
+                if nowy_autor:
+                    czlony = nowy_autor.replace('-', ' ').split()
+                    for czlon in czlony:
+                        if not czlon[0].isupper():
+                            lista_bledow.append(f"Człon autora '{czlon}' musi zaczynać się od wielkiej litery.")
+
+                if nowa_cena_str:
+                    try:
+                        cena_val = float(nowa_cena_str)
+                        if cena_val < 0:
+                            lista_bledow.append("Cena nie może być ujemna.")
+                    except ValueError:
+                        lista_bledow.append("Cena musi być liczbą (np. 29.99).")
+
+                if lista_bledow:
+                    print("BŁĘDY :")
+                    for i, blad in enumerate(lista_bledow, 1):
+                        print(f" {i}. {blad}")
+                    return
+
                 wynik = self._fasada_encji.aktualizujDane(
-                    ksiazka, nowy_tytul, nowy_autor, nowy_gatunek, nowa_cena, nowy_opis
+                ksiazka, nowy_tytul, nowy_autor, nowy_gatunek, nowa_cena, nowy_opis
                 )
 
                 if wynik == "UjemnaCena":
@@ -128,7 +158,6 @@ class ZarzadzanieKsiazkami(ProcesZarzadzania):
                     print(f"Pomyślnie zaktualizowano szczegóły książki.")
 
             elif opcja == "2":  # PU11
-                # ... (Reszta bez zmian, bo to inny przypadek użycia)
                 if isinstance(ksiazka, KsiazkaPapierowa):
                     try:
                         stan = int(input(f"Nowy stan [{ksiazka.stanMagazynowy}]: "))

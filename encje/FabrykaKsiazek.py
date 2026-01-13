@@ -16,7 +16,6 @@ class FabrykaKsiazek:
 		if typ == "papierowa":
 			return KsiazkaPapierowa(tytul=tytul, autor=autor, ISBN=ISBN, gatunek=gatunek, cena=cena, stanMagazynowy=stanMagazynowy, opis=opis)
 		elif typ == "ebook":
-			# tu jakiś błąd - musiałam zmienić parametry metody - jest git?
 			return Ebook(tytul=tytul, autor=autor, ISBN=ISBN, gatunek=gatunek, cena=cena, sciezkaDoPliku=sciezkaDoPliku, opis=opis)
 		else:
 			raise ValueError(f"Nieobsługiwany typ książki: {typ}")

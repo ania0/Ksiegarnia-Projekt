@@ -82,6 +82,4 @@ class IEncjeFasada(ABC):
 
     @abstractmethod
     def obliczCeneOstateczna(self, zamowienie: Zamowienie, klient: Klient) -> float:
-        # laczy encje zamówienie + klient
-        # moze zastosować dekoratory
         pass
