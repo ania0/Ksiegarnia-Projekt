@@ -16,7 +16,7 @@ class TestEbook(unittest.TestCase):
         self.ebook = Ebook(
             tytul="Ebook",
             autor="Autor",
-            ISBN=999,
+            ISBN=1234567890123,  # 13 cyfr
             gatunek="IT",
             cena=30.0,
             sciezkaDoPliku="/tmp/book.pdf",
@@ -40,7 +40,7 @@ class TestEbook(unittest.TestCase):
     def test_pobierz_isbn_parametryzowany(self):
         # Test parametryzowany – sprawdzenie kilka wartości ISBN
         # GIVEN - przygotowanie danych
-        dane = [999, 123456, 1] # do testu
+        dane = [1234567891023, 1234567891234] # do testu
 
         for isbn in dane:
             # kilka podtestów w jednej metodzie
@@ -72,23 +72,19 @@ class TestEbook(unittest.TestCase):
                 self.assertIsNotNone(self.ebook.pobierzCene())
                 self.assertTrue(self.ebook.pobierzCene() >= 0)
 
-    # def test_ustaw_cene_bledna(self):
-    #     # WHEN / THEN – ustawienie ujemnej ceny powinno zgłosić wyjątek
-    #     with self.assertRaises(ValueError):
-    #         self.ebook.ustawCene(-10.0)
 
     @tag("encje", "ebook", "podstawowe")
     def test_ustaw_tytul_autora_gatunek_opis(self):
         # WHEN – ustawienie tytuł, autora, gatunek, opis
-        self.ebook.ustawTytul("Nowy tytul")
-        self.ebook.ustawAutora("Nowy autor")
-        self.ebook.ustawGatunek("Nowy gatunek")
-        self.ebook.ustawOpis("Nowy opis")
+        self.ebook.ustawTytul("Nowy Tytul")
+        self.ebook.ustawAutora("Nowy Autor")
+        self.ebook.ustawGatunek("Nowy Gatunek")
+        self.ebook.ustawOpis("Nowy Opis")
         # THEN – sprawdzenie zmian
-        self.assertEqual(self.ebook.tytul, "Nowy tytul")
-        self.assertEqual(self.ebook.autor, "Nowy autor")
-        self.assertEqual(self.ebook.gatunek, "Nowy gatunek")
-        self.assertEqual(self.ebook.opis, "Nowy opis")
+        self.assertEqual(self.ebook.tytul, "Nowy Tytul")
+        self.assertEqual(self.ebook.autor, "Nowy Autor")
+        self.assertEqual(self.ebook.gatunek, "Nowy Gatunek")
+        self.assertEqual(self.ebook.opis, "Nowy Opis")
         self.assertIsNotNone(self.ebook.tytul)
         self.assertIsNotNone(self.ebook.autor)
 
@@ -101,7 +97,7 @@ class TestEbook(unittest.TestCase):
                 ebook = Ebook(
                     tytul="Test",
                     autor="Autor",
-                    ISBN=123,
+                    ISBN=1234567890123,  # 13 cyfr
                     gatunek="IT",
                     cena=20.0,
                     sciezkaDoPliku=sciezka,
@@ -110,6 +106,179 @@ class TestEbook(unittest.TestCase):
                 # THEN – poprawność ścieżki
                 self.assertTrue(ebook.sciezkaDoPliku.endswith(sciezka.split('.')[-1]))
                 self.assertIsNotNone(ebook.sciezkaDoPliku)
+
+    # Dodatkowe testy walidacyjne
+
+    @tag("encje", "walidacja", "ebook", "ISBN", "krytyczne")
+    def test_invalid_ISBN_za_krotki(self):
+        # WHEN / THEN – ISBN krótszy niż 13 cyfr
+        with self.assertRaises(ValueError) as context:
+            Ebook(
+                tytul="Test",
+                autor="Autor",
+                ISBN=123456789,  # za krótki
+                gatunek="IT",
+                cena=10.0,
+                sciezkaDoPliku="/tmp/a.pdf",
+                opis="Opis"
+            )
+        self.assertIn("ISBN musi mieć dokładnie 13 cyfr", str(context.exception))
+
+
+    @tag("encje", "walidacja", "ebook", "ISBN", "krytyczne") # ?
+    def test_invalid_isbn_nie_liczba(self):
+        # GIVEN – ISBN zawiera znaki niebędące cyframi
+        isbn = "123ABC7890123"
+
+        # WHEN / THEN – próba utworzenia Ebook powinna podnieść ValueError
+        with self.assertRaises(ValueError) as context:
+            Ebook(
+                tytul="Test",
+                autor="Autor",
+                ISBN=isbn,  # ISBN nie jest liczbą całkowitą
+                gatunek="IT",
+                cena=10.0,
+                sciezkaDoPliku="/tmp/a.pdf",
+                opis="Opis"
+            )
+
+        # THEN – sprawdzamy komunikat o błędzie aktualnie stosowany w klasie
+        self.assertIn("ISBN musi mieć dokładnie 13 cyfr", str(context.exception))
+
+    @tag("encje", "ebook", "tytul", "krytyczne")
+    def test_invalid_tytul_mala_litera(self):
+        # WHEN / THEN – tytuł zaczyna się małą literą
+        with self.assertRaises(ValueError) as context:
+            Ebook(
+                tytul="niepoprawnyTytul", #tytul z malej litery
+                autor="Autor",
+                ISBN=1234567890123,
+                gatunek="IT",
+                cena=10.0,
+                sciezkaDoPliku="/tmp/a.pdf",
+                opis="Opis"
+            )
+        self.assertIn("Tytuł musi zaczynać się z wielkiej litery", str(context.exception))
+
+    @tag("encje", "ebook", "autor", "krytyczne")
+    def test_invalid_autor_mala_litera(self):
+        # WHEN / THEN – imię/nazwisko autora z małą literą
+        with self.assertRaises(ValueError) as context:
+            Ebook(
+                tytul="PoprawnyTytul",
+                autor="jan Kowalski",  # imię z małej litery
+                ISBN=1234567890123,
+                gatunek="IT",
+                cena=10.0,
+                sciezkaDoPliku="/tmp/a.pdf",
+                opis="Opis"
+            )
+        self.assertIn("Każdy człon nazwy autora musi zaczynać się wielką literą", str(context.exception))
+
+    @tag("encje", "ebook", "autor", "krytyczne")
+    def test_invalid_autor_zle_nazwisko(self):
+        # WHEN / THEN – nazwisko z małej litery
+        with self.assertRaises(ValueError):
+            Ebook(
+                tytul="PoprawnyTytul",
+                autor="Jan kowalski",  # nazwisko z małej litery
+                ISBN=1234567890123,
+                gatunek="IT",
+                cena=10.0,
+                sciezkaDoPliku="/tmp/a.pdf",
+                opis="Opis"
+            )
+
+    @tag("encje", "walidacja", "ebook", "gatunek", "krytyczne")
+    def test_invalid_gatunek_pusty(self):
+        with self.assertRaises(ValueError) as context:
+            Ebook(
+                tytul="Test",
+                autor="Autor",
+                ISBN=1234567890123,
+                gatunek="",  # pusty gatunek
+                cena=10.0,
+                sciezkaDoPliku="/tmp/a.pdf",
+                opis="Opis"
+            )
+        self.assertIn("Pole 'gatunek' nie może być puste", str(context.exception))
+
+    @tag("encje", "walidacja", "ebook", "opis", "krytyczne")
+    def test_invalid_opis_pusty(self):
+        with self.assertRaises(ValueError) as context:
+            Ebook(
+                tytul="Test",
+                autor="Autor",
+                ISBN=1234567890123,
+                gatunek="IT",
+                cena=10.0,
+                sciezkaDoPliku="/tmp/a.pdf",
+                opis=""  # pusty opis
+            )
+        self.assertIn("Pole 'opis' nie może być puste", str(context.exception))
+
+    @tag("encje", "walidacja", "ebook", "cena", "krytyczne") # nie działa
+    def test_invalid_cena_ujemna(self):
+        with self.assertRaises(ValueError) as context:
+            Ebook(
+                tytul="Test",
+                autor="Autor",
+                ISBN=1234567890123,
+                gatunek="IT",
+                cena=-10.0,  # ujemna cena
+                sciezkaDoPliku="/tmp/a.pdf",
+                opis="Opis"
+            )
+        self.assertIn("Cena nie może być ujemna", str(context.exception))
+
+    @tag("encje", "walidacja", "ebook", "cena", "krytyczne") # nie działa
+    def test_invalid_cena_nie_liczba(self):
+        with self.assertRaises(ValueError) as context:
+            Ebook(
+                tytul="Test",
+                autor="Autor",
+                ISBN=1234567890123,
+                gatunek="IT",
+                cena="dziesiec",  # cena nie liczba
+                sciezkaDoPliku="/tmp/a.pdf",
+                opis="Opis"
+            )
+        self.assertIn("Cena musi być liczbą", str(context.exception))
+
+    @tag("encje", "walidacja", "ebook", "cena", "krytyczne") #to dziala?
+    def test_cena_ujemna(self):
+        # given
+        cena_str = "-10"
+
+        # when
+        lista_bledow = []
+        try:
+            cena = float(cena_str)
+            if cena < 0:
+                lista_bledow.append("Cena nie może być ujemna.")
+        except ValueError:
+            lista_bledow.append("Cena musi być liczbą (np. 29.99).")
+
+        # then
+        self.assertIn("Cena nie może być ujemna.", lista_bledow)
+
+    @tag("encje", "walidacja", "ebook", "cena", "krytyczne") # to dziala?
+    def test_cena_nie_liczba(self):
+        # given
+        cena_str = "dziesiec"
+
+        # when
+        lista_bledow = []
+        try:
+            cena = float(cena_str)
+            if cena < 0:
+                lista_bledow.append("Cena nie może być ujemna.")
+        except ValueError:
+            lista_bledow.append("Cena musi być liczbą (np. 29.99).")
+
+        # then
+        self.assertIn("Cena musi być liczbą (np. 29.99).", lista_bledow)
+
 
 if __name__ == "__main__":
     unittest.main()

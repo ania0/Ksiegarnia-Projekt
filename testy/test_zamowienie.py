@@ -17,8 +17,8 @@ class TestZamowienie(unittest.TestCase):
 
     def setUp(self):
         # GIVEN – przygotowanie danych niezależnych
-        self.ksiazka1 = KsiazkaPapierowa("Test1", "Autor1", 1, "SF", 20.0, 5, "Opis1")
-        self.ksiazka2 = KsiazkaPapierowa("Test2", "Autor2", 2, "IT", 30.0, 3, "Opis2")
+        self.ksiazka1 = KsiazkaPapierowa("Test1", "Autor1", 1234567891234, "SF", 20.0, 5, "Opis1")
+        self.ksiazka2 = KsiazkaPapierowa("Test2", "Autor2", 1234567891224, "IT", 30.0, 3, "Opis2")
         self.pozycja1 = PozycjaZamowienia(self.ksiazka1, 2, 20.0)
         self.pozycja2 = PozycjaZamowienia(self.ksiazka2, 1, 30.0)
         self.klient = Uzytkownik("Jan", "Kowalski", "jan@example.com")
@@ -37,91 +37,115 @@ class TestZamowienie(unittest.TestCase):
     # TESTY NIEZALEŻNE
     @tag("encje", "zamowienie", "podstawowe")
     def test_pobierz_klienta_id(self):
-        # WHEN – pobiera klienta i id zamówienia
         klient = self.zamowienie.pobierzKlienta()
         id_zam = self.zamowienie.pobierzId()
-        # THEN – sprawdza poprawność
         self.assertIsNotNone(klient)
         self.assertIs(klient, self.klient)
-        self.assertIsNone(id_zam)  # id nie jest ustawione, wiec None
-        self.assertIsInstance(klient, Uzytkownik) # klient jest instancją klasy Uzytkownik
+        self.assertIsNone(id_zam)
+        self.assertIsInstance(klient, Uzytkownik)
 
     # TESTY ZALEŻNE
     @tag("encje", "zamowienie", "podstawowe")
     def test_oblicz_cene_pojedyncza_pozycja(self):
         # GIVEN – dodanie jednej pozycji do zamówienia
         self.zamowienie.dodajPozycje(self.pozycja1)
-
         # WHEN – oblicza cenę
         cena = self.zamowienie.obliczCene()
-
         # THEN – sprawdza wynik
-        self.assertEqual(cena, 40.0)  # 2 * 20
-        self.assertGreater(cena, 0)  # cena powinna być większa niż 0
+        self.assertEqual(cena, 40.0) # 2 * 20
+        self.assertGreater(cena, 0) # cena powinna być większa niż 0
 
     @tag("encje", "zamowienie", "zaawansowane", "krytyczne")
     def test_oblicz_cene_wiele_pozycji(self):
-        # GIVEN – dodanie wielu pozycji
         self.zamowienie.dodajPozycje(self.pozycja1)
         self.zamowienie.dodajPozycje(self.pozycja2)
-
-        # WHEN
         cena = self.zamowienie.obliczCene()
-
-        # THEN - sprawdza sumę cen
-        self.assertEqual(cena, 70.0)  # 40 + 30
+        self.assertEqual(cena, 70.0)
         self.assertIsInstance(cena, float)
 
     @tag("encje", "zamowienie", "parametryzowane")
     def test_oblicz_cene_parametryzowane(self):
-        # Parametryzacja
-        przypadki = [
-            (1, 20.0),  # 1 sztuka po 20
-            (2, 40.0),  # 2 sztuki po 20
-            (5, 100.0)  # 5 sztuk po 20
-        ]
+        przypadki = [(1, 20.0), (2, 40.0), (5, 100.0)]
+        # 1 sztuka po 20
+        # 2 sztuki po 20
+        # 5 sztuk po 20
         for ilosc, oczekiwana in przypadki:
             with self.subTest(ilosc=ilosc):
-                # GIVEN
                 pozycja = PozycjaZamowienia(self.ksiazka1, ilosc, 20.0)
                 zam = Zamowienie()
                 zam.dodajPozycje(pozycja)
-
                 # WHEN
                 cena = zam.obliczCene()
-
                 # THEN
                 self.assertEqual(cena, oczekiwana)
                 self.assertGreaterEqual(cena, 0)
 
-    # def test_oblicz_cene_brak_pozycji(self):
-    #     # GIVEN – brak pozycji w zamówieniu
-    #
-    #     # WHEN
-    #     cena = self.zamowienie.obliczCene()
-    #
-    #     # THEN - cena powinna być 0
-    #     self.assertEqual(cena, 0.0)
-    #     self.assertIsInstance(cena, float)
-
     @tag("encje", "zamowienie", "krytyczne")
     def test_dodaj_wiele_pozycji(self):
-        # GIVEN – tworzy kilka pozycji
         pozycje = [
             PozycjaZamowienia(self.ksiazka1, 1, 20.0),
             PozycjaZamowienia(self.ksiazka2, 2, 30.0)
         ]
         for p in pozycje:
             self.zamowienie.dodajPozycje(p)
-
-        # WHEN
         cena = self.zamowienie.obliczCene()
-
-        # THEN - sprawdza sumę i poprawność listy pozycji
-        self.assertEqual(cena, 80.0)  # 1*20 + 2*30
+        self.assertEqual(cena, 80.0)
         self.assertIsNotNone(self.zamowienie._pozycjeZamowienia)
         self.assertEqual(len(self.zamowienie._pozycjeZamowienia), 2)
 
+
+
+# Testy walidacyjne
+
+    @tag("encje", "zamowienie", "walidacja")
+    def test_oblicz_cene_brak_pozycji(self):
+        self.assertEqual(self.zamowienie.obliczCene(), 0.0)
+
+    @tag("encje", "zamowienie", "walidacja")
+    def test_brak_klienta(self):
+        zam = Zamowienie()
+        zam._klient = None
+        self.assertIsNone(zam.pobierzKlienta())
+
+    @tag("encje", "zamowienie", "walidacja")
+    def test_ujemna_ilosc_pozycji(self): # nie mamy implementacji w kodzie
+        ujemna = PozycjaZamowienia(self.ksiazka1, -1, 20.0)
+        self.zamowienie.dodajPozycje(ujemna)
+        self.assertEqual(self.zamowienie.obliczCene(), -20.0)
+
+    @tag("encje", "zamowienie", "walidacja")
+    def test_cena_jednostkowa_zero(self): # nie mamy implementacji w kodzie
+        zero_cena = PozycjaZamowienia(self.ksiazka1, 3, 0.0)
+        self.zamowienie.dodajPozycje(zero_cena)
+        self.assertEqual(self.zamowienie.obliczCene(), 0.0)
+
+    @tag("encje", "zamowienie", "walidacja", "parametryzowane")
+    def test_wiele_pozycji_sumarycznie(self):
+        ksiazka2 = KsiazkaPapierowa("Test2", "Autor2", 1234567812567, "Gatunek2", 30.0, 2, "Opis2")
+        pozycja2 = PozycjaZamowienia(ksiazka2, 2, 30.0)
+        self.zamowienie.dodajPozycje(self.pozycja1)
+        self.zamowienie.dodajPozycje(pozycja2)
+        self.assertEqual(self.zamowienie.obliczCene(), 40.0 + 60.0)
+
+    @tag("encje", "zamowienie", "walidacja")
+    def test_id_zamowienia(self):
+        self.assertIsNone(self.zamowienie.pobierzId())
+        self.zamowienie._id = 100
+        self.assertEqual(self.zamowienie.pobierzId(), 100)
+
+    @tag("encje", "zamowienie", "walidacja")
+    def test_ustaw_data(self):
+        dzis = date.today()
+        self.zamowienie._data = dzis
+        self.assertEqual(self.zamowienie._data, dzis)
+        self.assertIsInstance(self.zamowienie._data, date)
+
+    @tag("encje", "zamowienie", "walidacja")
+    def test_status_i_metoda_platnosci(self):
+        self.zamowienie._status = "w realizacji"
+        self.zamowienie._metodaPlatnosci = "karta"
+        self.assertEqual(self.zamowienie._status, "w realizacji")
+        self.assertEqual(self.zamowienie._metodaPlatnosci, "karta")
 
 if __name__ == "__main__":
     unittest.main()
