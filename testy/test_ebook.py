@@ -247,37 +247,31 @@ class TestEbook(unittest.TestCase):
 
     @tag("encje", "walidacja", "ebook", "cena", "krytyczne")
     def test_cena_ujemna(self):
-        # given
-        cena_str = "-10"
+        with self.assertRaises(ValueError) as context:
+            Ebook(
+                tytul="Test",
+                autor="Autor",
+                ISBN=1234567890123,
+                gatunek="IT",
+                cena=-10,  # <-- ujemna cena jako float/int
+                sciezkaDoPliku="/tmp/a.pdf",
+                opis="Opis"
+            )
+        self.assertIn("Cena nie może być ujemna", str(context.exception))
 
-        # when
-        lista_bledow = []
-        try:
-            cena = float(cena_str)
-            if cena < 0:
-                lista_bledow.append("Cena nie może być ujemna.")
-        except ValueError:
-            lista_bledow.append("Cena musi być liczbą (np. 29.99).")
-
-        # then
-        self.assertIn("Cena nie może być ujemna.", lista_bledow)
-
-    @tag("encje", "walidacja", "ebook", "cena", "krytyczne") # to dziala?
+    @tag("encje", "walidacja", "ebook", "cena", "krytyczne")
     def test_cena_nie_liczba(self):
-        # given
-        cena_str = "dziesiec"
-
-        # when
-        lista_bledow = []
-        try:
-            cena = float(cena_str)
-            if cena < 0:
-                lista_bledow.append("Cena nie może być ujemna.")
-        except ValueError:
-            lista_bledow.append("Cena musi być liczbą (np. 29.99).")
-
-        # then
-        self.assertIn("Cena musi być liczbą (np. 29.99).", lista_bledow)
+        with self.assertRaises(ValueError) as context:
+            Ebook(
+                tytul="Test",
+                autor="Autor",
+                ISBN=1234567890123,
+                gatunek="IT",
+                cena="dziesiec",  # niepoprawna cena
+                sciezkaDoPliku="/tmp/a.pdf",
+                opis="Opis"
+            )
+        self.assertIn("Cena musi być liczbą", str(context.exception))
 
 
 if __name__ == "__main__":
