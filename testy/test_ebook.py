@@ -130,7 +130,7 @@ class TestEbook(unittest.TestCase):
         # GIVEN – ISBN zawiera znaki niebędące cyframi
         isbn = "123ABC7890123"
 
-        # WHEN / THEN – próba utworzenia Ebook powinna podnieść ValueError
+        # WHEN / THEN –  ValueError
         with self.assertRaises(ValueError) as context:
             Ebook(
                 tytul="Test",
@@ -144,6 +144,7 @@ class TestEbook(unittest.TestCase):
 
         # THEN – sprawdzamy komunikat o błędzie aktualnie stosowany w klasie
         self.assertIn("ISBN musi mieć dokładnie 13 cyfr", str(context.exception))
+
 
     @tag("encje", "ebook", "tytul", "krytyczne")
     def test_invalid_tytul_mala_litera(self):
@@ -160,6 +161,7 @@ class TestEbook(unittest.TestCase):
             )
         self.assertIn("Tytuł musi zaczynać się z wielkiej litery", str(context.exception))
 
+
     @tag("encje", "ebook", "autor", "krytyczne")
     def test_invalid_autor_mala_litera(self):
         # WHEN / THEN – imię/nazwisko autora z małą literą
@@ -175,9 +177,11 @@ class TestEbook(unittest.TestCase):
             )
         self.assertIn("Każdy człon nazwy autora musi zaczynać się wielką literą", str(context.exception))
 
+
     @tag("encje", "ebook", "autor", "krytyczne")
     def test_invalid_autor_zle_nazwisko(self):
-        # WHEN / THEN – nazwisko z małej litery
+        # GIVEN – poprawne dane ebooka poza nazwiskiem autora
+        # WHEN / THEN – próba utworzenia ebooka z nazwiskiem z małej litery
         with self.assertRaises(ValueError):
             Ebook(
                 tytul="PoprawnyTytul",
@@ -189,8 +193,12 @@ class TestEbook(unittest.TestCase):
                 opis="Opis"
             )
 
+
     @tag("encje", "walidacja", "ebook", "gatunek", "krytyczne")
     def test_invalid_gatunek_pusty(self):
+        # GIVEN – ebook z pustym gatunkiem
+        # WHEN – próba utworzenia obiektu Ebook
+        # THEN –  ValueError
         with self.assertRaises(ValueError) as context:
             Ebook(
                 tytul="Test",
@@ -203,8 +211,12 @@ class TestEbook(unittest.TestCase):
             )
         self.assertIn("Pole 'gatunek' nie może być puste", str(context.exception))
 
+
     @tag("encje", "walidacja", "ebook", "opis", "krytyczne")
     def test_invalid_opis_pusty(self):
+        # GIVEN – ebook z pustym opisem
+        # WHEN – tworzony jest obiekt Ebook
+        # THEN – ValueError
         with self.assertRaises(ValueError) as context:
             Ebook(
                 tytul="Test",
@@ -217,8 +229,12 @@ class TestEbook(unittest.TestCase):
             )
         self.assertIn("Pole 'opis' nie może być puste", str(context.exception))
 
+
     @tag("encje", "walidacja", "ebook", "cena", "krytyczne")
     def test_invalid_cena_ujemna(self):
+        # GIVEN – ebook z ujemną ceną
+        # WHEN – próba utworzenia obiektu
+        # THEN – ValueError
         with self.assertRaises(ValueError) as context:
             Ebook(
                 tytul="Test",
@@ -231,8 +247,12 @@ class TestEbook(unittest.TestCase):
             )
         self.assertIn("Cena nie może być ujemna", str(context.exception))
 
+
     @tag("encje", "walidacja", "ebook", "cena", "krytyczne")
     def test_invalid_cena_nie_liczba(self):
+        # GIVEN – ebook z ceną niebędącą liczbą
+        # WHEN – tworzony jest obiekt Ebook
+        # THEN – ValueError
         with self.assertRaises(ValueError) as context:
             Ebook(
                 tytul="Test",
@@ -245,22 +265,30 @@ class TestEbook(unittest.TestCase):
             )
         self.assertIn("Cena musi być liczbą", str(context.exception))
 
+
     @tag("encje", "walidacja", "ebook", "cena", "krytyczne")
     def test_cena_ujemna(self):
+        # GIVEN – cena jako int, ale ujemna
+        # WHEN – próba utworzenia ebooka
+        # THEN – ValueError
         with self.assertRaises(ValueError) as context:
             Ebook(
                 tytul="Test",
                 autor="Autor",
                 ISBN=1234567890123,
                 gatunek="IT",
-                cena=-10,  # <-- ujemna cena jako float/int
+                cena=-10,  # ujemna cena jako int
                 sciezkaDoPliku="/tmp/a.pdf",
                 opis="Opis"
             )
         self.assertIn("Cena nie może być ujemna", str(context.exception))
 
+
     @tag("encje", "walidacja", "ebook", "cena", "krytyczne")
     def test_cena_nie_liczba(self):
+        # GIVEN – cena przekazana jako string
+        # WHEN – tworzony jest obiekt Ebook
+        # THEN – ValueError
         with self.assertRaises(ValueError) as context:
             Ebook(
                 tytul="Test",

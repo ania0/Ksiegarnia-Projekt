@@ -79,6 +79,9 @@ class TestKsiazkaPapierowa(unittest.TestCase):
 
     @tag("encje", "walidacja", "papierowa", "ISBN", "krytyczne")
     def test_invalid_ISBN_za_krotki(self):
+        # GIVEN – książka papierowa z za krótkim numerem ISBN
+        # WHEN – próba utworzenia obiektu
+        # THEN – ValueError
         with self.assertRaises(ValueError) as context:
             KsiazkaPapierowa(
                 tytul="Test",
@@ -93,6 +96,9 @@ class TestKsiazkaPapierowa(unittest.TestCase):
 
     @tag("encje", "walidacja", "papierowa", "ISBN", "krytyczne")
     def test_invalid_ISBN_nie_liczba(self):
+        # GIVEN – ISBN nie jest liczbą
+        # WHEN – tworzony jest obiekt KsiazkaPapierowa
+        # THEN – ValueError
         with self.assertRaises(ValueError) as context:
             KsiazkaPapierowa(
                 tytul="Test",
@@ -107,6 +113,9 @@ class TestKsiazkaPapierowa(unittest.TestCase):
 
     @tag("encje", "papierowa", "tytul", "krytyczne")
     def test_invalid_tytul_mala_litera(self):
+        # GIVEN – tytuł zaczyna się małą literą
+        # WHEN – próba utworzenia książki
+        # THEN – ValueError
         with self.assertRaises(ValueError) as context:
             KsiazkaPapierowa(
                 tytul="niepoprawnyTytul",
@@ -121,6 +130,9 @@ class TestKsiazkaPapierowa(unittest.TestCase):
 
     @tag("encje", "papierowa", "autor", "krytyczne")
     def test_invalid_autor_mala_litera(self):
+        # GIVEN – nazwisko autora zaczyna się małą literą
+        # WHEN – tworzony jest obiekt KsiazkaPapierowa
+        # THEN – ValueError
         with self.assertRaises(ValueError) as context:
             KsiazkaPapierowa(
                 tytul="PoprawnyTytul",
@@ -135,6 +147,9 @@ class TestKsiazkaPapierowa(unittest.TestCase):
 
     @tag("encje", "papierowa", "gatunek", "krytyczne")
     def test_invalid_gatunek_pusty(self):
+        # GIVEN – pusty gatunek
+        # WHEN – próba utworzenia książki
+        # THEN – ValueError
         with self.assertRaises(ValueError) as context:
             KsiazkaPapierowa(
                 tytul="Test",
@@ -149,6 +164,9 @@ class TestKsiazkaPapierowa(unittest.TestCase):
 
     @tag("encje", "papierowa", "opis", "krytyczne")
     def test_invalid_opis_pusty(self):
+        # GIVEN – pusty opis
+        # WHEN – tworzony jest obiekt książki
+        # THEN – ValueError
         with self.assertRaises(ValueError) as context:
             KsiazkaPapierowa(
                 tytul="Test",
@@ -163,16 +181,21 @@ class TestKsiazkaPapierowa(unittest.TestCase):
 
     @tag("encje", "papierowa", "cena", "krytyczne")
     def test_invalid_cena_ujemna(self):
+        # GIVEN – książka z ustawioną ujemną ceną
+        # WHEN – wywoływana metoda ustawCene
+        # THEN – ValueError
         with self.assertRaises(ValueError) as context:
             self.ksiazka.ustawCene(-10.0)
         self.assertIn("Cena nie może być ujemna", str(context.exception))
 
     @tag("encje", "papierowa", "cena", "krytyczne")
     def test_invalid_cena_nie_liczba(self):
+        # GIVEN – cena podana jako string
+        # WHEN – wywoływana metoda ustawCene
+        # THEN – ValueError
         with self.assertRaises(ValueError) as context:
             self.ksiazka.ustawCene("dziesiec")
         self.assertIn("Cena musi być liczbą", str(context.exception))
 
-
-if __name__ == "__main__":
-    unittest.main()
+    if __name__ == "__main__":
+        unittest.main()
