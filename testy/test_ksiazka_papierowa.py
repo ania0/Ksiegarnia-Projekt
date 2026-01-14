@@ -161,15 +161,17 @@ class TestKsiazkaPapierowa(unittest.TestCase):
             )
         self.assertIn("Pole 'opis' nie może być puste!", str(context.exception))
 
-    @tag("encje", "papierowa", "cena", "krytyczne") # czy trzeba dodac walidaje w klasie ksiazka papierowa ? nie działa
+    @tag("encje", "papierowa", "cena", "krytyczne")
     def test_invalid_cena_ujemna(self):
-        with self.assertRaises(ValueError):
+        with self.assertRaises(ValueError) as context:
             self.ksiazka.ustawCene(-10.0)
+        self.assertIn("Cena nie może być ujemna", str(context.exception))
 
-    @tag("encje", "papierowa", "cena", "krytyczne") # nie działa
+    @tag("encje", "papierowa", "cena", "krytyczne")
     def test_invalid_cena_nie_liczba(self):
-        with self.assertRaises(TypeError):
+        with self.assertRaises(ValueError) as context:
             self.ksiazka.ustawCene("dziesiec")
+        self.assertIn("Cena musi być liczbą", str(context.exception))
 
 
 if __name__ == "__main__":

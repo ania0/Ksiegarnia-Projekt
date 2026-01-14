@@ -11,6 +11,7 @@ class Ebook(IKsiazka):
                                sciezkaDoPliku=sciezkaDoPliku,
                                opis=opis)
         self._waliduj_formaty(tytul, autor, ISBN)
+        self._waliduj_cene(cena)
 
         super().__init__(tytul, autor, ISBN, gatunek, cena, opis)
         self.sciezkaDoPliku: str = sciezkaDoPliku
@@ -31,6 +32,12 @@ class Ebook(IKsiazka):
         for czlon in czlony:
             if not czlon[0].isupper():
                 raise ValueError(f"Każdy człon nazwy autora musi zaczynać się wielką literą.")
+
+    def _waliduj_cene(self, cena):
+        if not isinstance(cena, (int, float)):
+            raise ValueError("Cena musi być liczbą")
+        if cena < 0:
+            raise ValueError("Cena nie może być ujemna")
 
     def ustawTytul(self, tytul: str) -> None:
         if not tytul.strip():
@@ -54,6 +61,7 @@ class Ebook(IKsiazka):
         self.gatunek = gatunek
 
     def ustawCene(self, cena: float) -> None:
+        self._waliduj_cene(cena)
         self.cena = cena
 
     def ustawOpis(self, opis: str) -> None:

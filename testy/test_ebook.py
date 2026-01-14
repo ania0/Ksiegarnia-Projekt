@@ -217,7 +217,7 @@ class TestEbook(unittest.TestCase):
             )
         self.assertIn("Pole 'opis' nie może być puste", str(context.exception))
 
-    @tag("encje", "walidacja", "ebook", "cena", "krytyczne") # nie działa
+    @tag("encje", "walidacja", "ebook", "cena", "krytyczne")
     def test_invalid_cena_ujemna(self):
         with self.assertRaises(ValueError) as context:
             Ebook(
@@ -231,7 +231,7 @@ class TestEbook(unittest.TestCase):
             )
         self.assertIn("Cena nie może być ujemna", str(context.exception))
 
-    @tag("encje", "walidacja", "ebook", "cena", "krytyczne") # nie działa
+    @tag("encje", "walidacja", "ebook", "cena", "krytyczne")
     def test_invalid_cena_nie_liczba(self):
         with self.assertRaises(ValueError) as context:
             Ebook(
@@ -239,13 +239,13 @@ class TestEbook(unittest.TestCase):
                 autor="Autor",
                 ISBN=1234567890123,
                 gatunek="IT",
-                cena="dziesiec",  # cena nie liczba
+                cena="dziesiec",
                 sciezkaDoPliku="/tmp/a.pdf",
                 opis="Opis"
             )
         self.assertIn("Cena musi być liczbą", str(context.exception))
 
-    @tag("encje", "walidacja", "ebook", "cena", "krytyczne") #to dziala?
+    @tag("encje", "walidacja", "ebook", "cena", "krytyczne")
     def test_cena_ujemna(self):
         # given
         cena_str = "-10"
