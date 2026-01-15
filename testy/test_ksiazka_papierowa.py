@@ -197,5 +197,5 @@ class TestKsiazkaPapierowa(unittest.TestCase):
             self.ksiazka.ustawCene("dziesiec")
         self.assertIn("Cena musi być liczbą", str(context.exception))
 
-    if __name__ == "__main__":
-        unittest.main()
+if __name__ == "__main__":
+    unittest.main()

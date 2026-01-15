@@ -148,5 +148,5 @@ class TestUzytkownik(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.uzytkownik.ustawHaslo("")
 
-    if __name__ == "__main__":
-        unittest.main()
+if __name__ == "__main__":
+    unittest.main()

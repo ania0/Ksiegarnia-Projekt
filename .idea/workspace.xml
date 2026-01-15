@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="23fa6adc-2cfa-408a-9f6d-0de1faceefa8" name="Changes" comment="testy do zadania 3">
-      <change beforePath="$PROJECT_DIR$/testy/test_ebook.py" beforeDir="false" afterPath="$PROJECT_DIR$/testy/test_ebook.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/testy/test_ksiazka_papierowa.py" beforeDir="false" afterPath="$PROJECT_DIR$/testy/test_ksiazka_papierowa.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/testy/test_uzytkownik.py" beforeDir="false" afterPath="$PROJECT_DIR$/testy/test_uzytkownik.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/testy/test_zamowienie.py" beforeDir="false" afterPath="$PROJECT_DIR$/testy/test_zamowienie.py" afterDir="false" />
@@ -123,7 +123,7 @@
       <recent name="C:\Users\wawrzyniec.michalczy\PycharmProjects\Ksiegarnia-Projekt\encje\Encje" />
     </key>
   </component>
-  <component name="RunManager" selected="Python tests.Python tests for test_zamowienie.TestZamowienie">
+  <component name="RunManager" selected="Python tests.Python tests for test_zamowienie.TestZamowienie.test_id_domyslnie_none">
     <configuration name="Main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -147,7 +147,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="Python tests for test_ebook.TestEbook.test_cena_nie_liczba" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+    <configuration name="Python tests for test_ebook.TestEbook" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
       <module name="Ksiegarnia-Projekt" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -159,23 +159,7 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;test_ebook.TestEbook.test_cena_nie_liczba&quot;" />
-      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
-      <method v="2" />
-    </configuration>
-    <configuration name="Python tests for test_ebook.TestEbook.test_cena_ujemna" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
-      <module name="Ksiegarnia-Projekt" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/testy" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;test_ebook.TestEbook.test_cena_ujemna&quot;" />
+      <option name="_new_target" value="&quot;test_ebook.TestEbook&quot;" />
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
@@ -211,7 +195,7 @@
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
-    <configuration name="Python tests for test_zamowienie.TestZamowienie" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+    <configuration name="Python tests for test_uzytkownik.TestUzytkownik.test_weryfikuj_haslo_parametryzowane" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
       <module name="Ksiegarnia-Projekt" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -223,25 +207,41 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;test_zamowienie.TestZamowienie&quot;" />
+      <option name="_new_target" value="&quot;test_uzytkownik.TestUzytkownik.test_weryfikuj_haslo_parametryzowane&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Python tests for test_zamowienie.TestZamowienie.test_id_domyslnie_none" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="Ksiegarnia-Projekt" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/testy" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;test_zamowienie.TestZamowienie.test_id_domyslnie_none&quot;" />
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
     <list>
       <item itemvalue="Python.Main" />
-      <item itemvalue="Python tests.Python tests for test_ebook.TestEbook.test_cena_nie_liczba" />
-      <item itemvalue="Python tests.Python tests for test_ebook.TestEbook.test_cena_ujemna" />
+      <item itemvalue="Python tests.Python tests for test_uzytkownik.TestUzytkownik.test_weryfikuj_haslo_parametryzowane" />
+      <item itemvalue="Python tests.Python tests for test_zamowienie.TestZamowienie.test_id_domyslnie_none" />
+      <item itemvalue="Python tests.Python tests for test_ebook.TestEbook" />
       <item itemvalue="Python tests.Python tests for test_ksiazka_papierowa.TestKsiazkaPapierowa" />
       <item itemvalue="Python tests.Python tests for test_uzytkownik.TestUzytkownik" />
-      <item itemvalue="Python tests.Python tests for test_zamowienie.TestZamowienie" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python tests.Python tests for test_zamowienie.TestZamowienie" />
+        <item itemvalue="Python tests.Python tests for test_zamowienie.TestZamowienie.test_id_domyslnie_none" />
+        <item itemvalue="Python tests.Python tests for test_uzytkownik.TestUzytkownik.test_weryfikuj_haslo_parametryzowane" />
         <item itemvalue="Python tests.Python tests for test_uzytkownik.TestUzytkownik" />
+        <item itemvalue="Python tests.Python tests for test_ebook.TestEbook" />
         <item itemvalue="Python tests.Python tests for test_ksiazka_papierowa.TestKsiazkaPapierowa" />
-        <item itemvalue="Python tests.Python tests for test_ebook.TestEbook.test_cena_ujemna" />
-        <item itemvalue="Python tests.Python tests for test_ebook.TestEbook.test_cena_nie_liczba" />
       </list>
     </recent_temporary>
   </component>
@@ -308,7 +308,8 @@
       <workItem from="1768401572548" duration="1220000" />
       <workItem from="1768412896934" duration="20000" />
       <workItem from="1768412978264" duration="228000" />
-      <workItem from="1768417560294" duration="3420000" />
+      <workItem from="1768417560294" duration="3803000" />
+      <workItem from="1768472990748" duration="655000" />
     </task>
     <task id="LOCAL-00001" summary=".">
       <option name="closed" value="true" />
@@ -368,7 +369,7 @@
     <SUITE FILE_PATH="coverage/Ksiegarnia_Projekttttt$ZarzadzanieKsiazkami.coverage" NAME="ZarzadzanieKsiazkami Coverage Results" MODIFIED="1768317805313" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/kontrola" />
     <SUITE FILE_PATH="coverage/Ksiegarnia_Projekt$Main.coverage" NAME="Main Coverage Results" MODIFIED="1764932857400" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/kontrola" />
     <SUITE FILE_PATH="coverage/Ksiegarnia_Projekt3$Main.coverage" NAME="Main Coverage Results" MODIFIED="1765626887990" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/kontrola" />
-    <SUITE FILE_PATH="coverage/Ksiegarnia_Projekt$.coverage" NAME=" Coverage Results" MODIFIED="1768402195639" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/testy" />
+    <SUITE FILE_PATH="coverage/Ksiegarnia_Projekt$.coverage" NAME=" Coverage Results" MODIFIED="1768473318073" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/testy" />
     <SUITE FILE_PATH="coverage/Ksiegarnia_Projekt$Main__2_.coverage" NAME="Main (2) Coverage Results" MODIFIED="1767785751774" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/kontrola" />
     <SUITE FILE_PATH="coverage/Ksiegarnia_Projekttttt$testy_zad3.coverage" NAME="testy_zad3 Coverage Results" MODIFIED="1768295615124" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/testy" />
     <SUITE FILE_PATH="coverage/Ksiegarnia_Projekttttt$Main.coverage" NAME="Main Coverage Results" MODIFIED="1768322001746" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/kontrola" />

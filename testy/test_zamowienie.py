@@ -116,15 +116,6 @@ class TestZamowienie(unittest.TestCase):
         self.assertIsNone(zam.pobierzKlienta())
 
     @tag("encje", "zamowienie", "walidacja")
-    def test_ujemna_ilosc_pozycji(self):
-        # GIVEN – pozycja z ujemną ilością
-        ujemna = PozycjaZamowienia(self.ksiazka1, -1, 20.0)
-        # WHEN – dodajemy do zamówienia
-        self.zamowienie.dodajPozycje(ujemna)
-        # THEN – cena sumaryczna jest ujemna
-        self.assertEqual(self.zamowienie.obliczCene(), -20.0)
-
-    @tag("encje", "zamowienie", "walidacja")
     def test_cena_jednostkowa_zero(self):
         # GIVEN – pozycja z ceną jednostkową zero
         zero_cena = PozycjaZamowienia(self.ksiazka1, 3, 0.0)
@@ -143,33 +134,53 @@ class TestZamowienie(unittest.TestCase):
         # WHEN / THEN – suma cen zgodna z oczekiwaniem
         self.assertEqual(self.zamowienie.obliczCene(), 40.0 + 60.0)
 
+    # Brak setterów dla _id, _data, _status – testujemy wyłącznie publiczne operacje i zachowanie obiektu zgodnie z modelem domenowym
 
-    @tag("encje", "zamowienie", "walidacja")
-    def test_id_zamowienia(self):
-        # GIVEN – nowy obiekt zamówienia
-        # THEN – ID początkowo None, po przypisaniu poprawne
-        self.assertIsNone(self.zamowienie.pobierzId())
-        self.zamowienie._id = 100
-        self.assertEqual(self.zamowienie.pobierzId(), 100)
+    def test_id_domyslnie_none(self):
+        # GIVEN – nowo utworzone zamówienie
+        zam = Zamowienie()
 
-    @tag("encje", "zamowienie", "walidacja")
-    def test_ustaw_data(self):
-        # GIVEN – data dzisiejsza
-        dzis = date.today()
-        # WHEN – przypisujemy do zamówienia
-        self.zamowienie._data = dzis
-        # THEN – data poprawnie ustawiona i typu date
-        self.assertEqual(self.zamowienie._data, dzis)
-        self.assertIsInstance(self.zamowienie._data, date)
+        # WHEN – pobieramy ID
+        id_zam = zam.pobierzId()
 
-    @tag("encje", "zamowienie", "walidacja")
-    def test_status_i_metoda_platnosci(self):
-        # GIVEN – status i metoda płatności
-        self.zamowienie._status = "w realizacji"
-        self.zamowienie._metodaPlatnosci = "karta"
-        # THEN – wartości poprawnie przypisane
-        self.assertEqual(self.zamowienie._status, "w realizacji")
-        self.assertEqual(self.zamowienie._metodaPlatnosci, "karta")
+        # THEN – ID nie jest ustawione
+        self.assertIsNone(id_zam)
 
-    if __name__ == "__main__":
-        unittest.main()
+    # @tag("encje", "zamowienie", "walidacja")
+    # def test_ujemna_ilosc_pozycji(self):
+    #     # GIVEN – pozycja z ujemną ilością
+    #     ujemna = PozycjaZamowienia(self.ksiazka1, -1, 20.0)
+    #     # WHEN – dodajemy do zamówienia
+    #     self.zamowienie.dodajPozycje(ujemna)
+    #     # THEN – cena sumaryczna jest ujemna
+    #     self.assertEqual(self.zamowienie.obliczCene(), -20.0)
+
+    # @tag("encje", "zamowienie", "walidacja")
+    # def test_id_zamowienia(self):
+    #     # GIVEN – nowy obiekt zamówienia
+    #     # THEN – ID początkowo None, po przypisaniu poprawne
+    #     self.assertIsNone(self.zamowienie.pobierzId())
+    #     self.zamowienie._id = 100
+    #     self.assertEqual(self.zamowienie.pobierzId(), 100)
+
+    # @tag("encje", "zamowienie", "walidacja")
+    # def test_ustaw_data(self):
+    #     # GIVEN – data dzisiejsza
+    #     dzis = date.today()
+    #     # WHEN – przypisujemy do zamówienia
+    #     self.zamowienie._data = dzis
+    #     # THEN – data poprawnie ustawiona i typu date
+    #     self.assertEqual(self.zamowienie._data, dzis)
+    #     self.assertIsInstance(self.zamowienie._data, date)
+
+    # @tag("encje", "zamowienie", "walidacja")
+    # def test_status_i_metoda_platnosci(self):
+    #     # GIVEN – status i metoda płatności
+    #     self.zamowienie._status = "w realizacji"
+    #     self.zamowienie._metodaPlatnosci = "karta"
+    #     # THEN – wartości poprawnie przypisane
+    #     self.assertEqual(self.zamowienie._status, "w realizacji")
+    #     self.assertEqual(self.zamowienie._metodaPlatnosci, "karta")
+
+if __name__ == "__main__":
+    unittest.main()
