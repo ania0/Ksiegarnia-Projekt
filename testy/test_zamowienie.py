@@ -134,7 +134,7 @@ class TestZamowienie(unittest.TestCase):
         # WHEN / THEN – suma cen zgodna z oczekiwaniem
         self.assertEqual(self.zamowienie.obliczCene(), 40.0 + 60.0)
 
-    # Brak setterów dla _id, _data, _status – testujemy wyłącznie publiczne operacje i zachowanie obiektu zgodnie z modelem domenowym
+    # Brak setterów dla _id, _data, _status – publiczne operacje i zachowanie obiektu
 
     def test_id_domyslnie_none(self):
         # GIVEN – nowo utworzone zamówienie
