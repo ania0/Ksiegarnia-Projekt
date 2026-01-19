@@ -133,6 +133,7 @@ class TestUzytkownik(unittest.TestCase):
         with self.assertRaises(ValueError):
             Uzytkownik(imie="Jan", nazwisko="Kowalski", email="abc@com")
 
+
     @tag("encje", "uzytkownik", "walidacja")
     def test_settery_invalid(self):
         # GIVEN – istniejący użytkownik
