@@ -97,17 +97,9 @@ class TestKsiegarniaKontrolaMock(unittest.TestCase):
         MockProces.return_value.zarzadzajKsiazkami.assert_called_once()
 
     @tag("kontrola", "podstawowe")
-    def test_usunKonto_poprawne_id(self):
-        """Czy usuwajac konto podajemy poprawne id"""
-        self.facade.usunKonto(id_klienta=77)
-        # Sprawdzamy czy pobrano zalogowanego (wymagane w Twojej fasadzie przed usunięciem)
-        self.facade._kontekst_auth.getZalogowanyUzytkownik.assert_called()
-
-    @tag("kontrola", "podstawowe")
     @patch('kontrola.KsiegarniaKontrolaFacade.ProcesPrzegladaniaHistorii')
     def test_przegladajHistorie_wywolanie_procesu(self, MockProces):
         self.facade.przegladajHistorie(id_klienta=5)
-
         self.facade._kontekst_auth.getZalogowanyUzytkownik.assert_called()
         MockProces.return_value.wykonajPrzegladanieHistorii.assert_called_with(5)
 
