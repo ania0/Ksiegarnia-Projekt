@@ -65,14 +65,14 @@ class TestKsiegarniaKontrolaMock(unittest.TestCase):
     def test_wybierzKsiazke_wyswietla_komunikat(self):
         mock_k = MagicMock(spec=IKsiazka)
         mock_k.id = 10;
-        mock_k.tytul = "Wiedźmin";
-        mock_k.autor = "Sapkowski";
+        mock_k.tytul = "Ksiazka1";
+        mock_k.autor = "Autor Autor";
         mock_k.cena = 40.0
         self.mock_encje.pobierzPoISBN.return_value = mock_k
 
         with patch('builtins.print') as mock_print:
             self.facade.wybierzKsiazke(ISBN=1234567890123)
-            mock_print.assert_called_with("Wybrano książkę: [10] Wiedźmin – Sapkowski – 40.0 zł")
+            mock_print.assert_called_with("Wybrano książkę: [10] Ksiazka1 – Autor Autor – 40.0 zł")
 
     @tag("kontrola", "mock")
     def test_wybierzKsiazke_brak_ksiazki(self):
