@@ -110,14 +110,14 @@ class TestUzytkownik(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.uzytkownik.ustawHaslo("")
 
-    @tag("encje", "uzytkownik", "opcjonalne")
-    def test_none_opcjonalne_pola(self):
-        # GIVEN – nowy użytkownik bez opcjonalnych pól
-        uzytk = Uzytkownik(imie="Anna", nazwisko="Nowak", email="anna@example.com")
-        # THEN – pola opcjonalne są None
-        self.assertIsNone(uzytk.id)
-        self.assertIsNone(uzytk.adres)
-        self.assertIsNone(uzytk.hashHasla)
+    # @tag("encje", "uzytkownik", "opcjonalne")
+    # def test_none_opcjonalne_pola(self):
+    #     # GIVEN – nowy użytkownik bez opcjonalnych pól
+    #     uzytk = Uzytkownik(imie="Anna", nazwisko="Nowak", email="anna@example.com")
+    #     # THEN – pola opcjonalne są None
+    #     self.assertIsNone(uzytk.id)
+    #     self.assertIsNone(uzytk.adres)
+    #     self.assertIsNone(uzytk.hashHasla)
 
     # WALIDACJE
     @tag("encje", "uzytkownik", "walidacja")

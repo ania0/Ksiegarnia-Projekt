@@ -72,7 +72,7 @@ class TestZamowienie(unittest.TestCase):
     @tag("encje", "zamowienie", "parametryzowane")
     def test_oblicz_cene_parametryzowane(self):
         # GIVEN – różne scenariusze ilości i ceny jednostkowej
-        przypadki = [(1, 20.0), (2, 40.0), (5, 100.0)]
+        przypadki = [(1, 20.0), (2, 40.0), (5, 100.0)] # 1 * 20; 2 * 20; 5 * 20;
         for ilosc, oczekiwana in przypadki:
             with self.subTest(ilosc=ilosc):
                 # WHEN – tworzymy pozycję i dodajemy do zamówienia
@@ -124,13 +124,13 @@ class TestZamowienie(unittest.TestCase):
         # THEN – cena całkowita 0
         self.assertEqual(self.zamowienie.obliczCene(), 0.0)
 
-    @tag("encje", "zamowienie", "walidacja", "parametryzowane")
+    @tag("encje", "zamowienie", "walidacja")
     def test_wiele_pozycji_sumarycznie(self):
         # GIVEN – dodanie dwóch różnych pozycji
         ksiazka2 = KsiazkaPapierowa("Test2", "Autor2", 1234567812567, "Gatunek2", 30.0, 2, "Opis2")
         pozycja2 = PozycjaZamowienia(ksiazka2, 2, 30.0)
-        self.zamowienie.dodajPozycje(self.pozycja1)
-        self.zamowienie.dodajPozycje(pozycja2)
+        self.zamowienie.dodajPozycje(self.pozycja1) # 2 * 20
+        self.zamowienie.dodajPozycje(pozycja2) # 2 * 30
         # WHEN / THEN – suma cen zgodna z oczekiwaniem
         self.assertEqual(self.zamowienie.obliczCene(), 40.0 + 60.0)
 
