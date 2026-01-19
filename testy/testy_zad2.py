@@ -106,7 +106,6 @@ class TestKsiegarniaKontrolaMock(unittest.TestCase):
     @tag("kontrola", "podstawowe")
     @patch('kontrola.KsiegarniaKontrolaFacade.ProcesPrzegladaniaHistorii')
     def test_przegladajHistorie_wywolanie_procesu(self, MockProces):
-        """Mockujemy proces historii, aby uniknąć błędu z brakiem atrybutu 'imie'."""
         self.facade.przegladajHistorie(id_klienta=5)
 
         self.facade._kontekst_auth.getZalogowanyUzytkownik.assert_called()
