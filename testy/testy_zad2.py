@@ -24,7 +24,7 @@ class TestKsiegarniaKontrolaMock(unittest.TestCase):
         self.mock_encje = MagicMock(spec=IEncjeFasada)
         self.facade = KsiegarniaKontrolaFacade(self.mock_encje)
 
-        # 2. Atrapa kontekstu logowania - dzięki temu nie odpali się prawdziwe logowanie
+        # 2. Atrapa kontekstu logowania
         self.facade._kontekst_auth = MagicMock()
 
         # 3. Atrapa Administratora
