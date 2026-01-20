@@ -32,8 +32,8 @@ class TestKsiegarniaKontrolaMock(unittest.TestCase):
         self.facade._kontekst_auth.getZalogowanyUzytkownik.return_value = self.admin
 
     @tag("kontrola", "krytyczne")
-    def test_zlozZamowienie_pelny_przeplyw(self):
-        """Testuje złożenie zamówienia - pobranie uzytkownika i wywołanie procesu."""
+    @patch('kontrola.KsiegarniaKontrolaFacade.ProcesSkladaniaZamowienia')
+    def test_zlozZamowienie_pelny_przeplyw(self, MockProces):
         # GIVEN
         mock_user = MagicMock(spec=Klient)
         self.facade._kontekst_auth.getZalogowanyUzytkownik.return_value = mock_user
@@ -43,8 +43,11 @@ class TestKsiegarniaKontrolaMock(unittest.TestCase):
         self.facade.zlozZamowienie(id_klienta=1, lista_ISBN=lista_isbn)
 
         # THEN
+        #Sprawdzanie czy pobrano uzytkownika
         self.facade._kontekst_auth.getZalogowanyUzytkownik.assert_called_once()
-        self.assertTrue(self.mock_encje.method_calls or True)
+
+        #Czy fasada wywolala metode w procesie
+        MockProces.return_value.wykonajSkladanieZamowienia.assert_called_with(1, lista_isbn)
 
 
     # WERYFIKACJA INTERAKCJI I KOLEJNOŚCI
