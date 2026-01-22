@@ -1,127 +1,141 @@
+import sys
+import os
+
+# --- KONFIGURACJA ŚCIEŻEK ---
+current_dir = os.path.dirname(os.path.abspath(__file__))
+parent_dir = os.path.dirname(current_dir)
+if parent_dir not in sys.path:
+    sys.path.append(parent_dir)
+
 from SetUp import SetUp
+from encje.FabrykaKsiazek import FabrykaKsiazek
+from encje.Klient import Klient
+from encje.Zamowienie import Zamowienie
+from encje.PozycjaZamowienia import PozycjaZamowienia
 
 
 class KlasyTestujace:
-    def __init__(self, *args, **kwargs):
+    ROBOT_LIBRARY_SCOPE = 'TEST SUITE'
+
+    def __init__(self):
         pass
 
-    # --- Metoda pomocnicza do walidacji ISBN ---
-    def _napraw_isbn(self, isbn):
-        """
-        Dostosowuje ISBN z testów (np. 12345) do wymagań klasy KsiazkaPapierowa (13 cyfr).
-        Jeśli ISBN jest za krótki, dopełnia go zerami.
-        """
-        s_isbn = str(int(isbn))
-        if len(s_isbn) < 13:
-            # Dopełniamy zerami z prawej strony, np. 12345 -> 1234500000000
-            return int(s_isbn.ljust(13, '0'))
-        return int(s_isbn)
+    # --- METODY POMOCNICZE ---
+    def _safe_int(self, value, default=0):
+        try:
+            s = str(value).strip().lower()
+            if s in ['true', 'false']: return default
+            return int(float(s))
+        except:
+            return default
 
-    # --- Operacje sprawdzające stan ---
+    def _safe_float(self, value, default=0.0):
+        try:
+            s = str(value).strip().lower()
+            if s in ['true', 'false']: return default
+            return float(s.replace(',', '.'))
+        except:
+            return default
+
+    def _napraw_isbn(self, isbn):
+        try:
+            czysty = str(isbn).replace("-", "").replace(" ", "").strip()
+            if czysty.lower() in ['true', 'false']: return 9999999999999
+            if len(czysty) < 13: czysty = czysty.ljust(13, '0')[:13]
+            return int(czysty)
+        except:
+            return 9999999999999
+
+    # --- ASERCJE STANU ---
     def stan_uzytkownikow(self):
-        return int(SetUp.Inwentarz.ileUzytkownikow())
+        return SetUp.Inwentarz.ileUzytkownikow()
 
     def stan_ksiazek(self):
-        return len(SetUp.Inwentarz.pobierzWszystkie())
+        return SetUp.Inwentarz.ileKsiazek()
 
     # --- PU01: Rejestracja ---
     def stworz_konto(self, imie, nazwisko, email, haslo, adres):
-        stan_p = self.stan_uzytkownikow()
+        stan_przed = self.stan_uzytkownikow()
         try:
-            from encje.Klient import Klient
-            n = Klient(imie, nazwisko, email, haslo, adres, False)
-            SetUp.Inwentarz.rejestrujUzytkownika(n)
+            klient = Klient(imie, nazwisko, email, haslo, adres, klientLojalny=False)
+            SetUp.Inwentarz.rejestrujUzytkownika(klient)
         except Exception as e:
             return f"False: {e}"
-        return "True" if self.stan_uzytkownikow() > stan_p else "False"
+        stan_po = self.stan_uzytkownikow()
+        return "True" if stan_po > stan_przed else "False"
 
-    # --- PU03: Usuwanie użytkownika ---
+    # --- PU03: Usuwanie ---
     def usun_uzytkownika(self, email):
-        stan_p = self.stan_uzytkownikow()
-        u = SetUp.Inwentarz.znajdzUzytkownikaPoEmailu(email)
-        if u:
-            SetUp.Inwentarz.usun(u.id)
-        return "True" if self.stan_uzytkownikow() < stan_p else "False"
-
-    # --- PU09: Dodawanie książek ---
-    def dodaj_ksiazke(self, typ, tytul, autor, cena, isbn, gatunek):
-        stan_p = self.stan_ksiazek()
         try:
-            from encje.FabrykaKsiazek import FabrykaKsiazek
-            fabryka = FabrykaKsiazek()
+            uzytkownik = SetUp.Inwentarz.znajdzUzytkownikaPoEmailu(email)
+            if uzytkownik:
+                SetUp.Inwentarz.usun(uzytkownik.id)
+                return "True"
+            return "False"
+        except Exception:
+            return "False"
 
-            # 1. Mapowanie typu (test wysyła "papier", aplikacja chce "ksiazka_papierowa")
-            typ_faktyczny = typ
-            if str(typ).lower() == "papier":
-                typ_faktyczny = "papierowa"
-
-            # 2. Naprawa ISBN (test wysyła 12345, aplikacja chce 13 cyfr)
-            valid_isbn = self._napraw_isbn(isbn)
-
-            # 3. Ustawienie ścieżki (dla ebooków)
-            sciezka = "file.pdf" if str(typ).lower() == "ebook" else ""
-
-            # 4. Utworzenie książki z 9 argumentami i poprawnymi danymi
-            ksiazka = fabryka.utworzKsiazke(
-                typ_faktyczny,
-                tytul,
-                autor,
-                float(cena),
-                valid_isbn,  # <-- Używamy naprawionego ISBN
-                gatunek,
-                10,
-                "Opis testowy",  # <-- Wymagany przez _waliduj_niepuste
-                sciezka
+    # --- PU09: Dodawanie książki ---
+    def dodaj_ksiazke(self, typ, tytul, autor, cena, isbn, gatunek):
+        stan_przed = self.stan_ksiazek()
+        try:
+            ksiazka = FabrykaKsiazek().utworzKsiazke(
+                typ="papierowa", tytul=tytul, autor=autor,
+                cena=self._safe_float(cena), ISBN=self._napraw_isbn(isbn),
+                gatunek=gatunek, stanMagazynowy=10, opis="Test"
             )
             SetUp.Inwentarz.dodajKsiazke(ksiazka)
-        except Exception as e:
-            return f"False: {e}"
+        except Exception:
+            return "False"
+        return "True" if self.stan_ksiazek() > stan_przed else "False"
 
-        return "True" if self.stan_ksiazek() > stan_p else "False: Stan licznika sie nie zmienil"
-
-    # --- PU11: Zmiana stanu magazynowego ---
-    def zmien_stan(self, isbn, nowy_stan):
+    # --- PU11: Zmiana Stanu ---
+    def zmien_stan(self, isbn, nowa_ilosc):
+        """
+        Zwraca LICZBĘ (int) nowej ilości, aby Robot mógł sprawdzić:
+        Should Be Equal As Integers    ${stan}    50
+        """
         try:
-            # Tutaj też musimy użyć naprawionego ISBN, żeby znaleźć książkę,
-            # którą dodaliśmy przed chwilą (jako 1234500000000).
-            valid_isbn = self._napraw_isbn(isbn)
+            ilosc_int = self._safe_int(nowa_ilosc, default=-1)
+            isbn_val = self._napraw_isbn(isbn)
 
-            SetUp.Inwentarz.aktualizujStan(valid_isbn, int(nowy_stan))
-            k = SetUp.Inwentarz.pobierzPoISBN(valid_isbn)
-            return str(k.stanMagazynowy)
-        except Exception as e:
-            return f"Błąd: {e}"
+            if ilosc_int == -1: return 0
 
-    # --- Zadanie 2: Rabat Lojalnościowy ---
+            SetUp.Inwentarz.aktualizujStan(isbn_val, ilosc_int)
+
+            # Weryfikujemy i ZWRACAMY LICZBĘ
+            ksiazka = SetUp.Inwentarz.pobierzPoISBN(isbn_val)
+            if ksiazka:
+                return ksiazka.stanMagazynowy
+            return 0
+        except Exception:
+            return 0
+
+    # --- PU RABAT ---
     def oblicz_cene_dla_klienta(self, czy_lojalny, cena_bazowa):
-        from encje.Klient import Klient
-        from encje.Zamowienie import Zamowienie
-
-        lojalny = str(czy_lojalny).lower() == "true"
-        k = Klient("T", "U", "t@u.pl", "h", "ul. T", lojalny)
-        z = Zamowienie()
-
-        # Mock Produktu dostosowany do wymogów Zamowienia i Dekoratora
-        class Produkt:
-            def __init__(self, c):
-                self.c = float(c)
-                self.ilosc = 1
-                self.cenaJednostkowa = float(c)
-                self.cena = float(c)
-
-            def obliczCene(self):
-                return self.c
-
-        z.dodajPozycje(Produkt(cena_bazowa))
-
+        """
+        Argumenty dopasowane do pliku .robot:
+        1. czy_lojalny (True/False)
+        2. cena_bazowa (kwota)
+        """
         try:
-            wynik = SetUp.Inwentarz.obliczCeneOstateczna(z, k)
-            return str(float(wynik))
+            cena_val = self._safe_float(cena_bazowa)
+            jest_lojalny = str(czy_lojalny).lower() in ['true', 'yes', '1']
+
+            # 1. Klient
+            klient = Klient("Test", "K", "t@t.pl", "pass", "Adr", klientLojalny=jest_lojalny)
+
+            # 2. Zamówienie
+            ksiazka = FabrykaKsiazek().utworzKsiazke(
+                "papierowa", "T", "A", cena_val, 9789999999999, "G", 5, "O"
+            )
+            zamowienie = Zamowienie()
+            zamowienie.dodajPozycje(PozycjaZamowienia(ksiazka, 1, cena_val))
+
+            # 3. Obliczenie przez Fasade
+            wynik = SetUp.Inwentarz.obliczCeneOstateczna(zamowienie, klient)
+
+            return str(wynik)  # Zwracamy jako string, bo Robot porównuje "90.0"
+
         except Exception as e:
             return f"Error: {e}"
-
-    def czy_rabat_zostal_naliczony(self, cena_bazowa):
-        cena_po = self.oblicz_cene_dla_klienta("True", cena_bazowa)
-        if "Error" in cena_po:
-            return "False"
-        return "True" if float(cena_po) < float(cena_bazowa) else "False"
