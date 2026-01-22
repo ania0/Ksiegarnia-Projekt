@@ -36,3 +36,6 @@ class KsiazkaDAO(IRepozytoriumKsiazek):
         else:
             raise TypeError(
                 f"Ksiażka o ISBN {ISBN} jest typu {type(ksiazka).__name__}, nie można zmienić stanu magazynowego.")
+
+    def pobierzWszystkie(self) -> List[IKsiazka]:
+        return self._ksiazki

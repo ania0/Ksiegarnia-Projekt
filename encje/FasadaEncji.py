@@ -11,6 +11,7 @@ from encje.IRepozytoriumKsiazek import IRepozytoriumKsiazek
 from encje.IRepozytoriumUzytkownika import IRepozytoriumUzytkownika
 from encje.IRepozytoriumZamowien import IRepozytoriumZamowien
 from typing import List # TU
+from encje.UzytkownikDAO import UzytkownikDAO
 
 
 class FasadaEncji(IEncjeFasada):
@@ -25,6 +26,7 @@ class FasadaEncji(IEncjeFasada):
         self._repoZamowien = repoZamowien
         self._fabrykaKsiazek = fabrykaKsiazek
         self._dekoratorRabatu = dekoratorRabatu
+        self._uzytkownikDAO = UzytkownikDAO
         self._next_id = 1  # licznik ID do wyswietlania
 
     # UŻYTKOWNICY
@@ -152,3 +154,8 @@ class FasadaEncji(IEncjeFasada):
         else:
             return komponent.obliczCene()
 
+    def ileUzytkownikow(self):
+        return len(self._repoUzytkownika.pobierzWszystkich())
+
+    def ileKsiazek(self):
+        return len(self._repoKsiazek.pobierzWszystkie())

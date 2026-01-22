@@ -29,3 +29,7 @@ class IRepozytoriumUzytkownika(ABC):
     def aktualizujDaneUzytkownika(self, uzytkownik: Uzytkownik) -> None:
         pass
 
+    @abstractmethod
+    def pobierzWszystkich(self) -> List[Uzytkownik]:
+        pass
+

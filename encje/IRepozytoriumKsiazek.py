@@ -28,3 +28,7 @@ class IRepozytoriumKsiazek(ABC):
     @abstractmethod
     def aktualizujStan(self, ISBN: int, NowyStan: int) -> None:
         pass
+
+    @abstractmethod
+    def pobierzWszystkie(self) -> List[IKsiazka]:
+        pass

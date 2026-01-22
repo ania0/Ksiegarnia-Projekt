@@ -45,3 +45,6 @@ class UzytkownikDAO(IRepozytoriumUzytkownika):
             nowyAdres: Optional[str] = None
     ) -> None:
         pass
+
+    def pobierzWszystkich(self) -> List[Uzytkownik]:
+        return self._magazyn
