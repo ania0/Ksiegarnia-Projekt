@@ -2,6 +2,8 @@ from encje.DekoratorCenyZamowienia import DekoratorCenyZamowienia
 from encje.Klient import Klient
 
 class DekoratorRabatuLojalnosciowego(DekoratorCenyZamowienia):
+    def __init__(self, komponent):
+        super().__init__(komponent)
 
     def obliczCene(self) -> float:
         baza = self._komponent.obliczCene()

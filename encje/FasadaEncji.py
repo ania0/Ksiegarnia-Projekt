@@ -149,7 +149,7 @@ class FasadaEncji(IEncjeFasada):
         komponent: ICena = zamowienie  # Zamowienie implementuje ICena
 
         if klient.klientLojalny:
-            dekorator = self._dekoratorRabatuLojalnosciowego(komponent)
+            dekorator = self._dekoratorRabatu(komponent)
             return dekorator.obliczCene()
         else:
             return komponent.obliczCene()

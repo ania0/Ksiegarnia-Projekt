@@ -1,5 +1,6 @@
 *** Settings ***
-Library    KlasyTestujace.py
+Library    KlasyTestujace.py    WITH NAME    KlasyTestujace
+
 
 *** Test Cases ***
 
