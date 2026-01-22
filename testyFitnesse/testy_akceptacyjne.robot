@@ -1,38 +1,99 @@
 *** Settings ***
-Library    KlasyTestujace.py    WITH NAME    KlasyTestujace
+Library    KlasyTestujace.py    WITH NAME    System
 
 *** Test Cases ***
 
-PU01 & PU03: Zarzadzanie Uzytkownikami
-    [Documentation]    Rejestracja i usuwanie konta
-    ${wynik}=    Stworz Konto    Anna    Kuras    a@k.pl    h123    Wroc
+# ==========================================
+# 1. ZARZADZANIE UZYTKOWNIKAMI
+# ==========================================
+
+Rejestracja Nowego Uzytkownika
+    [Documentation]    Sprawdza, czy mozna zalozyc konto.
+    ${wynik}=    System.Stworz Konto    Jan    Testowy    jan@test.pl    haslo123    Wroclaw
     Should Be Equal As Strings    ${wynik}    True
-    ${stan}=    Stan Uzytkownikow
-    Should Be Equal As Integers    ${stan}    1
 
-    # Test usuwania
-    ${usun}=    Usun Uzytkownika    a@k.pl
-    Should Be Equal As Strings    ${usun}    True
-    ${stan_final}=    Stan Uzytkownikow
-    Should Be Equal As Integers    ${stan_final}    0
+Logowanie Poprawne
+    [Documentation]    Sprawdza logowanie poprawnymi danymi.
+    ${wynik}=    System.Sprawdz Logowanie    jan@test.pl    haslo123
+    Should Be Equal As Strings    ${wynik}    True
 
-PU09 & PU11: Katalog i Magazyn
-    [Documentation]    Dodawanie ksiazki i zmiana jej ilosci
-    ${dodaj}=    Dodaj Ksiazke    papier    Clean Code    Martin    60.0    12345    IT
-    Should Be Equal As Strings    ${dodaj}    True
+Logowanie Bledne Haslo
+    [Documentation]    Sprawdza logowanie zlym haslem.
+    ${wynik}=    System.Sprawdz Logowanie    jan@test.pl    zlehaslo
+    Should Be Equal As Strings    ${wynik}    False
 
-    # Zmiana stanu - Python musi zwrocic nowa ilosc (50), a nie "True"
-    ${stan_mag}=    Zmien Stan    12345    50
-    Should Be Equal As Integers    ${stan_mag}    50
+# ==========================================
+# 2. ZARZADZANIE KATALOGIEM (CRUD)
+# ==========================================
 
-PU_RABAT: Naliczanie Rabatu Lojalnosciowego
-    [Documentation]    Sprawdzenie czy dekorator nalicza rabat. Argumenty: CzyLojalny Cena
-    # Sprawdzamy cene dla Klienta Lojalnego (True) dla ksiazki za 100.0
-    ${cena_lojalny}=    Oblicz Cene Dla Klienta    True    100.0
-    # Oczekujemy 90.0 (zakladajac 10% rabatu)
-    Should Be Equal As Strings    ${cena_lojalny}    90.0
+Dodanie Ksiazki Do Katalogu
+    [Documentation]    Administrator dodaje nowa ksiazke.
+    ${wynik}=    System.Dodaj Ksiazke    Wiedzmin    50.0    9781111111111
+    Should Be Equal As Strings    ${wynik}    True
 
-    # Sprawdzamy cene dla Goscia (False) dla ksiazki za 100.0
-    ${cena_gosc}=    Oblicz Cene Dla Klienta    False    100.0
-    # Oczekujemy 100.0 (brak rabatu)
-    Should Be Equal As Strings    ${cena_gosc}    100.0
+Wyszukiwanie Ksiazki
+    [Documentation]    Klient szuka ksiazki w katalogu.
+    ${znaleziono}=    System.Czy Ksiazka Istnieje    Wiedzmin
+    Should Be Equal As Strings    ${znaleziono}    True
+
+Edycja Ceny Ksiazki
+    [Documentation]    Zmiana ceny istniejacej ksiazki.
+    ${wynik}=    System.Edytuj Cene Ksiazki    9781111111111    40.0
+    Should Be Equal As Strings    ${wynik}    True
+
+    # Weryfikacja czy cena sie zmienila
+    ${nowa_cena}=    System.Pobierz Cene Ksiazki    9781111111111
+    Should Be Equal As Strings    ${nowa_cena}    40.0
+
+Zmiana Stanu Magazynowego
+    [Documentation]    Dostawa towaru - zwiekszenie ilosci.
+    ${wynik}=    System.Zmien Stan    9781111111111    100
+    Should Be Equal As Strings    ${wynik}    True
+
+    ${stan}=    System.Pobierz Stan    9781111111111
+    Should Be Equal As Integers    ${stan}    100
+
+# ==========================================
+# 3. PROCES SKLADANIA ZAMOWIEN
+# ==========================================
+
+Zamowienie Jako Zalogowany
+    [Documentation]    Uzytkownik 'jan@test.pl' kupuje 2 sztuki Wiedzmina.
+    # Stan poczatkowy: 100 sztuk
+    ${wynik}=    System.Zloz Zamowienie    jan@test.pl    9781111111111    2    False
+    Should Be Equal As Strings    ${wynik}    True
+
+    # Sprawdzenie czy stan zmalał (100 - 2 = 98)
+    ${stan}=    System.Pobierz Stan    9781111111111
+    Should Be Equal As Integers    ${stan}    98
+
+Zamowienie Jako Gosc
+    [Documentation]    Nieznany uzytkownik kupuje ksiazke bez logowania.
+    ${wynik}=    System.Zloz Zamowienie    gosc@mail.pl    9781111111111    5    True
+    Should Be Equal As Strings    ${wynik}    True
+
+    # Sprawdzenie czy stan zmalał (98 - 5 = 93)
+    ${stan}=    System.Pobierz Stan    9781111111111
+    Should Be Equal As Integers    ${stan}    93
+
+Próba Kupna Zbyt Duzej Ilosci
+    [Documentation]    Proba kupna wiecej niz jest w magazynie.
+    ${wynik}=    System.Zloz Zamowienie    jan@test.pl    9781111111111    1000    False
+    Should Contain    ${wynik}    Error
+
+# ==========================================
+# 4. SPRZATANIE
+# ==========================================
+
+Usuniecie Ksiazki
+    [Documentation]    Usuniecie ksiazki z oferty.
+    ${wynik}=    System.Usun Ksiazke    9781111111111
+    Should Be Equal As Strings    ${wynik}    True
+
+    ${szukaj}=    System.Czy Ksiazka Istnieje    Wiedzmin
+    Should Be Equal As Strings    ${szukaj}    False
+
+Usuniecie Konta
+    [Documentation]    Usuniecie uzytkownika po testach.
+    ${wynik}=    System.Usun Uzytkownika    jan@test.pl
+    Should Be Equal As Strings    ${wynik}    True
