@@ -1,7 +1,7 @@
 import sys
 import os
 
-# Automatyczne ustawienie sciezki, aby widzial folder 'encie' i 'kontrola'
+# Automatyczne ustawienie sciezki - folder 'encie' i 'kontrola'
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from encje.FasadaEncji import FasadaEncji

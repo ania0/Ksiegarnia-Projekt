@@ -19,28 +19,25 @@ class KlasyTestujace:
     def __init__(self):
         self.setup = SetUp()
 
-    # --- POMOCNICZE (POPRAWIONE RZUTOWANIE) ---
+    # POMOCNICZE
     def _safe_float(self, val):
         try:
-            # Najpierw zamieniamy na string, zeby replace i float zadzialalo bezpiecznie
+            # Zamiana na string, zeby replace i float zadzialalo
             return float(str(val).replace(',', '.'))
         except:
             return 0.0
 
     def _napraw_isbn(self, isbn):
         try:
-            # Najpierw str(), bo isbn moze przyjsc jako float (np. 9.78E+12)
+            # str(), bo isbn moze przyjsc jako float (np. 9.78E+12)
             s = str(isbn)
             return int(s.replace("-", "").replace(".0", "").strip())
         except:
             return 9999999999999
 
-    # ==========================================
-    # 1. UŻYTKOWNICY
-    # ==========================================
-
+    # UŻYTKOWNICY
     def stworz_konto(self, imie, nazwisko, email, haslo, adres):
-        # Backdoor: Tworzymy usera bezposrednio w bazie, omijac input() kontrolera
+        # Tworzenie User bezposrednio w bazie, omijac input() kontrolera
         try:
             nowy_klient = Klient(imie, nazwisko, email, haslo, adres, False)
             SetUp.Inwentarz.rejestrujUzytkownika(nowy_klient)
@@ -51,7 +48,7 @@ class KlasyTestujace:
 
     def sprawdz_logowanie(self, email, haslo):
         try:
-            # Tutaj kontroler jest bezpieczny (nie ma input)
+            # Kontroler - brak input
             wynik = SetUp.Kontrola.zalogujKlienta(haslo, email)
             return "True" if wynik else "False"
         except:
@@ -60,7 +57,7 @@ class KlasyTestujace:
     def usun_uzytkownika(self, email):
         u = SetUp.Inwentarz.znajdzUzytkownikaPoEmailu(email)
         if u:
-            # Backdoor usuniecia (Fasada Encji), zeby nie logowac sie w kolko
+            # Fasada Encji - logowanie raz
             try:
                 SetUp.Inwentarz.usun(u.id)
                 return "True"
@@ -68,10 +65,7 @@ class KlasyTestujace:
                 return "False"
         return "True"
 
-    # ==========================================
-    # 2. KATALOG
-    # ==========================================
-
+    # KATALOG
     def dodaj_ksiazke(self, tytul, cena, isbn):
         try:
             from encje.FabrykaKsiazek import FabrykaKsiazek
@@ -93,15 +87,15 @@ class KlasyTestujace:
         k = SetUp.Inwentarz.pobierzPoISBN(self._napraw_isbn(isbn))
         if k:
             try:
-                # FIX: Jawne rzutowanie i podanie argumentów nazwanych
+                # Rzutowanie i podanie argumentow
                 cena_float = self._safe_float(nowa_cena)
-                # Wywołanie z argumentami nazwanymi (bezpieczniejsze)
+                # Wywolanie z nazwanymi arg
                 SetUp.Inwentarz.aktualizujDane(ksiazka=k, nowaCena=cena_float,
                                                nowyTytul=None, nowyAutor=None,
                                                nowyGatunek=None, nowyOpis=None)
                 return "True"
             except TypeError:
-                # Fallback jesli Fasada nie obsluguje keyword args
+                # jesli Fasada nie obsluguje keyword args
                 k.cena = self._safe_float(nowa_cena)
                 return "True"
             except Exception as e:
@@ -125,41 +119,37 @@ class KlasyTestujace:
         SetUp.Inwentarz.usunKsiazke(self._napraw_isbn(isbn))
         return "True"
 
-    # ==========================================
-    # 3. ZAMOWIENIA (LOGIKA NAPRAWIONA)
-    # ==========================================
 
+    # ZAMOWIENIA
     def zloz_zamowienie(self, email_klienta, isbn, ilosc, tryb_gosc="False"):
         isbn_val = self._napraw_isbn(isbn)
         ilosc_int = int(ilosc)
 
-        # Pobieramy ksiazke raz
+        # Pobranie ksiazki - jednorazowe
         ksiazka = SetUp.Inwentarz.pobierzPoISBN(isbn_val)
         if not ksiazka: return "Error: Brak ksiazki"
 
-        # 1. Walidacja dostępności (Naprawa błędu 'True does not contain Error')
+        # Walidacja dostępnosci
         if ksiazka.stanMagazynowy < ilosc_int:
             print(f"[LOGIC] Próba kupna {ilosc_int} przy stanie {ksiazka.stanMagazynowy}")
             return "Error: Za malo towaru"
 
-        # 2. Ustalenie klienta
+        # Ustalenie klienta
         klient_obj = None
         if tryb_gosc == "False":
             klient_obj = SetUp.Inwentarz.znajdzUzytkownikaPoEmailu(email_klienta)
             if not klient_obj: return "Error: Brak usera"
         else:
-            # Tworzymy atrapę klienta dla gościa (do obliczeń)
+            # Atrapa klienta dla goscia (do obliczeń)
             klient_obj = Klient("Gosc", "Gosc", email_klienta, "brak", "Adres", False)
 
-        # 3. Symulacja procesu zamówienia (Backdoor)
-        # Omijamy Kontroler, bo on ma input(), którego nie przeskoczymy w testach automatycznych
+        # Symulacja procesu zamówienia
         try:
             zamowienie = Zamowienie()
-            # Zakladam, ze konstruktor Pozycji to (ksiazka, ilosc, cena)
             pozycja = PozycjaZamowienia(ksiazka, ilosc_int, ksiazka.cena)
             zamowienie.dodajPozycje(pozycja)
 
-            # Obliczenie ceny (wazne dla logiki znizek)
+            # Obliczenie ceny
             SetUp.Inwentarz.obliczCeneOstateczna(zamowienie, klient_obj)
 
             # Zapis

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 6.1.1 (Python 3.7.9 on win32)" generated="20260123 10:50:48.757" rpa="false" schemaversion="4">
+<robot generator="Robot 6.1.1 (Python 3.7.9 on win32)" generated="20260123 12:33:18.353" rpa="false" schemaversion="4">
 <suite id="s1" name="Testy Akceptacyjne" source="C:\Users\wawrzyniec.michalczy\PycharmProjects\Ksiegarnia-Projekt\testyFitnesse\testy_akceptacyjne.robot">
-<test id="s1-t1" name="Rejestracja Nowego Uzytkownika" line="10">
+<test id="s1-t1" name="Rejestracja Nowego Uzytkownika" line="8">
 <kw name="Stworz Konto" library="System">
 <var>${wynik}</var>
 <arg>Jan</arg>
@@ -9,309 +9,282 @@
 <arg>jan@test.pl</arg>
 <arg>haslo123</arg>
 <arg>Wroclaw</arg>
-<msg timestamp="20260123 10:50:48.839" level="INFO">[AKCJA] Tworzenie konta: jan@test.pl
-[SUKCES] Utworzono uzytkownika ID: 1</msg>
-<msg timestamp="20260123 10:50:48.839" level="INFO">${wynik} = True</msg>
-<status status="PASS" starttime="20260123 10:50:48.839" endtime="20260123 10:50:48.839"/>
+<msg timestamp="20260123 12:33:18.458" level="INFO">${wynik} = True</msg>
+<status status="PASS" starttime="20260123 12:33:18.457" endtime="20260123 12:33:18.461"/>
 </kw>
 <kw name="Should Be Equal As Strings" library="BuiltIn">
 <arg>${wynik}</arg>
 <arg>True</arg>
 <doc>Fails if objects are unequal after converting them to strings.</doc>
-<status status="PASS" starttime="20260123 10:50:48.839" endtime="20260123 10:50:48.839"/>
+<status status="PASS" starttime="20260123 12:33:18.461" endtime="20260123 12:33:18.462"/>
 </kw>
 <doc>Sprawdza, czy mozna zalozyc konto.</doc>
-<status status="PASS" starttime="20260123 10:50:48.839" endtime="20260123 10:50:48.839"/>
+<status status="PASS" starttime="20260123 12:33:18.457" endtime="20260123 12:33:18.463"/>
 </test>
-<test id="s1-t2" name="Logowanie Poprawne" line="15">
+<test id="s1-t2" name="Logowanie Poprawne" line="13">
 <kw name="Sprawdz Logowanie" library="System">
 <var>${wynik}</var>
 <arg>jan@test.pl</arg>
 <arg>haslo123</arg>
-<msg timestamp="20260123 10:50:48.839" level="INFO">[AKCJA] Logowanie: jan@test.pl wpisujac haslo: haslo123
-[INFO] Znaleziono uzytkownika: Jan Testowy, Haslo w bazie: haslo123
-[SUKCES] Haslo poprawne.</msg>
-<msg timestamp="20260123 10:50:48.839" level="INFO">${wynik} = True</msg>
-<status status="PASS" starttime="20260123 10:50:48.839" endtime="20260123 10:50:48.839"/>
+<msg timestamp="20260123 12:33:18.464" level="INFO">${wynik} = True</msg>
+<status status="PASS" starttime="20260123 12:33:18.464" endtime="20260123 12:33:18.464"/>
 </kw>
 <kw name="Should Be Equal As Strings" library="BuiltIn">
 <arg>${wynik}</arg>
 <arg>True</arg>
 <doc>Fails if objects are unequal after converting them to strings.</doc>
-<status status="PASS" starttime="20260123 10:50:48.839" endtime="20260123 10:50:48.839"/>
+<status status="PASS" starttime="20260123 12:33:18.465" endtime="20260123 12:33:18.465"/>
 </kw>
 <doc>Sprawdza logowanie poprawnymi danymi.</doc>
-<status status="PASS" starttime="20260123 10:50:48.839" endtime="20260123 10:50:48.839"/>
+<status status="PASS" starttime="20260123 12:33:18.463" endtime="20260123 12:33:18.465"/>
 </test>
-<test id="s1-t3" name="Logowanie Bledne Haslo" line="20">
+<test id="s1-t3" name="Logowanie Bledne Haslo" line="18">
 <kw name="Sprawdz Logowanie" library="System">
 <var>${wynik}</var>
 <arg>jan@test.pl</arg>
 <arg>zlehaslo</arg>
-<msg timestamp="20260123 10:50:48.839" level="INFO">[AKCJA] Logowanie: jan@test.pl wpisujac haslo: zlehaslo
-[INFO] Znaleziono uzytkownika: Jan Testowy, Haslo w bazie: haslo123
-[PORAZKA] Haslo niepoprawne.</msg>
-<msg timestamp="20260123 10:50:48.839" level="INFO">${wynik} = False</msg>
-<status status="PASS" starttime="20260123 10:50:48.839" endtime="20260123 10:50:48.839"/>
+<msg timestamp="20260123 12:33:18.467" level="INFO">${wynik} = False</msg>
+<status status="PASS" starttime="20260123 12:33:18.467" endtime="20260123 12:33:18.467"/>
 </kw>
 <kw name="Should Be Equal As Strings" library="BuiltIn">
 <arg>${wynik}</arg>
 <arg>False</arg>
 <doc>Fails if objects are unequal after converting them to strings.</doc>
-<status status="PASS" starttime="20260123 10:50:48.839" endtime="20260123 10:50:48.839"/>
+<status status="PASS" starttime="20260123 12:33:18.468" endtime="20260123 12:33:18.468"/>
 </kw>
 <doc>Sprawdza logowanie zlym haslem.</doc>
-<status status="PASS" starttime="20260123 10:50:48.839" endtime="20260123 10:50:48.839"/>
+<status status="PASS" starttime="20260123 12:33:18.466" endtime="20260123 12:33:18.468"/>
 </test>
-<test id="s1-t4" name="Dodanie Ksiazki Do Katalogu" line="29">
+<test id="s1-t4" name="Dodanie Ksiazki Do Katalogu" line="24">
 <kw name="Dodaj Ksiazke" library="System">
 <var>${wynik}</var>
 <arg>Wiedzmin</arg>
 <arg>50.0</arg>
 <arg>9781111111111</arg>
-<msg timestamp="20260123 10:50:48.855" level="INFO">[AKCJA] Dodawanie ksiazki: 'Wiedzmin', Cena: 50.0, ISBN: 9781111111111
-[SUKCES] Ksiazka dodana do repozytorium.</msg>
-<msg timestamp="20260123 10:50:48.855" level="INFO">${wynik} = True</msg>
-<status status="PASS" starttime="20260123 10:50:48.839" endtime="20260123 10:50:48.855"/>
+<msg timestamp="20260123 12:33:18.470" level="INFO">${wynik} = True</msg>
+<status status="PASS" starttime="20260123 12:33:18.470" endtime="20260123 12:33:18.470"/>
 </kw>
 <kw name="Should Be Equal As Strings" library="BuiltIn">
 <arg>${wynik}</arg>
 <arg>True</arg>
 <doc>Fails if objects are unequal after converting them to strings.</doc>
-<status status="PASS" starttime="20260123 10:50:48.855" endtime="20260123 10:50:48.855"/>
+<status status="PASS" starttime="20260123 12:33:18.470" endtime="20260123 12:33:18.470"/>
 </kw>
 <doc>Administrator dodaje nowa ksiazke.</doc>
-<status status="PASS" starttime="20260123 10:50:48.839" endtime="20260123 10:50:48.855"/>
+<status status="PASS" starttime="20260123 12:33:18.469" endtime="20260123 12:33:18.470"/>
 </test>
-<test id="s1-t5" name="Wyszukiwanie Ksiazki" line="34">
+<test id="s1-t5" name="Wyszukiwanie Ksiazki" line="29">
 <kw name="Czy Ksiazka Istnieje" library="System">
 <var>${znaleziono}</var>
 <arg>Wiedzmin</arg>
-<msg timestamp="20260123 10:50:48.855" level="INFO">[AKCJA] Wyszukiwanie w katalogu ksiazki: 'Wiedzmin'
-[SUKCES] Znaleziono ksiazke ID: 1</msg>
-<msg timestamp="20260123 10:50:48.855" level="INFO">${znaleziono} = True</msg>
-<status status="PASS" starttime="20260123 10:50:48.855" endtime="20260123 10:50:48.855"/>
+<msg timestamp="20260123 12:33:18.470" level="INFO">${znaleziono} = True</msg>
+<status status="PASS" starttime="20260123 12:33:18.470" endtime="20260123 12:33:18.470"/>
 </kw>
 <kw name="Should Be Equal As Strings" library="BuiltIn">
 <arg>${znaleziono}</arg>
 <arg>True</arg>
 <doc>Fails if objects are unequal after converting them to strings.</doc>
-<status status="PASS" starttime="20260123 10:50:48.855" endtime="20260123 10:50:48.855"/>
+<status status="PASS" starttime="20260123 12:33:18.470" endtime="20260123 12:33:18.470"/>
 </kw>
 <doc>Klient szuka ksiazki w katalogu.</doc>
-<status status="PASS" starttime="20260123 10:50:48.855" endtime="20260123 10:50:48.855"/>
+<status status="PASS" starttime="20260123 12:33:18.470" endtime="20260123 12:33:18.470"/>
 </test>
-<test id="s1-t6" name="Edycja Ceny Ksiazki" line="39">
+<test id="s1-t6" name="Edycja Ceny Ksiazki" line="34">
 <kw name="Edytuj Cene Ksiazki" library="System">
 <var>${wynik}</var>
 <arg>9781111111111</arg>
 <arg>40.0</arg>
-<msg timestamp="20260123 10:50:48.855" level="INFO">[AKCJA] Zmiana ceny dla ISBN: 9781111111111 na 40.0
-[SUKCES] Cena zaktualizowana.</msg>
-<msg timestamp="20260123 10:50:48.855" level="INFO">${wynik} = True</msg>
-<status status="PASS" starttime="20260123 10:50:48.855" endtime="20260123 10:50:48.855"/>
+<msg timestamp="20260123 12:33:18.470" level="INFO">${wynik} = True</msg>
+<status status="PASS" starttime="20260123 12:33:18.470" endtime="20260123 12:33:18.470"/>
 </kw>
 <kw name="Should Be Equal As Strings" library="BuiltIn">
 <arg>${wynik}</arg>
 <arg>True</arg>
 <doc>Fails if objects are unequal after converting them to strings.</doc>
-<status status="PASS" starttime="20260123 10:50:48.855" endtime="20260123 10:50:48.855"/>
+<status status="PASS" starttime="20260123 12:33:18.470" endtime="20260123 12:33:18.470"/>
 </kw>
 <kw name="Pobierz Cene Ksiazki" library="System">
 <var>${nowa_cena}</var>
 <arg>9781111111111</arg>
-<msg timestamp="20260123 10:50:48.855" level="INFO">${nowa_cena} = 40.0</msg>
-<status status="PASS" starttime="20260123 10:50:48.855" endtime="20260123 10:50:48.855"/>
+<msg timestamp="20260123 12:33:18.470" level="INFO">${nowa_cena} = 40.0</msg>
+<status status="PASS" starttime="20260123 12:33:18.470" endtime="20260123 12:33:18.470"/>
 </kw>
 <kw name="Should Be Equal As Strings" library="BuiltIn">
 <arg>${nowa_cena}</arg>
 <arg>40.0</arg>
 <doc>Fails if objects are unequal after converting them to strings.</doc>
-<status status="PASS" starttime="20260123 10:50:48.855" endtime="20260123 10:50:48.855"/>
+<status status="PASS" starttime="20260123 12:33:18.470" endtime="20260123 12:33:18.470"/>
 </kw>
 <doc>Zmiana ceny istniejacej ksiazki.</doc>
-<status status="PASS" starttime="20260123 10:50:48.855" endtime="20260123 10:50:48.855"/>
+<status status="PASS" starttime="20260123 12:33:18.470" endtime="20260123 12:33:18.470"/>
 </test>
-<test id="s1-t7" name="Zmiana Stanu Magazynowego" line="48">
+<test id="s1-t7" name="Zmiana Stanu Magazynowego" line="43">
 <kw name="Zmien Stan" library="System">
 <var>${wynik}</var>
 <arg>9781111111111</arg>
 <arg>100</arg>
-<msg timestamp="20260123 10:50:48.855" level="INFO">[AKCJA] Ustawianie stanu magazynowego ISBN 9781111111111 na 100</msg>
-<msg timestamp="20260123 10:50:48.855" level="INFO">${wynik} = True</msg>
-<status status="PASS" starttime="20260123 10:50:48.855" endtime="20260123 10:50:48.855"/>
+<msg timestamp="20260123 12:33:18.470" level="INFO">${wynik} = True</msg>
+<status status="PASS" starttime="20260123 12:33:18.470" endtime="20260123 12:33:18.470"/>
 </kw>
 <kw name="Should Be Equal As Strings" library="BuiltIn">
 <arg>${wynik}</arg>
 <arg>True</arg>
 <doc>Fails if objects are unequal after converting them to strings.</doc>
-<status status="PASS" starttime="20260123 10:50:48.855" endtime="20260123 10:50:48.855"/>
+<status status="PASS" starttime="20260123 12:33:18.470" endtime="20260123 12:33:18.470"/>
 </kw>
 <kw name="Pobierz Stan" library="System">
 <var>${stan}</var>
 <arg>9781111111111</arg>
-<msg timestamp="20260123 10:50:48.855" level="INFO">${stan} = 100</msg>
-<status status="PASS" starttime="20260123 10:50:48.855" endtime="20260123 10:50:48.855"/>
+<msg timestamp="20260123 12:33:18.470" level="INFO">${stan} = 100</msg>
+<status status="PASS" starttime="20260123 12:33:18.470" endtime="20260123 12:33:18.470"/>
 </kw>
 <kw name="Should Be Equal As Integers" library="BuiltIn">
 <arg>${stan}</arg>
 <arg>100</arg>
 <doc>Fails if objects are unequal after converting them to integers.</doc>
-<msg timestamp="20260123 10:50:48.855" level="INFO">Argument types are:
+<msg timestamp="20260123 12:33:18.470" level="INFO">Argument types are:
 &lt;class 'int'&gt;
 &lt;class 'str'&gt;</msg>
-<status status="PASS" starttime="20260123 10:50:48.855" endtime="20260123 10:50:48.855"/>
+<status status="PASS" starttime="20260123 12:33:18.470" endtime="20260123 12:33:18.470"/>
 </kw>
 <doc>Dostawa towaru - zwiekszenie ilosci.</doc>
-<status status="PASS" starttime="20260123 10:50:48.855" endtime="20260123 10:50:48.855"/>
+<status status="PASS" starttime="20260123 12:33:18.470" endtime="20260123 12:33:18.470"/>
 </test>
-<test id="s1-t8" name="Zamowienie Jako Zalogowany" line="60">
+<test id="s1-t8" name="Zamowienie Jako Zalogowany" line="53">
 <kw name="Zloz Zamowienie" library="System">
 <var>${wynik}</var>
 <arg>jan@test.pl</arg>
 <arg>9781111111111</arg>
 <arg>2</arg>
 <arg>False</arg>
-<msg timestamp="20260123 10:50:48.870" level="INFO">[AKCJA] Skladanie zamowienia. Klient: jan@test.pl, ISBN: 9781111111111, Ilosc: 2
-[INFO] Cena ostateczna po rabatach: 80.0
-[SUKCES] Zamowienie zlozone i zapisane.</msg>
-<msg timestamp="20260123 10:50:48.870" level="INFO">${wynik} = True</msg>
-<status status="PASS" starttime="20260123 10:50:48.855" endtime="20260123 10:50:48.870"/>
+<msg timestamp="20260123 12:33:18.486" level="INFO">[SUKCES] Kupiono 2 szt. Nowy stan: 98</msg>
+<msg timestamp="20260123 12:33:18.486" level="INFO">${wynik} = True</msg>
+<status status="PASS" starttime="20260123 12:33:18.486" endtime="20260123 12:33:18.486"/>
 </kw>
 <kw name="Should Be Equal As Strings" library="BuiltIn">
 <arg>${wynik}</arg>
 <arg>True</arg>
 <doc>Fails if objects are unequal after converting them to strings.</doc>
-<status status="PASS" starttime="20260123 10:50:48.870" endtime="20260123 10:50:48.870"/>
+<status status="PASS" starttime="20260123 12:33:18.486" endtime="20260123 12:33:18.486"/>
 </kw>
 <kw name="Pobierz Stan" library="System">
 <var>${stan}</var>
 <arg>9781111111111</arg>
-<msg timestamp="20260123 10:50:48.870" level="INFO">${stan} = 98</msg>
-<status status="PASS" starttime="20260123 10:50:48.870" endtime="20260123 10:50:48.870"/>
+<msg timestamp="20260123 12:33:18.486" level="INFO">${stan} = 98</msg>
+<status status="PASS" starttime="20260123 12:33:18.486" endtime="20260123 12:33:18.486"/>
 </kw>
 <kw name="Should Be Equal As Integers" library="BuiltIn">
 <arg>${stan}</arg>
 <arg>98</arg>
 <doc>Fails if objects are unequal after converting them to integers.</doc>
-<msg timestamp="20260123 10:50:48.870" level="INFO">Argument types are:
+<msg timestamp="20260123 12:33:18.486" level="INFO">Argument types are:
 &lt;class 'int'&gt;
 &lt;class 'str'&gt;</msg>
-<status status="PASS" starttime="20260123 10:50:48.870" endtime="20260123 10:50:48.870"/>
+<status status="PASS" starttime="20260123 12:33:18.486" endtime="20260123 12:33:18.486"/>
 </kw>
 <doc>Uzytkownik 'jan@test.pl' kupuje 2 sztuki Wiedzmina.</doc>
-<status status="PASS" starttime="20260123 10:50:48.855" endtime="20260123 10:50:48.870"/>
+<status status="PASS" starttime="20260123 12:33:18.470" endtime="20260123 12:33:18.486"/>
 </test>
-<test id="s1-t9" name="Zamowienie Jako Gosc" line="70">
+<test id="s1-t9" name="Zamowienie Jako Gosc" line="63">
 <kw name="Zloz Zamowienie" library="System">
 <var>${wynik}</var>
 <arg>gosc@mail.pl</arg>
 <arg>9781111111111</arg>
 <arg>5</arg>
 <arg>True</arg>
-<msg timestamp="20260123 10:50:48.870" level="INFO">[AKCJA] Skladanie zamowienia. Klient: gosc@mail.pl, ISBN: 9781111111111, Ilosc: 5
-[INFO] Tryb GOSC - tworzenie tymczasowego klienta.
-[INFO] Cena ostateczna po rabatach: 200.0
-[SUKCES] Zamowienie zlozone i zapisane.</msg>
-<msg timestamp="20260123 10:50:48.870" level="INFO">${wynik} = True</msg>
-<status status="PASS" starttime="20260123 10:50:48.870" endtime="20260123 10:50:48.870"/>
+<msg timestamp="20260123 12:33:18.486" level="INFO">[SUKCES] Kupiono 5 szt. Nowy stan: 93</msg>
+<msg timestamp="20260123 12:33:18.486" level="INFO">${wynik} = True</msg>
+<status status="PASS" starttime="20260123 12:33:18.486" endtime="20260123 12:33:18.486"/>
 </kw>
 <kw name="Should Be Equal As Strings" library="BuiltIn">
 <arg>${wynik}</arg>
 <arg>True</arg>
 <doc>Fails if objects are unequal after converting them to strings.</doc>
-<status status="PASS" starttime="20260123 10:50:48.870" endtime="20260123 10:50:48.870"/>
+<status status="PASS" starttime="20260123 12:33:18.486" endtime="20260123 12:33:18.486"/>
 </kw>
 <kw name="Pobierz Stan" library="System">
 <var>${stan}</var>
 <arg>9781111111111</arg>
-<msg timestamp="20260123 10:50:48.870" level="INFO">${stan} = 93</msg>
-<status status="PASS" starttime="20260123 10:50:48.870" endtime="20260123 10:50:48.870"/>
+<msg timestamp="20260123 12:33:18.486" level="INFO">${stan} = 93</msg>
+<status status="PASS" starttime="20260123 12:33:18.486" endtime="20260123 12:33:18.486"/>
 </kw>
 <kw name="Should Be Equal As Integers" library="BuiltIn">
 <arg>${stan}</arg>
 <arg>93</arg>
 <doc>Fails if objects are unequal after converting them to integers.</doc>
-<msg timestamp="20260123 10:50:48.870" level="INFO">Argument types are:
+<msg timestamp="20260123 12:33:18.486" level="INFO">Argument types are:
 &lt;class 'int'&gt;
 &lt;class 'str'&gt;</msg>
-<status status="PASS" starttime="20260123 10:50:48.870" endtime="20260123 10:50:48.870"/>
+<status status="PASS" starttime="20260123 12:33:18.486" endtime="20260123 12:33:18.486"/>
 </kw>
 <doc>Nieznany uzytkownik kupuje ksiazke bez logowania.</doc>
-<status status="PASS" starttime="20260123 10:50:48.870" endtime="20260123 10:50:48.870"/>
+<status status="PASS" starttime="20260123 12:33:18.486" endtime="20260123 12:33:18.486"/>
 </test>
-<test id="s1-t10" name="Próba Kupna Zbyt Duzej Ilosci" line="79">
+<test id="s1-t10" name="Próba Kupna Zbyt Duzej Ilosci" line="72">
 <kw name="Zloz Zamowienie" library="System">
 <var>${wynik}</var>
 <arg>jan@test.pl</arg>
 <arg>9781111111111</arg>
 <arg>1000</arg>
 <arg>False</arg>
-<msg timestamp="20260123 10:50:48.870" level="INFO">[AKCJA] Skladanie zamowienia. Klient: jan@test.pl, ISBN: 9781111111111, Ilosc: 1000
-[BLAD] Za malo towaru. Jest: 93, Chcesz: 1000</msg>
-<msg timestamp="20260123 10:50:48.870" level="INFO">${wynik} = Error: Za malo towaru</msg>
-<status status="PASS" starttime="20260123 10:50:48.870" endtime="20260123 10:50:48.870"/>
+<msg timestamp="20260123 12:33:18.502" level="INFO">[LOGIC] Próba kupna 1000 przy stanie 93</msg>
+<msg timestamp="20260123 12:33:18.502" level="INFO">${wynik} = Error: Za malo towaru</msg>
+<status status="PASS" starttime="20260123 12:33:18.486" endtime="20260123 12:33:18.502"/>
 </kw>
 <kw name="Should Contain" library="BuiltIn">
 <arg>${wynik}</arg>
 <arg>Error</arg>
 <doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
-<status status="PASS" starttime="20260123 10:50:48.870" endtime="20260123 10:50:48.870"/>
+<status status="PASS" starttime="20260123 12:33:18.502" endtime="20260123 12:33:18.502"/>
 </kw>
 <doc>Proba kupna wiecej niz jest w magazynie.</doc>
-<status status="PASS" starttime="20260123 10:50:48.870" endtime="20260123 10:50:48.870"/>
+<status status="PASS" starttime="20260123 12:33:18.486" endtime="20260123 12:33:18.502"/>
 </test>
-<test id="s1-t11" name="Usuniecie Ksiazki" line="88">
+<test id="s1-t11" name="Usuniecie Ksiazki" line="78">
 <kw name="Usun Ksiazke" library="System">
 <var>${wynik}</var>
 <arg>9781111111111</arg>
-<msg timestamp="20260123 10:50:48.870" level="INFO">[AKCJA] Usuwanie ksiazki ISBN: 9781111111111
-[SUKCES] Polecenie usuniecia wykonane.</msg>
-<msg timestamp="20260123 10:50:48.870" level="INFO">${wynik} = True</msg>
-<status status="PASS" starttime="20260123 10:50:48.870" endtime="20260123 10:50:48.870"/>
+<msg timestamp="20260123 12:33:18.502" level="INFO">${wynik} = True</msg>
+<status status="PASS" starttime="20260123 12:33:18.502" endtime="20260123 12:33:18.502"/>
 </kw>
 <kw name="Should Be Equal As Strings" library="BuiltIn">
 <arg>${wynik}</arg>
 <arg>True</arg>
 <doc>Fails if objects are unequal after converting them to strings.</doc>
-<status status="PASS" starttime="20260123 10:50:48.870" endtime="20260123 10:50:48.870"/>
+<status status="PASS" starttime="20260123 12:33:18.502" endtime="20260123 12:33:18.502"/>
 </kw>
 <kw name="Czy Ksiazka Istnieje" library="System">
 <var>${szukaj}</var>
 <arg>Wiedzmin</arg>
-<msg timestamp="20260123 10:50:48.870" level="INFO">[AKCJA] Wyszukiwanie w katalogu ksiazki: 'Wiedzmin'
-[INFO] Ksiazki nie znaleziono.</msg>
-<msg timestamp="20260123 10:50:48.870" level="INFO">${szukaj} = False</msg>
-<status status="PASS" starttime="20260123 10:50:48.870" endtime="20260123 10:50:48.886"/>
+<msg timestamp="20260123 12:33:18.502" level="INFO">${szukaj} = False</msg>
+<status status="PASS" starttime="20260123 12:33:18.502" endtime="20260123 12:33:18.502"/>
 </kw>
 <kw name="Should Be Equal As Strings" library="BuiltIn">
 <arg>${szukaj}</arg>
 <arg>False</arg>
 <doc>Fails if objects are unequal after converting them to strings.</doc>
-<status status="PASS" starttime="20260123 10:50:48.886" endtime="20260123 10:50:48.886"/>
+<status status="PASS" starttime="20260123 12:33:18.502" endtime="20260123 12:33:18.502"/>
 </kw>
 <doc>Usuniecie ksiazki z oferty.</doc>
-<status status="PASS" starttime="20260123 10:50:48.870" endtime="20260123 10:50:48.886"/>
+<status status="PASS" starttime="20260123 12:33:18.502" endtime="20260123 12:33:18.502"/>
 </test>
-<test id="s1-t12" name="Usuniecie Konta" line="96">
+<test id="s1-t12" name="Usuniecie Konta" line="86">
 <kw name="Usun Uzytkownika" library="System">
 <var>${wynik}</var>
 <arg>jan@test.pl</arg>
-<msg timestamp="20260123 10:50:48.886" level="INFO">[AKCJA] Usuwanie uzytkownika: jan@test.pl
-[SUKCES] Uzytkownik usuniety.</msg>
-<msg timestamp="20260123 10:50:48.886" level="INFO">${wynik} = True</msg>
-<status status="PASS" starttime="20260123 10:50:48.886" endtime="20260123 10:50:48.886"/>
+<msg timestamp="20260123 12:33:18.502" level="INFO">${wynik} = True</msg>
+<status status="PASS" starttime="20260123 12:33:18.502" endtime="20260123 12:33:18.502"/>
 </kw>
 <kw name="Should Be Equal As Strings" library="BuiltIn">
 <arg>${wynik}</arg>
 <arg>True</arg>
 <doc>Fails if objects are unequal after converting them to strings.</doc>
-<status status="PASS" starttime="20260123 10:50:48.886" endtime="20260123 10:50:48.886"/>
+<status status="PASS" starttime="20260123 12:33:18.502" endtime="20260123 12:33:18.502"/>
 </kw>
 <doc>Usuniecie uzytkownika po testach.</doc>
-<status status="PASS" starttime="20260123 10:50:48.886" endtime="20260123 10:50:48.886"/>
+<status status="PASS" starttime="20260123 12:33:18.502" endtime="20260123 12:33:18.502"/>
 </test>
-<status status="PASS" starttime="20260123 10:50:48.757" endtime="20260123 10:50:48.886"/>
+<status status="PASS" starttime="20260123 12:33:18.356" endtime="20260123 12:33:18.502"/>
 </suite>
 <statistics>
 <total>
