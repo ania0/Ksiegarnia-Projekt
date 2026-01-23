@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="23fa6adc-2cfa-408a-9f6d-0de1faceefa8" name="Changes" comment="testy do zadania 3">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -42,89 +43,139 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python tests.Python tests for test_ebook.TestEbook.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests for test_ebook.TestEbook.test_cena_nie_liczba.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests for test_ebook.TestEbook.test_cena_ujemna.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests for test_ebook.TestEbook.test_invalid_ISBN_nie_cyfry.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests for test_ebook.TestEbook.test_invalid_ISBN_za_krotki.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests for test_ebook.TestEbook.test_invalid_autor_zle_nazwisko.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests for test_ebook.TestEbook.test_invalid_cena_nie_liczba.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests for test_ebook.TestEbook.test_invalid_cena_ujemna.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests for test_ebook.TestEbook.test_invalid_gatunek_pusty.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests for test_ebook.TestEbook.test_invalid_isbn_nie_liczba.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests for test_ebook.TestEbook.test_invalid_opis_pusty.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests for test_ebook.TestEbook.test_invalid_tytul_mala_litera.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests for test_ebook.TestEbook.test_pobierz_isbn_parametryzowany.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests for test_ksiazka_papierowa.TestKsiazkaPapierowa.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests for test_ksiazka_papierowa.TestKsiazkaPapierowa.test_invalid_opis_pusty.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests for test_ksiazka_papierowa.TestKsiazkaPapierowa.test_pobierz_cene.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests for test_ksiazka_papierowa.TestKsiazkaPapierowa.test_stan_magazynowy.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests for test_ksiazka_papierowa.TestKsiazkaPapierowa.test_ustaw_cene.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests for test_uzytkownik.TestUzytkownik.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests for test_uzytkownik.TestUzytkownik.test_gettery.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests for test_uzytkownik.TestUzytkownik.test_invalid_imie_nazwisko_email.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests for test_uzytkownik.TestUzytkownik.test_none_opcjonalne_pola.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests for test_uzytkownik.TestUzytkownik.test_parametryzacja_email.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests for test_uzytkownik.TestUzytkownik.test_set_email_haslo_adres.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests for test_uzytkownik.TestUzytkownik.test_settery_invalid.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests for test_uzytkownik.TestUzytkownik.test_settery_parametryzowane.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests for test_uzytkownik.TestUzytkownik.test_ustaw_email.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests for test_uzytkownik.TestUzytkownik.test_weryfikuj_haslo.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests for test_uzytkownik.TestUzytkownik.test_weryfikuj_haslo_bledne.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests for test_uzytkownik.TestUzytkownik.test_weryfikuj_haslo_parametryzowane.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests for test_uzytkownik.TestUzytkownik.test_weryfikuj_haslo_poprawne.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests for test_zamowienie.TestZamowienie.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests for test_zamowienie.TestZamowienie.test_brak_klienta.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests for test_zamowienie.TestZamowienie.test_cena_jednostkowa_zero.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests for test_zamowienie.TestZamowienie.test_dodaj_none_pozycje.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests for test_zamowienie.TestZamowienie.test_dodaj_wiele_pozycji.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests for test_zamowienie.TestZamowienie.test_id_domyslnie_none.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests for test_zamowienie.TestZamowienie.test_id_zamowienia.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests for test_zamowienie.TestZamowienie.test_negatywna_ilosc_pozycji.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests for test_zamowienie.TestZamowienie.test_oblicz_cene_brak_pozycji.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests for test_zamowienie.TestZamowienie.test_oblicz_cene_parametryzowane.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests for test_zamowienie.TestZamowienie.test_oblicz_cene_pojedyncza_pozycja.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests for test_zamowienie.TestZamowienie.test_oblicz_cene_wiele_pozycji.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests for test_zamowienie.TestZamowienie.test_pobierz_klienta_id.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests for test_zamowienie.TestZamowienie.test_status_i_metoda_platnosci.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests for test_zamowienie.TestZamowienie.test_ujemna_ilosc_pozycji.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests for test_zamowienie.TestZamowienie.test_ustaw_data.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests for test_zamowienie.TestZamowienie.test_wiele_pozycji_sumarycznie.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests for testy.test_pu_zad3.test_rejestracja_poprawna.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests in test_ebook.py.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests in test_ksiazka_papierowa.py.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests in test_pu_zad3.py.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests in test_uzytkownik.py.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests in test_zamowienie.py.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests in testy_zad2.py.executor&quot;: &quot;Run&quot;,
-    &quot;Python.IEncjeFasada.executor&quot;: &quot;Run&quot;,
-    &quot;Python.Main (2).executor&quot;: &quot;Run&quot;,
-    &quot;Python.Main.executor&quot;: &quot;Run&quot;,
-    &quot;Python.ZarzadzanieKsiazkami.executor&quot;: &quot;Run&quot;,
-    &quot;Python.test_pu_zad3.executor&quot;: &quot;Run&quot;,
-    &quot;Python.testy_zad3.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;com.codeium.enabled&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python tests.Python tests for test_ebook.TestEbook.executor": "Run",
+    "Python tests.Python tests for test_ebook.TestEbook.test_cena_nie_liczba.executor": "Run",
+    "Python tests.Python tests for test_ebook.TestEbook.test_cena_ujemna.executor": "Run",
+    "Python tests.Python tests for test_ebook.TestEbook.test_invalid_ISBN_nie_cyfry.executor": "Run",
+    "Python tests.Python tests for test_ebook.TestEbook.test_invalid_ISBN_za_krotki.executor": "Run",
+    "Python tests.Python tests for test_ebook.TestEbook.test_invalid_autor_zle_nazwisko.executor": "Run",
+    "Python tests.Python tests for test_ebook.TestEbook.test_invalid_cena_nie_liczba.executor": "Run",
+    "Python tests.Python tests for test_ebook.TestEbook.test_invalid_cena_ujemna.executor": "Run",
+    "Python tests.Python tests for test_ebook.TestEbook.test_invalid_gatunek_pusty.executor": "Run",
+    "Python tests.Python tests for test_ebook.TestEbook.test_invalid_isbn_nie_liczba.executor": "Run",
+    "Python tests.Python tests for test_ebook.TestEbook.test_invalid_opis_pusty.executor": "Run",
+    "Python tests.Python tests for test_ebook.TestEbook.test_invalid_tytul_mala_litera.executor": "Run",
+    "Python tests.Python tests for test_ebook.TestEbook.test_pobierz_isbn_parametryzowany.executor": "Run",
+    "Python tests.Python tests for test_ksiazka_papierowa.TestKsiazkaPapierowa.executor": "Run",
+    "Python tests.Python tests for test_ksiazka_papierowa.TestKsiazkaPapierowa.test_invalid_opis_pusty.executor": "Run",
+    "Python tests.Python tests for test_ksiazka_papierowa.TestKsiazkaPapierowa.test_pobierz_cene.executor": "Run",
+    "Python tests.Python tests for test_ksiazka_papierowa.TestKsiazkaPapierowa.test_stan_magazynowy.executor": "Run",
+    "Python tests.Python tests for test_ksiazka_papierowa.TestKsiazkaPapierowa.test_ustaw_cene.executor": "Run",
+    "Python tests.Python tests for test_uzytkownik.TestUzytkownik.executor": "Run",
+    "Python tests.Python tests for test_uzytkownik.TestUzytkownik.test_gettery.executor": "Run",
+    "Python tests.Python tests for test_uzytkownik.TestUzytkownik.test_invalid_imie_nazwisko_email.executor": "Run",
+    "Python tests.Python tests for test_uzytkownik.TestUzytkownik.test_none_opcjonalne_pola.executor": "Run",
+    "Python tests.Python tests for test_uzytkownik.TestUzytkownik.test_parametryzacja_email.executor": "Run",
+    "Python tests.Python tests for test_uzytkownik.TestUzytkownik.test_set_email_haslo_adres.executor": "Run",
+    "Python tests.Python tests for test_uzytkownik.TestUzytkownik.test_settery_invalid.executor": "Run",
+    "Python tests.Python tests for test_uzytkownik.TestUzytkownik.test_settery_parametryzowane.executor": "Run",
+    "Python tests.Python tests for test_uzytkownik.TestUzytkownik.test_ustaw_email.executor": "Run",
+    "Python tests.Python tests for test_uzytkownik.TestUzytkownik.test_weryfikuj_haslo.executor": "Run",
+    "Python tests.Python tests for test_uzytkownik.TestUzytkownik.test_weryfikuj_haslo_bledne.executor": "Run",
+    "Python tests.Python tests for test_uzytkownik.TestUzytkownik.test_weryfikuj_haslo_parametryzowane.executor": "Run",
+    "Python tests.Python tests for test_uzytkownik.TestUzytkownik.test_weryfikuj_haslo_poprawne.executor": "Run",
+    "Python tests.Python tests for test_zamowienie.TestZamowienie.executor": "Run",
+    "Python tests.Python tests for test_zamowienie.TestZamowienie.test_brak_klienta.executor": "Run",
+    "Python tests.Python tests for test_zamowienie.TestZamowienie.test_cena_jednostkowa_zero.executor": "Run",
+    "Python tests.Python tests for test_zamowienie.TestZamowienie.test_dodaj_none_pozycje.executor": "Run",
+    "Python tests.Python tests for test_zamowienie.TestZamowienie.test_dodaj_wiele_pozycji.executor": "Run",
+    "Python tests.Python tests for test_zamowienie.TestZamowienie.test_id_domyslnie_none.executor": "Run",
+    "Python tests.Python tests for test_zamowienie.TestZamowienie.test_id_zamowienia.executor": "Run",
+    "Python tests.Python tests for test_zamowienie.TestZamowienie.test_negatywna_ilosc_pozycji.executor": "Run",
+    "Python tests.Python tests for test_zamowienie.TestZamowienie.test_oblicz_cene_brak_pozycji.executor": "Run",
+    "Python tests.Python tests for test_zamowienie.TestZamowienie.test_oblicz_cene_parametryzowane.executor": "Run",
+    "Python tests.Python tests for test_zamowienie.TestZamowienie.test_oblicz_cene_pojedyncza_pozycja.executor": "Run",
+    "Python tests.Python tests for test_zamowienie.TestZamowienie.test_oblicz_cene_wiele_pozycji.executor": "Run",
+    "Python tests.Python tests for test_zamowienie.TestZamowienie.test_pobierz_klienta_id.executor": "Run",
+    "Python tests.Python tests for test_zamowienie.TestZamowienie.test_status_i_metoda_platnosci.executor": "Run",
+    "Python tests.Python tests for test_zamowienie.TestZamowienie.test_ujemna_ilosc_pozycji.executor": "Run",
+    "Python tests.Python tests for test_zamowienie.TestZamowienie.test_ustaw_data.executor": "Run",
+    "Python tests.Python tests for test_zamowienie.TestZamowienie.test_wiele_pozycji_sumarycznie.executor": "Run",
+    "Python tests.Python tests for testy.test_pu_zad3.test_rejestracja_poprawna.executor": "Run",
+    "Python tests.Python tests in test_ebook.py.executor": "Run",
+    "Python tests.Python tests in test_ksiazka_papierowa.py.executor": "Run",
+    "Python tests.Python tests in test_pu_zad3.py.executor": "Run",
+    "Python tests.Python tests in test_uzytkownik.py.executor": "Run",
+    "Python tests.Python tests in test_zamowienie.py.executor": "Run",
+    "Python tests.Python tests in testy_zad2.py.executor": "Run",
+    "Python.IEncjeFasada.executor": "Run",
+    "Python.KlasyTestujace.executor": "Run",
+    "Python.KsiegarniaLibrary.executor": "Run",
+    "Python.Main (2).executor": "Run",
+    "Python.Main.executor": "Run",
+    "Python.SetUp.executor": "Run",
+    "Python.ZarzadzanieKsiazkami.executor": "Run",
+    "Python.test_pu_zad3.executor": "Run",
+    "Python.testy_zad3.executor": "Run",
+    "Robot Framework.run current file.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "com.codeium.enabled": "true",
+    "git-widget-placeholder": "main",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\wawrzyniec.michalczy\PycharmProjects\Ksiegarnia-Projekt\encje" />
       <recent name="C:\Users\wawrzyniec.michalczy\PycharmProjects\Ksiegarnia-Projekt\encje\Encje" />
     </key>
   </component>
-  <component name="RunManager" selected="Python tests.Python tests in test_pu_zad3.py">
+  <component name="RunManager" selected="Python.SetUp">
+    <configuration name="KlasyTestujace" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Ksiegarnia-Projekt" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/testyFitnesse" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/testyFitnesse/KlasyTestujace.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="KsiegarniaLibrary" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Ksiegarnia-Projekt" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/testyFitnesse" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/testyFitnesse/KsiegarniaLibrary.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="Main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -148,7 +199,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="test_pu_zad3" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="SetUp" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Ksiegarnia-Projekt" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -157,12 +208,12 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/testy" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/testyFitnesse" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/testy/test_pu_zad3.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/testyFitnesse/SetUp.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -203,53 +254,21 @@
       <option name="_new_targetType" value="&quot;PATH&quot;" />
       <method v="2" />
     </configuration>
-    <configuration name="Python tests in test_uzytkownik.py" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
-      <module name="Ksiegarnia-Projekt" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/testy" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;$PROJECT_DIR$/testy/test_uzytkownik.py&quot;" />
-      <option name="_new_targetType" value="&quot;PATH&quot;" />
-      <method v="2" />
-    </configuration>
-    <configuration name="Python tests in test_zamowienie.py" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
-      <module name="Ksiegarnia-Projekt" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/testy" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;$PROJECT_DIR$/testy/test_zamowienie.py&quot;" />
-      <option name="_new_targetType" value="&quot;PATH&quot;" />
-      <method v="2" />
-    </configuration>
     <list>
       <item itemvalue="Python.Main" />
-      <item itemvalue="Python.test_pu_zad3" />
+      <item itemvalue="Python.KsiegarniaLibrary" />
+      <item itemvalue="Python.SetUp" />
+      <item itemvalue="Python.KlasyTestujace" />
       <item itemvalue="Python tests.Python tests for testy.test_pu_zad3.test_rejestracja_poprawna" />
       <item itemvalue="Python tests.Python tests in test_pu_zad3.py" />
-      <item itemvalue="Python tests.Python tests in test_uzytkownik.py" />
-      <item itemvalue="Python tests.Python tests in test_zamowienie.py" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.SetUp" />
+        <item itemvalue="Python.KsiegarniaLibrary" />
+        <item itemvalue="Python.KlasyTestujace" />
         <item itemvalue="Python tests.Python tests in test_pu_zad3.py" />
         <item itemvalue="Python tests.Python tests for testy.test_pu_zad3.test_rejestracja_poprawna" />
-        <item itemvalue="Python.test_pu_zad3" />
-        <item itemvalue="Python tests.Python tests in test_zamowienie.py" />
-        <item itemvalue="Python tests.Python tests in test_uzytkownik.py" />
       </list>
     </recent_temporary>
   </component>
@@ -322,6 +341,9 @@
       <workItem from="1768732713100" duration="63000" />
       <workItem from="1768812921199" duration="2264000" />
       <workItem from="1769038634470" duration="3287000" />
+      <workItem from="1769160678111" duration="1040000" />
+      <workItem from="1769161756585" duration="20000" />
+      <workItem from="1769161785278" duration="1837000" />
     </task>
     <task id="LOCAL-00001" summary=".">
       <option name="closed" value="true" />
@@ -379,14 +401,17 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Ksiegarnia_Projekttttt$ZarzadzanieKsiazkami.coverage" NAME="ZarzadzanieKsiazkami Coverage Results" MODIFIED="1768317805313" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/kontrola" />
-    <SUITE FILE_PATH="coverage/Ksiegarnia_Projekt$Main.coverage" NAME="Main Coverage Results" MODIFIED="1764932857400" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/kontrola" />
+    <SUITE FILE_PATH="coverage/Ksiegarnia_Projekt$KlasyTestujace.coverage" NAME="KlasyTestujace Coverage Results" MODIFIED="1769161809315" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/testyFitnesse" />
+    <SUITE FILE_PATH="coverage/Ksiegarnia_Projekt$SetUp.coverage" NAME="SetUp Coverage Results" MODIFIED="1769161818650" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/testyFitnesse" />
     <SUITE FILE_PATH="coverage/Ksiegarnia_Projekt3$Main.coverage" NAME="Main Coverage Results" MODIFIED="1765626887990" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/kontrola" />
-    <SUITE FILE_PATH="coverage/Ksiegarnia_Projekt$.coverage" NAME=" Coverage Results" MODIFIED="1769041231173" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Ksiegarnia_Projekt$Main__2_.coverage" NAME="Main (2) Coverage Results" MODIFIED="1767785751774" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/kontrola" />
-    <SUITE FILE_PATH="coverage/Ksiegarnia_Projekttttt$testy_zad3.coverage" NAME="testy_zad3 Coverage Results" MODIFIED="1768295615124" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/testy" />
-    <SUITE FILE_PATH="coverage/Ksiegarnia_Projekt$test_pu_zad3.coverage" NAME="test_pu_zad3 Coverage Results" MODIFIED="1769039564646" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/testy" />
     <SUITE FILE_PATH="coverage/Ksiegarnia_Projekttttt$Main.coverage" NAME="Main Coverage Results" MODIFIED="1768322001746" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/kontrola" />
     <SUITE FILE_PATH="coverage/Ksiegarnia_Projekt3$IEncjeFasada.coverage" NAME="IEncjeFasada Coverage Results" MODIFIED="1765566857287" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/encje" />
+    <SUITE FILE_PATH="coverage/Ksiegarnia_Projekt$Main.coverage" NAME="Main Coverage Results" MODIFIED="1764932857400" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/kontrola" />
+    <SUITE FILE_PATH="coverage/Ksiegarnia_Projekt$.coverage" NAME=" Coverage Results" MODIFIED="1769041231173" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Ksiegarnia_Projekttttt$testy_zad3.coverage" NAME="testy_zad3 Coverage Results" MODIFIED="1768295615124" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/testy" />
+    <SUITE FILE_PATH="coverage/Ksiegarnia_Projekt$test_pu_zad3.coverage" NAME="test_pu_zad3 Coverage Results" MODIFIED="1769039564646" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/testy" />
+    <SUITE FILE_PATH="coverage/Ksiegarnia_Projekt$KsiegarniaLibrary.coverage" NAME="KsiegarniaLibrary Coverage Results" MODIFIED="1769161815571" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/testyFitnesse" />
     <SUITE FILE_PATH="coverage/Ksiegarnia_Projekttttt$.coverage" NAME=" Coverage Results" MODIFIED="1767964681131" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/testy" />
     <SUITE FILE_PATH="coverage/Ksiegarnia_Projekt$ZarzadzanieKsiazkami.coverage" NAME="ZarzadzanieKsiazkami Coverage Results" MODIFIED="1764853021415" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/kontrola" />
   </component>
