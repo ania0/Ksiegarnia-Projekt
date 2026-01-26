@@ -36,6 +36,7 @@ class KlasyTestujace:
             return 9999999999999
 
     # UŻYTKOWNICY
+    #PU01 - stworzenie konta
     def stworz_konto(self, imie, nazwisko, email, haslo, adres):
         # Tworzenie User bezposrednio w bazie, omijac input() kontrolera
         try:
@@ -45,7 +46,7 @@ class KlasyTestujace:
         except Exception as e:
             print(f"[BLAD] {e}")
             return "False"
-
+    #PU02. Logowanie klienta do systemu
     def sprawdz_logowanie(self, email, haslo):
         try:
             # Kontroler - brak input
@@ -54,6 +55,7 @@ class KlasyTestujace:
         except:
             return "False"
 
+    #PU03. Usunięcie konta
     def usun_uzytkownika(self, email):
         u = SetUp.Inwentarz.znajdzUzytkownikaPoEmailu(email)
         if u:
@@ -65,7 +67,8 @@ class KlasyTestujace:
                 return "False"
         return "True"
 
-    # KATALOG
+    # KATALOG - PU08 - Zarządzanie katalogiem
+    #PU09 - dodanie książki
     def dodaj_ksiazke(self, tytul, cena, isbn):
         try:
             from encje.FabrykaKsiazek import FabrykaKsiazek
@@ -83,6 +86,7 @@ class KlasyTestujace:
             if k.tytul == tytul: return "True"
         return "False"
 
+    #PU10. Modyfikowanie szczegółów książki
     def edytuj_cene_ksiazki(self, isbn, nowa_cena):
         k = SetUp.Inwentarz.pobierzPoISBN(self._napraw_isbn(isbn))
         if k:
@@ -95,7 +99,6 @@ class KlasyTestujace:
                                                nowyGatunek=None, nowyOpis=None)
                 return "True"
             except TypeError:
-                # jesli Fasada nie obsluguje keyword args
                 k.cena = self._safe_float(nowa_cena)
                 return "True"
             except Exception as e:
@@ -107,6 +110,7 @@ class KlasyTestujace:
         k = SetUp.Inwentarz.pobierzPoISBN(self._napraw_isbn(isbn))
         return str(k.cena) if k else "0.0"
 
+#PU11. Zmiana stanu magazynowego
     def zmien_stan(self, isbn, ilosc):
         SetUp.Inwentarz.aktualizujStan(self._napraw_isbn(isbn), int(ilosc))
         return "True"
@@ -114,13 +118,14 @@ class KlasyTestujace:
     def pobierz_stan(self, isbn):
         k = SetUp.Inwentarz.pobierzPoISBN(self._napraw_isbn(isbn))
         return k.stanMagazynowy if k else -1
-
+    #PU12. Usunięcie książki
     def usun_ksiazke(self, isbn):
         SetUp.Inwentarz.usunKsiazke(self._napraw_isbn(isbn))
         return "True"
 
 
     # ZAMOWIENIA
+    #PU05, PU07 - wybranie książki, złożenie zamówienia
     def zloz_zamowienie(self, email_klienta, isbn, ilosc, tryb_gosc="False"):
         isbn_val = self._napraw_isbn(isbn)
         ilosc_int = int(ilosc)
@@ -140,7 +145,7 @@ class KlasyTestujace:
             klient_obj = SetUp.Inwentarz.znajdzUzytkownikaPoEmailu(email_klienta)
             if not klient_obj: return "Error: Brak usera"
         else:
-            # Atrapa klienta dla goscia (do obliczeń)
+            # Symulacja konta klienta dla goscia (do obliczeń)
             klient_obj = Klient("Gosc", "Gosc", email_klienta, "brak", "Adres", False)
 
         # Symulacja procesu zamówienia
